@@ -1,0 +1,122 @@
+package blog.in.action.lifecycle;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import blog.in.action.entity.Member;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@TestMethodOrder(OrderAnnotation.class)
+@SpringBootTest
+public class DetachTest {
+
+	@PersistenceUnit
+	private EntityManagerFactory factory;
+
+	@BeforeEach
+	void beforeEach() {
+		EntityManager em = factory.createEntityManager();
+		try {
+			em.getTransaction().begin();
+			Member member = em.find(Member.class, "01012341234");
+			if (member == null) {
+				member = new Member();
+				member.setId("01012341234");
+				member.setPassword("1234");
+				List<String> authorities = new ArrayList<>();
+				authorities.add("ADMIN");
+				member.setAuthroities(authorities);
+				member.setMemberName("Junhyunny");
+				member.setMemberEmail("kang3966@naver.com");
+				em.persist(member);
+			}
+			em.getTransaction().commit();
+		} catch (Exception ex) {
+			em.getTransaction().rollback();
+			log.error("exception occurs", ex);
+		} finally {
+			em.close();
+		}
+	}
+
+	@Test
+	@Order(value = 0)
+	void detachTest() {
+		EntityManager em = factory.createEntityManager();
+		try {
+			em.getTransaction().begin();
+			Member member = em.find(Member.class, "01012341234");
+			if (member != null) {
+				// 영속된 객체를 detached 상태로 변경 후 값 변경
+				log.info("detach한 이후 객체의 값을 변경합니다.");
+				em.detach(member);
+				List<String> authorities = new ArrayList<>();
+				authorities.add("DETACHED_ADMIN");
+				member.setAuthroities(authorities);
+			}
+			em.getTransaction().commit();
+		} catch (Exception ex) {
+			em.getTransaction().rollback();
+			log.error("exception occurs", ex);
+		} finally {
+			em.close();
+		}
+	}
+
+	@Test
+	@Order(value = 1)
+	void valuCheckTest() {
+		EntityManager em = factory.createEntityManager();
+		try {
+			em.getTransaction().begin();
+			Member member = em.find(Member.class, "01012341234");
+			if (member != null) {
+				String actual = member.getAuthroities().get(0);
+				assertEquals("ADMIN", actual);
+				assertEquals("DETACHED_ADMIN", actual);
+			}
+			em.getTransaction().commit();
+		} catch (Exception ex) {
+			em.getTransaction().rollback();
+			log.error("exception occurs", ex);
+		} finally {
+			em.close();
+		}
+	}
+
+	@Test
+	@Order(value = 2)
+	void detachRemoveTest() {
+		EntityManager em = factory.createEntityManager();
+		try {
+			em.getTransaction().begin();
+			Member member = em.find(Member.class, "01012341234");
+			if (member != null) {
+				// 영속된 객체를 detached 상태로 변경 후 remove
+				log.info("detach한 이후 객체를 삭제합니다.");
+				em.detach(member);
+				em.remove(member);
+			}
+			em.getTransaction().commit();
+		} catch (Exception ex) {
+			em.getTransaction().rollback();
+			log.error("exception occurs", ex);
+		} finally {
+			em.close();
+		}
+	}
+}

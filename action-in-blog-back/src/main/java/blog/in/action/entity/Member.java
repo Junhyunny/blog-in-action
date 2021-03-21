@@ -29,4 +29,10 @@ public class Member {
 	@Column
 	@Convert(converter = StringListConverter.class)
 	private List<String> authroities;
+
+	@Column
+	private String memberName;
+
+	@Column
+	private String memberEmail;
 }
