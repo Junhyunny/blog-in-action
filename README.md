@@ -37,6 +37,7 @@ Vue.js 프레임워크를 사용한 front-end service 입니다.
 - [MultipartFile 활용 대용량 파일 업로드 예제][post-5-link]
 - [JPA Persistence Context][post-6-link]
 - [영속성 컨텍스트(Persistence Context) 사용시 이점][post-7-link]
+- [JPA Flush][post-8-link]
 
 [post-1-link]: https://junhyunny.github.io/spring-boot/spring-security/spring-security-example/
 [post-2-link]: https://junhyunny.github.io/spring-boot/spring-security/token-enhancer/
@@ -44,4 +45,5 @@ Vue.js 프레임워크를 사용한 front-end service 입니다.
 [post-4-link]: https://junhyunny.github.io/spring-boot/vue.js/cors-example/
 [post-5-link]: https://junhyunny.github.io/spring-boot/vue.js/multipartfile/
 [post-6-link]: https://junhyunny.github.io/spring-boot/jpa/junit/jpa-persistence-context/
-[post-7-link]: https://junhyunny.github.io/spring-boot/jpa/junit/persistence-context-advantages/
+[post-7-link]: https://junhyunny.github.io/spring-boot/jpa/junit/persistence-context-advantages/\
+[post-8-link]: https://junhyunny.github.io/spring-boot/jpa/junit/jpa-flush/
