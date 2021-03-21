@@ -14,6 +14,7 @@ public class ResourceServer extends ResourceServerConfigurerAdapter {
 	public void configure(HttpSecurity http) throws Exception {
 		http.cors().and() //
 				.authorizeRequests() //
+				.antMatchers("/api/cors/**").permitAll() // cors 테스트를 위해 해당 path 모든 요청 허용
 				.antMatchers("/api/member/sign-up").permitAll() // sign-up API는 모든 요청 허용
 				.antMatchers("/api/member/user-info").hasAnyAuthority("ADMIN")// user-info API는 ADMIN 권한을 가지는 유저만 요청 허용
 				.anyRequest().authenticated().and() //
