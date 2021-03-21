@@ -51,5 +51,5 @@ Vue.js 프레임워크를 사용한 front-end service 입니다.
 [post-7-link]: https://junhyunny.github.io/spring-boot/jpa/junit/persistence-context-advantages/\
 [post-8-link]: https://junhyunny.github.io/spring-boot/jpa/junit/jpa-flush/
 [post-9-link]: https://junhyunny.github.io/spring-boot/jpa/junit/jpa-clear/
-[post-10-link]: https://junhyunny.github.io/spring-boot/jpa/junit/jpa-clear/
+[post-10-link]: https://junhyunny.github.io/spring-boot/jpa/junit/jpa-optimistic-lock/
 [post-11-link]: https://junhyunny.github.io/spring-boot/jpa/junit/jpa-pessimitic-lock/
