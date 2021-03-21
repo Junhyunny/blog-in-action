@@ -43,6 +43,7 @@ Vue.js 프레임워크를 사용한 front-end service 입니다.
 - [JPA Pessimistic Lock 구현][post-11-link]
 - [경쟁 상태(Race Condition)][post-12-link]
 - [Spring Cloud Openfeign][post-13-link]
+- [Openfeign 런타임(runtime) 시 URI 변경][post-14-link]
 
 [post-1-link]: https://junhyunny.github.io/spring-boot/spring-security/spring-security-example/
 [post-2-link]: https://junhyunny.github.io/spring-boot/spring-security/token-enhancer/
@@ -57,3 +58,4 @@ Vue.js 프레임워크를 사용한 front-end service 입니다.
 [post-11-link]: https://junhyunny.github.io/spring-boot/jpa/junit/jpa-pessimitic-lock/
 [post-12-link]: https://junhyunny.github.io/information/operating-system/junit/race-condition/
 [post-13-link]: https://junhyunny.github.io/spring-boot/spring-cloud/spring-cloud-openfeign/
+[post-14-link]: https://junhyunny.github.io/spring-boot/spring-cloud/junit/dynamic-uri-using-openfeign/
