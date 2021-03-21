@@ -32,6 +32,8 @@ Vue.js 프레임워크를 사용한 front-end service 입니다.
 ### RELATED POSTS
 - [Spring Security 기반 JWT 인증 방식 예제][post-1-link]
 - [Token Enhancer][post-2-link]
+- [HandlerMethodArgumentResolver 인터페이스][post-3-link]
 
 [post-1-link]: https://junhyunny.github.io/spring-boot/spring-security/spring-security-example/
 [post-2-link]: https://junhyunny.github.io/spring-boot/spring-security/token-enhancer/
+[post-3-link]: https://junhyunny.github.io/spring-boot/handler-method-argument-resolver/

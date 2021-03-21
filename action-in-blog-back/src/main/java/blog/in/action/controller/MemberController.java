@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import blog.in.action.annotation.TokenMember;
 import blog.in.action.entity.Member;
 import blog.in.action.service.MemberService;
 
@@ -29,5 +30,10 @@ public class MemberController {
 	@GetMapping("/user-info")
 	public Member requestUserInfo(@RequestParam("id") String id) {
 		return memberService.findById(id);
+	}
+
+	@GetMapping("/user-info-using-token")
+	public Member requestUserInfoUsingToken(@TokenMember Member member) {
+		return memberService.findById(member.getId());
 	}
 }
