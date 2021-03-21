@@ -8,7 +8,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
-import blog.in.action.service.MemberService;
+import blog.in.action.domain.member.MemberService;
 
 @Configuration
 @EnableWebSecurity

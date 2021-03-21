@@ -15,7 +15,7 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import blog.in.action.annotation.TokenMember;
-import blog.in.action.entity.Member;
+import blog.in.action.domain.member.Member;
 
 @Component
 public class CustomMethodArgumentResolver implements HandlerMethodArgumentResolver {

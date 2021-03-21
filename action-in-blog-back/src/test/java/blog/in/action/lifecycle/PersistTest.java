@@ -15,7 +15,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import blog.in.action.entity.Member;
+import blog.in.action.domain.member.Member;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

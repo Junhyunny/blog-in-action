@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import blog.in.action.annotation.TokenMember;
-import blog.in.action.entity.Member;
-import blog.in.action.service.MemberService;
+import blog.in.action.domain.member.Member;
+import blog.in.action.domain.member.MemberService;
 
 @RestController
 @RequestMapping(value = "/api/member")

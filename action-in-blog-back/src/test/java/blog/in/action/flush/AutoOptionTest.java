@@ -15,7 +15,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import blog.in.action.entity.Member;
+import blog.in.action.domain.member.Member;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2

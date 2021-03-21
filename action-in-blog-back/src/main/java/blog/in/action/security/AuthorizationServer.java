@@ -20,7 +20,7 @@ import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 
-import blog.in.action.service.MemberService;
+import blog.in.action.domain.member.MemberService;
 
 @Configuration
 @EnableAuthorizationServer

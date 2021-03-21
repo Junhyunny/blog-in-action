@@ -1,4 +1,4 @@
-package blog.in.action.entity;
+package blog.in.action.domain.member;
 
 import java.util.List;
 
@@ -19,6 +19,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @Table(name = "TB_MEMBER")
 public class Member {
+
+	public Member(String id) {
+		this.id = id;
+	}
 
 	@Id
 	private String id;
