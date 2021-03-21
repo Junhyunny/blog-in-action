@@ -39,6 +39,7 @@ Vue.js 프레임워크를 사용한 front-end service 입니다.
 - [영속성 컨텍스트(Persistence Context) 사용시 이점][post-7-link]
 - [JPA Flush][post-8-link]
 - [JPA Clear][post-9-link]
+- [JPA Optimistic Lock 구현][post-10-link]
 
 [post-1-link]: https://junhyunny.github.io/spring-boot/spring-security/spring-security-example/
 [post-2-link]: https://junhyunny.github.io/spring-boot/spring-security/token-enhancer/
@@ -49,3 +50,4 @@ Vue.js 프레임워크를 사용한 front-end service 입니다.
 [post-7-link]: https://junhyunny.github.io/spring-boot/jpa/junit/persistence-context-advantages/\
 [post-8-link]: https://junhyunny.github.io/spring-boot/jpa/junit/jpa-flush/
 [post-9-link]: https://junhyunny.github.io/spring-boot/jpa/junit/jpa-clear/
+[post-10-link]: https://junhyunny.github.io/spring-boot/jpa/junit/jpa-clear/
