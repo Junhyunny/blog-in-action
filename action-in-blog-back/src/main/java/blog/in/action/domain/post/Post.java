@@ -8,7 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Version;
 
 import blog.in.action.domain.member.Member;
 import lombok.Getter;
@@ -46,6 +45,6 @@ public class Post {
 
 	// 2021-02-15, optimistic lock 매커니즘을 위한 컬럼 추가
 	@Column
-	@Version
+	// @Version
 	private Long versionNo;
 }
