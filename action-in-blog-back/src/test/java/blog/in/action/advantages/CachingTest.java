@@ -1,6 +1,6 @@
-package blog.in.action.lifecycle;
+package blog.in.action.advantages;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,42 +9,27 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
 
-import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
-import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import blog.in.action.entity.Member;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 
-@Slf4j
-@TestMethodOrder(OrderAnnotation.class)
+@Log4j2
 @SpringBootTest
-public class PersistTest {
+public class CachingTest {
 
 	@PersistenceUnit
 	private EntityManagerFactory factory;
 
-	@Test
-	@Order(value = 0)
-	void persistTest() {
+	@BeforeEach
+	private void beforeEach() {
 		EntityManager em = factory.createEntityManager();
-		log.info("entityManager properties : " + em.getProperties());
 		try {
-			// 트랜잭션 시작
 			em.getTransaction().begin();
-			// 조회
 			Member member = em.find(Member.class, "01012341234");
-			if (member != null) {
-				// 영속된 객체 값 변경
-				log.info("영속된 객체의 값을 변경합니다.");
-				List<String> authorities = new ArrayList<>();
-				authorities.add("MEMBER");
-				member.setAuthorities(authorities);
-			} else {
-				// 새로운 객체 생성
-				log.info("새로운 객체를 생성합니다.");
+			if (member == null) {
 				member = new Member();
 				member.setId("01012341234");
 				member.setPassword("1234");
@@ -53,13 +38,10 @@ public class PersistTest {
 				member.setAuthorities(authorities);
 				member.setMemberName("Junhyunny");
 				member.setMemberEmail("kang3966@naver.com");
-				// persistence context에 등록
 				em.persist(member);
 			}
-			// 트랜잭션 종료
 			em.getTransaction().commit();
 		} catch (Exception ex) {
-			// 트랜잭션 롤백
 			em.getTransaction().rollback();
 			log.error("exception occurs", ex);
 		} finally {
@@ -68,18 +50,13 @@ public class PersistTest {
 	}
 
 	@Test
-	@Order(value = 1)
-	void valuCheckTest() {
+	public void test() {
 		EntityManager em = factory.createEntityManager();
 		try {
-			em.getTransaction().begin();
 			Member member = em.find(Member.class, "01012341234");
-			if (member != null) {
-				String actual = member.getAuthorities().get(0);
-				assertEquals("ADMIN", actual);
-				assertEquals("MEMBER", actual);
-			}
-			em.getTransaction().commit();
+			Member cachedMember = em.find(Member.class, "01012341234");
+			log.info("member 주소: " + System.identityHashCode(member) + ", cachedMember 주소: " + System.identityHashCode(cachedMember));
+			assertTrue(member == cachedMember);
 		} catch (Exception ex) {
 			em.getTransaction().rollback();
 			log.error("exception occurs", ex);

@@ -42,7 +42,7 @@ public class MemberService implements UserDetailsService {
 
     // 계정이 갖고있는 권한 목록을 return
     private Collection<? extends GrantedAuthority> authorities(Member member) {
-        return member.getAuthroities().stream().map(authority -> new SimpleGrantedAuthority(authority)).collect(Collectors.toList());
+        return member.getAuthorities().stream().map(authority -> new SimpleGrantedAuthority(authority)).collect(Collectors.toList());
     }
 
     @Override

@@ -39,7 +39,7 @@ public class DetachTest {
 				member.setPassword("1234");
 				List<String> authorities = new ArrayList<>();
 				authorities.add("ADMIN");
-				member.setAuthroities(authorities);
+				member.setAuthorities(authorities);
 				member.setMemberName("Junhyunny");
 				member.setMemberEmail("kang3966@naver.com");
 				em.persist(member);
@@ -66,7 +66,7 @@ public class DetachTest {
 				em.detach(member);
 				List<String> authorities = new ArrayList<>();
 				authorities.add("DETACHED_ADMIN");
-				member.setAuthroities(authorities);
+				member.setAuthorities(authorities);
 			}
 			em.getTransaction().commit();
 		} catch (Exception ex) {
@@ -85,7 +85,7 @@ public class DetachTest {
 			em.getTransaction().begin();
 			Member member = em.find(Member.class, "01012341234");
 			if (member != null) {
-				String actual = member.getAuthroities().get(0);
+				String actual = member.getAuthorities().get(0);
 				assertEquals("ADMIN", actual);
 				assertEquals("DETACHED_ADMIN", actual);
 			}

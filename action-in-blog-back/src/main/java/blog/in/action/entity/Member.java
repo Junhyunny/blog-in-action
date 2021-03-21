@@ -28,7 +28,7 @@ public class Member {
 
 	@Column
 	@Convert(converter = StringListConverter.class)
-	private List<String> authroities;
+	private List<String> authorities;
 
 	@Column
 	private String memberName;
