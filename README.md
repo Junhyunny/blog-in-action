@@ -45,6 +45,7 @@ Vue.js 프레임워크를 사용한 front-end service 입니다.
 - [Spring Cloud Openfeign][post-13-link]
 - [Openfeign 런타임(runtime) 시 URI 변경][post-14-link]
 - [생성자 주입(Constructor Injection) 방식을 권장하는 이유][post-15-link]
+- [MVC(Model, View, Controller) Pattern][post-16-link]
 
 [post-1-link]: https://junhyunny.github.io/spring-boot/spring-security/spring-security-example/
 [post-2-link]: https://junhyunny.github.io/spring-boot/spring-security/token-enhancer/
@@ -61,3 +62,4 @@ Vue.js 프레임워크를 사용한 front-end service 입니다.
 [post-13-link]: https://junhyunny.github.io/spring-boot/spring-cloud/spring-cloud-openfeign/
 [post-14-link]: https://junhyunny.github.io/spring-boot/spring-cloud/junit/dynamic-uri-using-openfeign/
 [post-15-link]: https://junhyunny.github.io/information/spring-boot/junit/reson-of-recommendation-to-use-constructor-injection/
+[post-16-link]: https://junhyunny.github.io/information/design-pattern/mvc-pattern/ 
