@@ -18,6 +18,7 @@ public class ResourceServer extends ResourceServerConfigurerAdapter {
 				.antMatchers("/api/member/sign-up").permitAll() // sign-up API는 모든 요청 허용
 				.antMatchers("/api/member/upload/profile-img").permitAll() // file upload API는 모든 요청 허용
 				.antMatchers("/api/member/user-info").hasAnyAuthority("ADMIN")// user-info API는 ADMIN 권한을 가지는 유저만 요청 허용
+				.antMatchers("/jsp/member/**").permitAll() // jsp 테스트 용 sign-up API는 모든 요청 허용
 				.anyRequest().authenticated().and() //
 				.exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler());
 	}

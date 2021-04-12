@@ -1,6 +1,9 @@
 server:
   port: 8081
 spring:
+  mvc:
+    view:      prefix: /WEB-INF/jsp/
+      suffix: .jsp
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/mysqldb?characterEncoding=UTF-8&serverTimezone=UTC
     username: root

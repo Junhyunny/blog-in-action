@@ -1,6 +1,7 @@
 package blog.in.action.domain.member;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -35,6 +36,10 @@ public class MemberService implements UserDetailsService {
 			return null;
 		}
 		return option.get();
+	}
+
+	public List<Member> findAll() {
+		return memberRepository.findAll();
 	}
 
 	// 계정이 갖고있는 권한 목록을 return
