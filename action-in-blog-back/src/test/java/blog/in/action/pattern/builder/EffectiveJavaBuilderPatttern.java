@@ -1,6 +1,6 @@
 package blog.in.action.pattern.builder;
 
-public class EffectiveJavaBuuilderPatttern {
+public class EffectiveJavaBuilderPatttern {
 	public static void main(String[] args) {
 		NutritionFacts cocaCola = new NutritionFacts
 				.Builder(240, 8) // 필수값 입력
