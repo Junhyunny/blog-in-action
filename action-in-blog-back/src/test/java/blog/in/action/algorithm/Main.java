@@ -8,23 +8,23 @@ public class Main {
 
         int index = 0;
         int mid = (left + right) / 2;
-        int[] temp = new int[right - left];
+        int[] temp = new int[right - left + 1];
 
         int leftIndex = left;
-        int rightIndex = mid;
-        while (leftIndex < mid && rightIndex < right) {
-            if (array[leftIndex] > array[rightIndex]) {
+        int rightIndex = mid + 1;
+        while (leftIndex <= mid && rightIndex <= right) {
+            if (array[leftIndex] < array[rightIndex]) {
                 temp[index++] = array[leftIndex++];
             } else {
                 temp[index++] = array[rightIndex++];
             }
         }
 
-        while (leftIndex < mid) {
+        while (leftIndex <= mid) {
             temp[index++] = array[leftIndex++];
         }
 
-        while (rightIndex < right) {
+        while (rightIndex <= right) {
             temp[index++] = array[rightIndex++];
         }
 
@@ -34,9 +34,8 @@ public class Main {
     }
 
     static void mergeSort(int[] array, int left, int right) {
-        int mid;
         if (left < right) {
-            mid = (left + right) / 2;
+            int mid = (left + right) / 2;
             mergeSort(array, left, mid);
             mergeSort(array, mid + 1, right);
             merge(array, left, right);
