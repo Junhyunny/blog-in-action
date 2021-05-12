@@ -21,4 +21,6 @@ logging:
       springframework:
         orm:
           jpa: DEBUG
-
+      hibernate:
+        persister:
+          entity: TRACE
