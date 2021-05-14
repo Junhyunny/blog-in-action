@@ -15,12 +15,3 @@ spring:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
       ddl-auto: create
-logging:
-  level:
-    org:
-      springframework:
-        orm:
-          jpa: DEBUG
-      hibernate:
-        persister:
-          entity: TRACE
