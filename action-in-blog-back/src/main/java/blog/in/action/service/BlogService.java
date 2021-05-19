@@ -9,6 +9,11 @@ public class BlogService {
 
     public String foo() {
         log.info("==========\tservice foo");
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            log.info(e.getMessage(), e);
+        }
         return "foo";
     }
 }
