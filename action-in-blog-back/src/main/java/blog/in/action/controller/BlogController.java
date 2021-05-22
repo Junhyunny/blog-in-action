@@ -22,5 +22,4 @@ public class BlogController {
         log.info("==========\tcontroller foo");
         return blogService.foo();
     }
-
 }

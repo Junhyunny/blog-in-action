@@ -1,10 +1,5 @@
 server:
   port: 8081
-  tomcat:
-    max-threads: 1
-    max-connections: 1
-    connection-timeout: 1
-  connection-timeout: 1
 spring:
   mvc:
     view:
@@ -20,6 +15,3 @@ spring:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
       ddl-auto: create
-feign:
-  httpclient:
-    connection-timeout: 1
