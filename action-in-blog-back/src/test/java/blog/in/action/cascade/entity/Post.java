@@ -31,6 +31,6 @@ public class Post {
     @Column
     private String contents;
 
-    @OneToMany(mappedBy = "post", cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy = "post", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Comment> commentList;
 }
