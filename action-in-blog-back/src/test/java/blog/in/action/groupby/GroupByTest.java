@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -39,18 +40,41 @@ public class GroupByTest {
     }
 
     @Test
-    public void test_throwException_when_usingClass() {
+    public void test_throwException_usingClass() {
         assertThrows(ConverterNotFoundException.class, () -> itemRepository.findItemNameGroupUsingClass());
     }
 
     @Test
-    public void test_doesNotThrowException_when_usingObjectArray() {
+    public void test_doesNotThrowException_usingObjectArray() {
         assertDoesNotThrow(() -> itemRepository.findItemNameGroupUsingObjectArray());
         itemRepository.findItemNameGroupUsingObjectArray().stream().forEach(objects -> {
             StringBuffer buffer = new StringBuffer("[");
             for (Object obj : objects) {
                 buffer.append(obj).append(", ");
             }
+            log.info(buffer.append("]"));
+        });
+    }
+
+    @Test
+    public void test_getResult_usingClassWithJpql() {
+        itemRepository.findItemNameGroupUsingClassWithJpql().stream().forEach(itemNameGroupVo -> {
+            StringBuffer buffer = new StringBuffer("[");
+            buffer.append(itemNameGroupVo).append(", ");
+            log.info(buffer.append("]"));
+        });
+    }
+
+    @Test
+    public void test_getResult_usingInterfaceWithNative() {
+        assertDoesNotThrow(() -> itemRepository.findItemNameGroupUsingInterfaceWithNative());
+        itemRepository.findItemNameGroupUsingInterfaceWithNative().stream().forEach(itemNameGroup -> {
+            StringBuffer buffer = new StringBuffer("[");
+            buffer.append(itemNameGroup.getACount()).append(", ");
+            buffer.append(itemNameGroup.getBCount()).append(", ");
+            buffer.append(itemNameGroup.getCCount()).append(", ");
+            buffer.append(itemNameGroup.getDCount()).append(", ");
+            buffer.append(itemNameGroup.getECount()).append("");
             log.info(buffer.append("]"));
         });
     }
@@ -78,14 +102,28 @@ class Item {
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString
 class ItemNameGroupVo {
 
-    int aCount;
-    int bCount;
-    int cCount;
-    int dCount;
-    int eCount;
+    long aCount;
+    long bCount;
+    long cCount;
+    long dCount;
+    long eCount;
+}
+
+interface ItemNameGroup {
+
+    long getACount();
+
+    long getBCount();
+
+    long getCCount();
+
+    long getDCount();
+
+    long getECount();
 }
 
 interface ItemRepository extends JpaRepository<Item, Long> {
@@ -105,4 +143,21 @@ interface ItemRepository extends JpaRepository<Item, Long> {
         + " SUM(CASE WHEN NAME = 'E' THEN 1 ELSE 0 END) AS eCount"
         + " FROM TB_ITEM GROUP BY NAME", nativeQuery = true)
     List<Object[]> findItemNameGroupUsingObjectArray();
+
+    @Query("SELECT new blog.in.action.groupby.ItemNameGroupVo("
+        + " SUM(CASE WHEN i.name = 'A' THEN 1 ELSE 0 END), "
+        + " SUM(CASE WHEN i.name = 'B' THEN 1 ELSE 0 END), "
+        + " SUM(CASE WHEN i.name = 'C' THEN 1 ELSE 0 END), "
+        + " SUM(CASE WHEN i.name = 'D' THEN 1 ELSE 0 END), "
+        + " SUM(CASE WHEN i.name = 'E' THEN 1 ELSE 0 END)) "
+        + " FROM Item i GROUP BY i.name")
+    List<ItemNameGroupVo> findItemNameGroupUsingClassWithJpql();
+
+    @Query(value = "SELECT SUM(CASE WHEN NAME = 'A' THEN 1 ELSE 0 END) AS aCount, "
+        + " SUM(CASE WHEN NAME = 'B' THEN 1 ELSE 0 END) AS bCount, "
+        + " SUM(CASE WHEN NAME = 'C' THEN 1 ELSE 0 END) AS cCount, "
+        + " SUM(CASE WHEN NAME = 'D' THEN 1 ELSE 0 END) AS dCount, "
+        + " SUM(CASE WHEN NAME = 'E' THEN 1 ELSE 0 END) AS eCount"
+        + " FROM TB_ITEM GROUP BY NAME", nativeQuery = true)
+    List<ItemNameGroup> findItemNameGroupUsingInterfaceWithNative();
 }
