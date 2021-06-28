@@ -1,6 +1,7 @@
 package blog.in.action.version;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -40,17 +41,14 @@ public class VersionNoTest {
 
     @Test
     public void test_nonTransientEntity_throwException() {
-
         // 신규 엔티티 생성, new
         DefaultVersionEntity versionEntity = new DefaultVersionEntity();
         versionEntity.setValue("DefaultVersionEntity");
         versionEntity.setChildEntity(new ChildEntity(versionEntity));
-
         // 엔티티 save, persist
         defaultVersionEntityRepository.save(versionEntity);
-
         // 자식 엔티티, persist
-        childEntityRepository.save(versionEntity.getChildEntity());
+        assertThrows(Exception.class, () -> childEntityRepository.save(versionEntity.getChildEntity()));
     }
 
     @Test
@@ -68,7 +66,6 @@ public class VersionNoTest {
         nonVersionEntity.setValue("NonDefaultVersionEntity");
         nonVersionEntity.setChildEntity(new ChildEntity(nonVersionEntity));
         NonDefaultVersionEntity returnedEntity = nonDefaultVersionEntityRepository.save(nonVersionEntity);
-        childEntityRepository.save(nonVersionEntity.getChildEntity());
         assertThat(nonVersionEntity).isEqualTo(returnedEntity);
     }
 
