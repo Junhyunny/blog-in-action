@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>웹 소켓 채팅 테스트</title>
+</head>
+<body>
+<h1>웹 소켓을 사용한 채팅방입니다.</h1>
+<div id="chatConnect">
+    <button onclick="connectSocket()">채팅 시작하기</button>
+</div>
+
+<div id="chat" hidden="hidden">
+    <input id="message">
+    <button id="sendBtn">전송</button>
+    <div id="chatBox"></div>
+</div>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+    let sock;
+
+    function connectSocket() {
+        sock = new SockJS("/chat");
+        sock.onopen = function () {
+            alert('연결에 성공하였습니다.');
+            sock.onmessage = (data => {
+                $("<p>" + data.data + "</p>").prependTo('#chatBox');
+            });
+            $('#chatConnect').hide();
+            $('#chat').show();
+        }
+        sock.onerror = function (e) {
+            alert('연결에 실패하였습니다.');
+            $('#chatConnect').show();
+            $('#chat').hide();
+        }
+        sock.onclose = function () {
+            alert('연결을 종료합니다.');
+            $('#chatConnect').show();
+            $('#chat').hide();
+        };
+    }
+
+    function sendMessage() {
+        sock.send($("#message").val());
+        $('#message').val("");
+    }
+
+    $("#message").keyup(e => {
+        if (e.keyCode == 13) {
+            sendMessage();
+        }
+    });
+
+    $("#sendBtn").click(() => {
+        sendMessage();
+    });
+</script>
+</body>
+</html>
