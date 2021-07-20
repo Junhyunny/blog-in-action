@@ -35,13 +35,14 @@ public class PrePersistUpdateTest {
     }
 
     @Test
-    public void test_preUpdate() {
+    public void test_preUpdate() throws InterruptedException {
         Book book = new Book();
         log.info("before first save");
         Book returnedBook = bookRepository.save(book);
         log.info("after first save");
         assertThat(book).isEqualTo(returnedBook);
         book.setTitle("CHANGED");
+        Thread.sleep(1000L);
         log.info("before second save");
         returnedBook = bookRepository.save(book);
         log.info("after second save");
