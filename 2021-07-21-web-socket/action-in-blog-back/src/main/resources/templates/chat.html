@@ -23,7 +23,7 @@
     let sock;
 
     function connectSocket() {
-        sock = new SockJS("/chat");
+        sock = new SockJS("/chat", null, {transport: ['websocket', 'xhr-streaming', 'xhr-polling']});
         sock.onopen = function () {
             alert('연결에 성공하였습니다.');
             sock.onmessage = (data => {

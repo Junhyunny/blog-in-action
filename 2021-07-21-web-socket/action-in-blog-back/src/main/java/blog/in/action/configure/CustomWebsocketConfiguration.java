@@ -18,8 +18,9 @@ public class CustomWebsocketConfiguration implements WebSocketConfigurer {
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry webSocketHandlerRegistry) {
-        webSocketHandlerRegistry.addHandler(webSocketComponent, "/chat").setAllowedOrigins("*").withSockJS();
-        ;
-        ;
+        webSocketHandlerRegistry.addHandler(webSocketComponent, "/chat")
+            .setAllowedOrigins("*")
+            .withSockJS()
+            .setClientLibraryUrl("https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.min.js");
     }
 }
