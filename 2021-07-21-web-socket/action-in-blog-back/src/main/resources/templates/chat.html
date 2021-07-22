@@ -2,10 +2,10 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>웹 소켓 채팅 테스트</title>
+    <title>채팅</title>
 </head>
 <body>
-<h1>웹 소켓을 사용한 채팅방입니다.</h1>
+<h1>채팅방</h1>
 <div id="chatConnect">
     <button onclick="connectSocket()">채팅 시작하기</button>
 </div>
@@ -23,7 +23,7 @@
     let sock;
 
     function connectSocket() {
-        sock = new SockJS("/chat", null, {transport: ['websocket', 'xhr-streaming', 'xhr-polling']});
+        sock = new SockJS("/chat");
         sock.onopen = function () {
             alert('연결에 성공하였습니다.');
             sock.onmessage = (data => {
