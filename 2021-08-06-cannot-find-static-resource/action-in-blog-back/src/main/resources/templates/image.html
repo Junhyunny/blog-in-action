@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Barcode Image 생성</title>
+</head>
+<body>
+<div>
+    <p>바코드 정보</p>
+    <form th:action="@{/api/barcode}" th:object="${info}" method="post">
+        <table border=1>
+            <tr>
+                <td>디렉토리 선택</td>
+                <td>
+                    <select type="text" id="publisher" name="publisher" placeholder="출판사명을 입력하세요">
+                </td>
+            </tr>
+            <tr>
+                <td>바코드 문자열</td>
+                <td>
+                    <input type="text" id="publisher" name="publisher" placeholder="출판사명을 입력하세요">
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <button type="submit">입력</button>
+    </form>
+    <br/>
+    <p th:if="${imagePath != null}">바코드 이미지</p>
+    <img th:src="${imagePath}"/>
+</div>
+</body>
+</html>
