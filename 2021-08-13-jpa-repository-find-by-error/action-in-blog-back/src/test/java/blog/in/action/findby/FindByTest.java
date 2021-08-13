@@ -1,12 +1,9 @@
 package blog.in.action.findby;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import java.util.List;
+import java.util.Optional;
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -19,12 +16,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 @SpringBootTest
 public class FindByTest {
 
-    private static final String childEntityId = "childEntityId";
+    private static final String parentKey = "parentKey";
+    private static final String childKey = "childKey";
 
     @Autowired
     private ParentEntityRepository parentEntityRepository;
@@ -36,35 +35,32 @@ public class FindByTest {
     public void beforeEach() {
         parentEntityRepository.deleteAll();
         childEntityRepository.deleteAll();
-        ParentEntity parentEntity = new ParentEntity();
-        parentEntity.setValue("findValue");
-        parentEntity.setChildEntity(new ChildEntity("childEntityId", parentEntity));
-        parentEntityRepository.save(parentEntity);
+        ParentEntity parentEntity = new ParentEntity(parentKey);
+        parentEntity.setChildEntity(new ChildEntity(childKey, parentEntity));
+        parentEntityRepository.saveAndFlush(parentEntity);
     }
 
     @Test
-    public void test_withoutParentNoChildEntity_throwException() {
-        ChildEntity childEntity = new ChildEntity();
-        childEntity.setId(childEntityId);
-        assertThrows(Exception.class, () -> parentEntityRepository.findByChildEntity(childEntity));
+    public void test_withoutVersionNo_throwException() {
+        ParentEntity parentEntity = new ParentEntity(parentKey);
+        assertThrows(InvalidDataAccessApiUsageException.class, () -> childEntityRepository.findByParentEntity(parentEntity));
     }
 
     @Test
-    public void test_withParentNoChildEntity_isNotEqualWithReturned() {
-        ChildEntity childEntity = new ChildEntity();
-        childEntity.setId(childEntityId);
-        childEntity.setVersionNo(0L);
-        Assertions.assertThat(parentEntityRepository.findByChildEntity(childEntity)).isNotEmpty();
+    public void test_withVersionNo_isPresent() {
+        ParentEntity parentEntity = new ParentEntity(parentKey);
+        parentEntity.setVersionNo(99L);
+        Assertions.assertThat(childEntityRepository.findByParentEntity(parentEntity).isPresent()).isTrue();
     }
 }
 
-interface ParentEntityRepository extends JpaRepository<ParentEntity, Long> {
+interface ParentEntityRepository extends JpaRepository<ParentEntity, String> {
 
-    List<ParentEntity> findByChildEntity(ChildEntity childEntity);
 }
 
 interface ChildEntityRepository extends JpaRepository<ChildEntity, String> {
 
+    Optional<ChildEntity> findByParentEntity(ParentEntity parentEntity);
 }
 
 @Getter
@@ -74,12 +70,12 @@ interface ChildEntityRepository extends JpaRepository<ChildEntity, String> {
 @Table(name = "TB_PARENT")
 class ParentEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    public ParentEntity(String id) {
+        this.id = id;
+    }
 
-    @Column(name = "VALUE")
-    private String value;
+    @Id
+    private String id;
 
     @OneToOne(mappedBy = "parentEntity", cascade = CascadeType.ALL)
     private ChildEntity childEntity;
