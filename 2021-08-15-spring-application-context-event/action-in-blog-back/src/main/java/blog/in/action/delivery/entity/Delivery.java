@@ -17,8 +17,13 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "TB_TABLE")
+@Table(name = "TB_DELIVERY")
 public class Delivery {
+
+    public Delivery(String deliveryCode, Order order) {
+        this.deliveryCode = deliveryCode;
+        this.order = order;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,5 +37,5 @@ public class Delivery {
 
     @OneToOne(targetEntity = Order.class)
     @JoinColumn(name = "ORDER_ID", nullable = false)
-    private Order orderId;
+    private Order order;
 }

@@ -29,6 +29,6 @@ public class DeliveryService {
         Delivery delivery = optional.get();
         delivery.setDeliveryEndTp("*");
         deliveryRepository.save(delivery);
-        applicationContext.publishEvent(new OrderDeliveryCompleteEvent(delivery.getOrderId().getId(), deliveryCode));
+        applicationContext.publishEvent(new OrderDeliveryCompleteEvent(delivery.getOrder().getId(), deliveryCode));
     }
 }

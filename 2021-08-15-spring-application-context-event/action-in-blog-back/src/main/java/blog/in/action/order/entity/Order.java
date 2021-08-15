@@ -17,9 +17,16 @@ import lombok.Setter;
 @Table(name = "TB_ORDER")
 public class Order {
 
+    public Order(String orderCode) {
+        this.orderCode = orderCode;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
+    @Column(name = "ORDER_CODE")
+    private String orderCode;
 
     @Column(name = "ORDER_STATE")
     private String orderState;
