@@ -17,7 +17,7 @@ public class OrderService {
     public void updateOrderDeliveryComplete(long orderId, String deliveryCode) {
         Optional<Order> optional = orderRepository.findById(orderId);
         if (optional.isEmpty()) {
-            throw new RuntimeException(deliveryCode + " 코드에 해당하는 배송 정보가 없습니다.");
+            throw new RuntimeException(deliveryCode + " 배송 코드에 해당하는 주문 정보가 없습니다.");
         }
         Order order = optional.get();
         order.setOrderState("DELIVERY_COMPLETE");
