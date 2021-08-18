@@ -63,7 +63,7 @@ public class DetachTest {
             Member member = em.find(Member.class, "01012341234");
             if (member != null) {
                 // 영속된 객체를 detached 상태로 변경 후 값 변경
-                log.info("detach한 이후 객체의 값을 변경합니다.");
+                log.info("detach 이후 객체의 값을 변경합니다.");
                 em.detach(member);
                 List<String> authorities = new ArrayList<>();
                 authorities.add("DETACHED_ADMIN");
@@ -107,7 +107,7 @@ public class DetachTest {
             Member member = em.find(Member.class, "01012341234");
             if (member != null) {
                 // 영속된 객체를 detached 상태로 변경 후 remove
-                log.info("detach한 이후 객체를 삭제합니다.");
+                log.info("detach 이후 객체를 삭제합니다.");
                 em.detach(member);
                 assertThrows(IllegalArgumentException.class, () -> em.remove(member));
             }

@@ -34,6 +34,10 @@ public class RemoveTest {
                 member.setMemberName("Junhyunny");
                 member.setMemberEmail("kang3966@naver.com");
                 em.persist(member);
+            } else {
+                List<String> authorities = new ArrayList<>();
+                authorities.add("ADMIN");
+                member.setAuthorities(authorities);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
