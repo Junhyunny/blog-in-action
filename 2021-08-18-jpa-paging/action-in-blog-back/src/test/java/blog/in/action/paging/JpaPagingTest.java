@@ -2,6 +2,7 @@ package blog.in.action.paging;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import java.time.LocalDateTime;
+import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,7 +33,7 @@ public class JpaPagingTest {
     public void beforeEach() {
         testRepository.deleteAll();
         for (int index = 0; index < 1000; index++) {
-            testRepository.save(new TestEntity("VALUE-" + index));
+            testRepository.save(new TestEntity(UUID.randomUUID() + "-" + index));
         }
     }
 
