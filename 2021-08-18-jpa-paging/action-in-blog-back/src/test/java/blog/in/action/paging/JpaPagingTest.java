@@ -35,22 +35,37 @@ public class JpaPagingTest {
     @BeforeEach
     public void beforeEach() {
         testRepository.deleteAll();
-        for (int index = 0; index < 200; index++) {
+        for (int index = 0; index < 250; index++) {
             testRepository.save(new TestEntity(UUID.randomUUID() + "-" + index));
+        }
+    }
+
+    @Test
+    public void testUsingFindAll() {
+        for (int pageIndex = 0; pageIndex < 2; pageIndex++) {
+            Pageable pageable = PageRequest.of(pageIndex, 10, Sort.by(Direction.DESC, "testValue"));
+            Page<TestEntity> testEntities = testRepository.findAll(pageable);
+            log.info("전체 페이지 수: " + testEntities.getTotalPages());
+            log.info("현재 페이지 번호: " + testEntities.getPageable().getPageNumber());
+            log.info("페이지 별 사이즈: " + testEntities.getPageable().getPageSize());
+            log.info("조건 일치 총 항목 수: " + testEntities.getTotalElements());
+            testEntities.forEach(testEntity -> {
+                log.info(testEntity);
+            });
         }
     }
 
     @Test
     public void testUsingFindBy() {
         for (int pageIndex = 0; pageIndex < 2; pageIndex++) {
-            Pageable pageable = PageRequest.of(pageIndex, 10, Sort.by(Direction.DESC, "createdAt"));
-            Page<TestEntity> testEntities = testRepository.findByTestValueLike("A", pageable);
+            Pageable pageable = PageRequest.of(pageIndex, 10, Sort.by(Direction.DESC, "testValue"));
+            Page<TestEntity> testEntities = testRepository.findByTestValueStartsWith("A", pageable);
             log.info("전체 페이지 수: " + testEntities.getTotalPages());
             log.info("현재 페이지 번호: " + testEntities.getPageable().getPageNumber());
             log.info("페이지 별 사이즈: " + testEntities.getPageable().getPageSize());
             log.info("조건 일치 총 항목 수: " + testEntities.getTotalElements());
             testEntities.forEach(testEntity -> {
-                log.info(testEntities);
+                log.info(testEntity);
             });
         }
     }
@@ -58,14 +73,14 @@ public class JpaPagingTest {
     @Test
     public void testUsingJpql() {
         for (int pageIndex = 0; pageIndex < 2; pageIndex++) {
-            Pageable pageable = PageRequest.of(pageIndex, 10, Sort.by(Direction.DESC, "createdAt"));
-            Page<TestEntity> testEntities = testRepository.findByValueLieUsingJpql("A", pageable);
+            Pageable pageable = PageRequest.of(pageIndex, 10, Sort.by(Direction.DESC, "testValue"));
+            Page<TestEntity> testEntities = testRepository.findByValueStartsWithUsingJpql("A", pageable);
             log.info("전체 페이지 수: " + testEntities.getTotalPages());
             log.info("현재 페이지 번호: " + testEntities.getPageable().getPageNumber());
             log.info("페이지 별 사이즈: " + testEntities.getPageable().getPageSize());
             log.info("조건 일치 총 항목 수: " + testEntities.getTotalElements());
             testEntities.forEach(testEntity -> {
-                log.info(testEntities);
+                log.info(testEntity);
             });
         }
     }
@@ -73,14 +88,14 @@ public class JpaPagingTest {
     @Test
     public void testUsingNative() {
         for (int pageIndex = 0; pageIndex < 2; pageIndex++) {
-            Pageable pageable = PageRequest.of(pageIndex, 10, Sort.by(Direction.DESC, "CREATED_AT"));
-            Page<TestEntity> testEntities = testRepository.findByValueLieUsingNative("A", pageable);
+            Pageable pageable = PageRequest.of(pageIndex, 10, Sort.by(Direction.DESC, "TEST_VALUE"));
+            Page<TestEntity> testEntities = testRepository.findByValueStartsWithUsingNative("A", pageable);
             log.info("전체 페이지 수: " + testEntities.getTotalPages());
             log.info("현재 페이지 번호: " + testEntities.getPageable().getPageNumber());
             log.info("페이지 별 사이즈: " + testEntities.getPageable().getPageSize());
             log.info("조건 일치 총 항목 수: " + testEntities.getTotalElements());
             testEntities.forEach(testEntity -> {
-                log.info(testEntities);
+                log.info(testEntity);
             });
         }
     }
@@ -114,17 +129,17 @@ class TestEntity {
 
     @Override
     public String toString() {
-        return "id: " + id + ", testValue" + testValue + ", createdAt: " + createdAt;
+        return "id: " + id + ", testValue: " + testValue + ", createdAt: " + createdAt;
     }
 }
 
 interface TestRepository extends JpaRepository<TestEntity, Long> {
 
-    Page<TestEntity> findByTestValueLike(String testValue, Pageable pageable);
+    Page<TestEntity> findByTestValueStartsWith(String testValue, Pageable pageable);
 
-    @Query(value = "SELECT t FROM TestEntity t WHERE t.testValue LIKE %:testValue%", countQuery = "SELECT COUNT(t) FROM TestEntity t WHERE t.testValue LIKE %:testValue%")
-    Page<TestEntity> findByValueLieUsingJpql(@Param("testValue") String testValue, Pageable pageable);
+    @Query(value = "SELECT t FROM TestEntity t WHERE t.testValue LIKE :testValue%", countQuery = "SELECT COUNT(t) FROM TestEntity t WHERE t.testValue LIKE :testValue%")
+    Page<TestEntity> findByValueStartsWithUsingJpql(@Param("testValue") String testValue, Pageable pageable);
 
-    @Query(value = "SELECT * FROM TB_TABLE t WHERE TEST_VALUE LIKE %:testValue%", countQuery = "SELECT COUNT(*) FROM TB_TABLE t WHERE t.TEST_VALUE LIKE %:testValue%", nativeQuery = true)
-    Page<TestEntity> findByValueLieUsingNative(@Param("testValue") String testValue, Pageable pageable);
+    @Query(value = "SELECT * FROM TB_TABLE t WHERE TEST_VALUE LIKE :testValue%", countQuery = "SELECT COUNT(*) FROM TB_TABLE t WHERE t.TEST_VALUE LIKE :testValue%", nativeQuery = true)
+    Page<TestEntity> findByValueStartsWithUsingNative(@Param("testValue") String testValue, Pageable pageable);
 }
