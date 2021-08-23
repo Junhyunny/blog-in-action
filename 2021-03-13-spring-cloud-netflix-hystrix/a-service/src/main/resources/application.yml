@@ -1,0 +1,14 @@
+server:
+  port: 0
+spring:
+  application:
+    name: a-service
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://127.0.0.1:8761/eureka/
+feign:
+  circuitbreaker:
+    enabled: true
