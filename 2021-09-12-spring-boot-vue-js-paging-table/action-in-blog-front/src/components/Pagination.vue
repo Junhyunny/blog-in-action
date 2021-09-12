@@ -1,7 +1,7 @@
 <template>
     <div class="pointer">
         <a @click="onPageChange(currentPage - 1)">&lt;</a>
-        <a v-for="(page, index) in pages" :key="index" @click="onPageChange(page - 1)" :class="page - 1 === currentPage ? 'currentPage' : ''">{{page}}</a>
+        <a v-for="(paging, index) in pages" :key="index" @click="onPageChange(paging - 1)" :class="paging - 1 === currentPage ? 'currentPage' : ''"> {{paging}} </a>
         <a @click="onPageChange(currentPage + 1)">&gt;</a>
     </div>
 </template>
