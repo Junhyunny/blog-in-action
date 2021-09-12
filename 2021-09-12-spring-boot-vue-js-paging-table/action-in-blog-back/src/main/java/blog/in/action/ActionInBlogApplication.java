@@ -24,7 +24,7 @@ public class ActionInBlogApplication implements CommandLineRunner {
         for (int index = 0; index < 100; index++) {
             postList.add(Post.builder()
                 .title("title-" + index)
-                .contents("contents-" + index)
+                .contents("contents-" + (99 - index))
                 .build());
         }
         repository.saveAll(postList);
