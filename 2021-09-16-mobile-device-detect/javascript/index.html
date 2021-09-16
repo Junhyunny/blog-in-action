@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript">
+        function isMobile() {
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        }
+    </script>
+</head>
+<body>
+    <div id="root"></div>
+    <script>
+        document.getElementById("root").innerHTML = isMobile();
+    </script>
+</body>
+</html>
