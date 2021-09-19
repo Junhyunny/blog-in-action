@@ -4,8 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/m")
-public class MobileController {
+public class PageController {
 
     @RequestMapping
     public String index() {
