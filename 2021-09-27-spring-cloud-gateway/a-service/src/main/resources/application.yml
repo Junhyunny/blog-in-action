@@ -1,0 +1,19 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: a-service
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+  session:
+    jdbc:
+      initialize-schema: never
+      table-name: SPRING_SESSION
+    store-type: jdbc
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/test?characterEncoding=UTF-8&serverTimezone=UTC
+    username: root
+    password: 1234
+    driver-class-name: com.mysql.cj.jdbc.Driver

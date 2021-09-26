@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: spring-cloud-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: a-service
+          uri: http://127.0.0.1:8081
+          predicates:
+            - Path=/a-service
+          filters:
+            - RewritePath=/a-service,/
+        - id: b-service
+          uri: http://127.0.0.1:8082
+          predicates:
+            - Path=/b-service
+          filters:
+            - RewritePath=/b-service,/
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - "gateway"
+  endpoint:
+    gateway:
+      enabled: true
