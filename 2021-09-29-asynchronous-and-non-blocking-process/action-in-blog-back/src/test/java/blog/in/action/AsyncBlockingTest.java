@@ -13,20 +13,20 @@ public class AsyncBlockingTest {
             for (int index = 0; index < 5; index++) {
                 for (int subIndex = Integer.MIN_VALUE; subIndex < Integer.MAX_VALUE; subIndex++) {
                 }
-                System.out.println("A doing something.");
+                System.out.println("A: doing something.");
             }
-            System.out.println(message);
+            System.out.println("A: " + message);
         };
 
         Consumer<Void> callMeLater = (Void) -> {
             isWorkBFinished = true;
-            System.out.println("Hey, Worker A. Worker B is finished.");
+            System.out.println("B: Hey, Worker A. I'm done.");
         };
 
         void waitWorkBFinished() {
             while (!isWorkBFinished) {
-                System.out.println("Waiting work for WorkerB.");
-                for (int subIndex = 0; subIndex < 20000; subIndex++) {
+                System.out.println("A: Waiting for Worker B.");
+                for (int subIndex = 0; subIndex < 1000; subIndex++) {
                 }
             }
         }
@@ -48,9 +48,9 @@ public class AsyncBlockingTest {
             for (int index = 0; index < 5; index++) {
                 for (int subIndex = Integer.MIN_VALUE; subIndex < Integer.MAX_VALUE; subIndex++) {
                 }
-                System.out.println("B doing something.");
+                System.out.println("B: doing something.");
             }
-            System.out.println(message);
+            System.out.println("B: " + message);
         };
 
         CompletableFuture<Void> doWorkAndCallToALater(Consumer<Void> callBack) {

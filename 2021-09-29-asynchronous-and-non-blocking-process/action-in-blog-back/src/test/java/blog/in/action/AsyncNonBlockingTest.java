@@ -11,18 +11,18 @@ public class AsyncNonBlockingTest {
             for (int index = 0; index < 5; index++) {
                 for (int subIndex = 0; subIndex < Integer.MAX_VALUE; subIndex++) {
                 }
-                System.out.println("A doing something.");
+                System.out.println("A: doing something.");
             }
-            System.out.println(message);
+            System.out.println("A: " + message);
         };
 
         Consumer<String> workForB = (message) -> {
             for (int index = 0; index < 5; index++) {
                 for (int subIndex = Integer.MIN_VALUE; subIndex < Integer.MAX_VALUE; subIndex++) {
                 }
-                System.out.println("B doing something.");
+                System.out.println("B: doing something.");
             }
-            System.out.println(message);
+            System.out.println("B: " + message);
         };
 
         void doMyWork() {
