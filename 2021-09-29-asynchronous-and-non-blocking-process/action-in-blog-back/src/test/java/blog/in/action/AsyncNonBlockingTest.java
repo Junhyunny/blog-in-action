@@ -8,18 +8,17 @@ public class AsyncNonBlockingTest {
     static class WorkerA {
 
         Consumer<String> workForA = (message) -> {
-            for (int index = 0; index < 3; index++) {
-                for (int subIndex = 0; subIndex < 100000000; subIndex++) {
+            for (int index = 0; index < 5; index++) {
+                for (int subIndex = 0; subIndex < Integer.MAX_VALUE; subIndex++) {
                 }
                 System.out.println("A doing something.");
             }
             System.out.println(message);
         };
 
-
         Consumer<String> workForB = (message) -> {
-            for (int index = 0; index < 3; index++) {
-                for (int subIndex = 0; subIndex < 100000000; subIndex++) {
+            for (int index = 0; index < 5; index++) {
+                for (int subIndex = 0; subIndex < Integer.MAX_VALUE; subIndex++) {
                 }
                 System.out.println("B doing something.");
             }
@@ -37,22 +36,17 @@ public class AsyncNonBlockingTest {
 
     static class WorkerB {
 
-        Consumer<String> myWork;
-
-        void takeMyWork(Consumer<String> myWork) {
-            this.myWork = myWork;
-        }
-
-        void doMyWork() {
-            CompletableFuture.runAsync(() -> myWork.accept("I'm worker B. And I'm done."));
+        CompletableFuture<Void> takeMyWorkAndDoMyWork(Consumer<String> myWork) {
+            return CompletableFuture.runAsync(() -> myWork.accept("I'm worker B. And I'm done."));
         }
     }
 
     public static void main(String[] args) {
         WorkerA a = new WorkerA();
         WorkerB b = new WorkerB();
-        b.takeMyWork(a.getWorkForB());
-        b.doMyWork();
+        CompletableFuture<Void> joinPoint = b.takeMyWorkAndDoMyWork(a.getWorkForB());
         a.doMyWork();
+        while (!joinPoint.isDone());
+        System.out.println("All workers done.");
     }
 }

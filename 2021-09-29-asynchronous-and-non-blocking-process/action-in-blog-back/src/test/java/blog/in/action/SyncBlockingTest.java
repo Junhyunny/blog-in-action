@@ -7,8 +7,8 @@ public class SyncBlockingTest {
     static class WorkerA {
 
         Consumer<String> workForA = (message) -> {
-            for (int index = 0; index < 3; index++) {
-                for (int subIndex = 0; subIndex < 100000000; subIndex++) {
+            for (int index = 0; index < 5; index++) {
+                for (int subIndex = 0; subIndex < Integer.MAX_VALUE; subIndex++) {
                 }
                 System.out.println("A doing something.");
             }
@@ -16,8 +16,8 @@ public class SyncBlockingTest {
         };
 
         Consumer<String> workForB = (message) -> {
-            for (int index = 0; index < 3; index++) {
-                for (int subIndex = 0; subIndex < 100000000; subIndex++) {
+            for (int index = 0; index < 5; index++) {
+                for (int subIndex = 0; subIndex < Integer.MAX_VALUE; subIndex++) {
                 }
                 System.out.println("B doing something.");
             }
@@ -35,13 +35,7 @@ public class SyncBlockingTest {
 
     static class WorkerB {
 
-        Consumer<String> myWork;
-
-        void takeMyWork(Consumer<String> myWork) {
-            this.myWork = myWork;
-        }
-
-        void doMyWork() {
+        void takeMyWorkAndDoMyWork(Consumer<String> myWork) {
             myWork.accept("I'm worker B. And I'm done.");
         }
     }
@@ -49,8 +43,7 @@ public class SyncBlockingTest {
     public static void main(String[] args) {
         WorkerA a = new WorkerA();
         WorkerB b = new WorkerB();
-        b.takeMyWork(a.giveWorkToB());
-        b.doMyWork();
+        b.takeMyWorkAndDoMyWork(a.giveWorkToB());
         a.doMyWork();
     }
 }
