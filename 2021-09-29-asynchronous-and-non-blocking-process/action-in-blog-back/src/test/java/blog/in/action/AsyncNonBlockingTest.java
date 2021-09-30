@@ -18,7 +18,7 @@ public class AsyncNonBlockingTest {
 
         Consumer<String> workForB = (message) -> {
             for (int index = 0; index < 5; index++) {
-                for (int subIndex = 0; subIndex < Integer.MAX_VALUE; subIndex++) {
+                for (int subIndex = Integer.MIN_VALUE; subIndex < Integer.MAX_VALUE; subIndex++) {
                 }
                 System.out.println("B doing something.");
             }
@@ -46,7 +46,8 @@ public class AsyncNonBlockingTest {
         WorkerB b = new WorkerB();
         CompletableFuture<Void> joinPoint = b.takeMyWorkAndDoMyWork(a.getWorkForB());
         a.doMyWork();
-        while (!joinPoint.isDone());
+        // WorkerB가 일을 마치지 않았는데 메인(main) 스레드가 종료되는 경우 어플리케이션이 종료되므로 이런 현상을 방지하는 코드 추가
+        joinPoint.join();
         System.out.println("All workers done.");
     }
 }
