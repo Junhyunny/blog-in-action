@@ -9,7 +9,7 @@ public class AsyncNonBlockingTest {
 
         Consumer<String> workForA = (message) -> {
             for (int index = 0; index < 5; index++) {
-                for (int subIndex = 0; subIndex < Integer.MAX_VALUE; subIndex++) {
+                for (int subIndex = Integer.MIN_VALUE; subIndex < Integer.MAX_VALUE; subIndex++) {
                 }
                 System.out.println("A: doing something.");
             }
