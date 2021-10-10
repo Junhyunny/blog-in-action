@@ -2,7 +2,7 @@ package blog.in.action;
 
 public class MySet {
 
-    private int[] array = new int[100];
+    private int[] array = new int[2];
     private int position = 0;
 
     public int size() {
@@ -13,6 +13,9 @@ public class MySet {
         if (contains(number)) {
             return;
         }
+        if (position >= array.length) {
+            resize();
+        }
         array[position] = number;
         position++;
     }
@@ -21,8 +24,8 @@ public class MySet {
         for (int index = 0; index < position; index++) {
             if (array[index] == number) {
                 position--;
-                int itemOfLastIndex = array[position];
-                array[index] = itemOfLastIndex;
+                array[index] = array[position];
+                break;
             }
         }
     }
@@ -38,5 +41,13 @@ public class MySet {
             }
         }
         return false;
+    }
+
+    private void resize() {
+        int[] temp = new int[array.length * 2];
+        for (int index = 0; index < array.length; index++) {
+            temp[index] = array[index];
+        }
+        array = temp;
     }
 }

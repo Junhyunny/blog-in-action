@@ -74,8 +74,22 @@ public class MySetTest {
     }
 
     @Test
-    public void test_getAtIndex_whenAtBiggerIndex() {
-        mySet.add(123);
-        mySet.add(123);
+    public void test_resize_whenAddManyItems() {
+        mySet.add(1);
+        mySet.add(2);
+        mySet.add(3);
+        assertThat(mySet.size(), equalTo(3));
+    }
+
+    @Test
+    public void test_getItemAtRemovedIndex_whenRemoveItemOfMiddleIndex() {
+        mySet.add(1);
+        mySet.add(2);
+        mySet.add(3);
+        mySet.remove(2);
+        assertThat(mySet.size(), equalTo(2));
+        for (int index = 0; index < mySet.size(); index++) {
+            System.out.println(mySet.get(index));
+        }
     }
 }
