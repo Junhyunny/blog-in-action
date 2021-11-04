@@ -22,7 +22,7 @@ public class BlogServiceImpl implements BlogService {
     public void rollbackAfterException() {
         blogDao.updateBlog();
         if (true) {
-            new RuntimeException("occur exception");
+            throw new RuntimeException("occur exception");
         }
     }
 }
