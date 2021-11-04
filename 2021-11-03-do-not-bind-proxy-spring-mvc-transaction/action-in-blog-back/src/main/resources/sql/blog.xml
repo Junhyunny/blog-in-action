@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="blog.in.action.dao.BlogDao">
+
+    <update id="updateBlog">
+        update tb_member
+        set authorities = null
+        where id = '01012341234'
+    </update>
+
+</mapper>

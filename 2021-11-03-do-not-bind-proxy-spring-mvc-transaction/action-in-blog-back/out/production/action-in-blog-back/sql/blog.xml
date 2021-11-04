@@ -4,6 +4,9 @@
 <mapper namespace="blog.in.action.dao.BlogDao">
 
     <update id="updateBlog">
+        update tb_member
+        set authorities = null
+        where id = '01012341234'
     </update>
 
 </mapper>
