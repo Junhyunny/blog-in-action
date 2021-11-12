@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="blog.in.action.dao.BlogDao">
+
+    <select id="selectTest" resultType="java.util.Map">
+        select *
+        from TB_TEST
+    </select>
+
+    <update id="updateTest" parameterType="java.util.Map">
+        update TB_TEST
+        set CHANGED_AT = sysdate()
+        where id = #{ID}
+    </update>
+
+</mapper>
