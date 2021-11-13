@@ -77,15 +77,12 @@
                 <prop key="org.quartz.jobStore.class">org.quartz.impl.jdbcjobstore.JobStoreTX</prop>
                 <prop key="org.quartz.jobStore.driverDelegateClass">org.quartz.impl.jdbcjobstore.StdJDBCDelegate</prop>
                 <prop key="org.quartz.jobStore.dataSource">dataSource</prop>
-                <prop key="spring.quartz.job-store-type">jdbc</prop>
-                <prop key="org.quartz.scheduler.instanceId">AUTO</prop>
                 <prop key="org.quartz.jobStore.tablePrefix">QRTZ_</prop>
                 <prop key="org.quartz.jobStore.isClustered">true</prop>
                 <prop key="org.quartz.jobStore.clusterCheckinInterval">1000</prop>
                 <prop key="org.quartz.jobStore.misfireThreshold">1000</prop>
-                <prop key="org.quartz.jobStore.clusterCheckinInterval">1000</prop>
+                <prop key="org.quartz.scheduler.instanceId">AUTO</prop>
             </props>
         </property>
     </bean>
-
 </beans>
