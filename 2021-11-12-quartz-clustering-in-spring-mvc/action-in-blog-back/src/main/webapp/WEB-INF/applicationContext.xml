@@ -53,17 +53,12 @@
     <bean name="blogJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
         <property name="jobClass" value="blog.in.action.job.BlogJob"/>
         <property name="durability" value="true"/>
-        <property name="jobDataAsMap">
-            <map>
-                <entry key="blogService" value-ref="blobService"/>
-            </map>
-        </property>
         <property name="group" value="BLOG_GROUP"/>
     </bean>
 
     <bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
         <property name="jobDetail" ref="blogJob"/>
-        <property name="cronExpression" value="0/5 * * * * ?"/>
+        <property name="cronExpression" value="0/1 * * * * ?"/>
     </bean>
 
     <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
@@ -74,12 +69,21 @@
         </property>
         <property name="dataSource" ref="dataSource"/>
         <property name="applicationContextSchedulerContextKey" value="applicationContext"/>
+        <property name="autoStartup" value="true"/>
+        <property name="overwriteExistingJobs" value="true"/>
+        <property name="waitForJobsToCompleteOnShutdown" value="true"/>
         <property name="quartzProperties">
             <props>
                 <prop key="org.quartz.jobStore.class">org.quartz.impl.jdbcjobstore.JobStoreTX</prop>
                 <prop key="org.quartz.jobStore.driverDelegateClass">org.quartz.impl.jdbcjobstore.StdJDBCDelegate</prop>
                 <prop key="org.quartz.jobStore.dataSource">dataSource</prop>
                 <prop key="spring.quartz.job-store-type">jdbc</prop>
+                <prop key="org.quartz.scheduler.instanceId">AUTO</prop>
+                <prop key="org.quartz.jobStore.tablePrefix">QRTZ_</prop>
+                <prop key="org.quartz.jobStore.isClustered">true</prop>
+                <prop key="org.quartz.jobStore.clusterCheckinInterval">1000</prop>
+                <prop key="org.quartz.jobStore.misfireThreshold">1000</prop>
+                <prop key="org.quartz.jobStore.clusterCheckinInterval">1000</prop>
             </props>
         </property>
     </bean>
