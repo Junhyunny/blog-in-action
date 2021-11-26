@@ -1,4 +1,4 @@
-package blog.in.action.proxy.protection;
+package blog.in.action;
 
 public enum AUTHORITY {
 
