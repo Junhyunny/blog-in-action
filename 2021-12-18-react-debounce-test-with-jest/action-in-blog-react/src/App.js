@@ -10,7 +10,7 @@ function App() {
     const debounce = (func, timeout) => {
         let timer;
         return (...args) => {
-            let context = this;
+            const context = this;
             if (timer) {
                 clearTimeout(timer);
             }
