@@ -1,6 +1,7 @@
-import {useState} from "react";
+import {useContext, useState} from "react";
 import AuthenticationClient from "../../utils/AuthenticationClient";
 import {useNavigate} from "react-router";
+import AuthenticationContext from "../../store/AuthenticationContext";
 
 const Login = () => {
 
@@ -9,6 +10,7 @@ const Login = () => {
     const [password, setPassword] = useState('');
 
     const navigate = useNavigate();
+    const {setAuthenticate} = useContext(AuthenticationContext);
 
     const submitHandler = (event) => {
         event.preventDefault();
@@ -28,6 +30,7 @@ const Login = () => {
             password: password
         }).then(result => {
             if (result) {
+                setAuthenticate(result);
                 navigate('/todo');
             }
         });
