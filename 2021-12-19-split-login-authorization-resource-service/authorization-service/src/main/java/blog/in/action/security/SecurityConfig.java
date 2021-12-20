@@ -20,8 +20,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final MemberService memberService;
 
     @Bean
-    public JwtAccessTokenConverter jwtAccessTokenConverter() {
-        return new JwtAccessTokenConverter();
+    public JwtAccessTokenConverter jwtAccessTokenConverter() throws Exception {
+        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+        converter.setSigningKey("TEMP_SIGN_KEY");
+        converter.afterPropertiesSet();
+        return converter;
     }
 
     @Bean
