@@ -2,6 +2,7 @@ import {useContext, useState} from "react";
 import AuthenticationClient from "../../utils/AuthenticationClient";
 import {useNavigate} from "react-router";
 import AuthenticationContext from "../../store/AuthenticationContext";
+import classes from './Login.module.css';
 
 const Login = () => {
 
@@ -45,12 +46,20 @@ const Login = () => {
     };
 
     return (
-        <div>
-            <form onSubmit={submitHandler}>
-                <input placeholder="USER ID" onChange={userIdChangeHandler} value={userId}/>
-                {!isValid && !userId && <p>ID가 유효하지 않습니다.</p>}
-                <input placeholder="PASSWORD" onChange={passwordChangeHandler} value={password}/>
-                {!isValid && !password && <p>비밀번호가 유효하지 않습니다.</p>}
+        <div className={classes.login}>
+            <form className={classes.control} onSubmit={submitHandler}>
+                <div>
+                    <input placeholder="USER ID" onChange={userIdChangeHandler} value={userId}/>
+                </div>
+                <div>
+                    {!isValid && !userId && <label>ID가 유효하지 않습니다.</label>}
+                </div>
+                <div>
+                    <input placeholder="PASSWORD" onChange={passwordChangeHandler} value={password} type="password"/><br/>
+                </div>
+                <div>
+                    {!isValid && !password && <label>비밀번호가 유효하지 않습니다.</label>}
+                </div>
                 <button type="submit">Submit</button>
             </form>
         </div>

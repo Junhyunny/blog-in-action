@@ -2,7 +2,7 @@ import AuthenticationContext from "./AuthenticationContext";
 import {useReducer} from "react";
 
 const defaultAuthenticateState = {
-    authenticate: false
+    authenticate: localStorage.getItem('access_token') ? true : false
 };
 
 const authenticateReducer = (state, action) => {
