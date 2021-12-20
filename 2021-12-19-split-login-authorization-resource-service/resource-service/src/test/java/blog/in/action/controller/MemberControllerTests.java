@@ -143,8 +143,11 @@ class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
     private final AuthenticationManager authenticationManager;
 
     @Bean
-    public JwtAccessTokenConverter jwtAccessTokenConverter() {
-        return new JwtAccessTokenConverter();
+    public JwtAccessTokenConverter jwtAccessTokenConverter() throws Exception {
+        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+        converter.setSigningKey("TEMP_SIGN_KEY");
+        converter.afterPropertiesSet();
+        return converter;
     }
 
     @Override
