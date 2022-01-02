@@ -1,0 +1,24 @@
+.App {
+  text-align: center;
+  height: 2000px;
+}
+
+.App .normalDiv {
+  height: 100px;
+  line-height: 100px;
+  text-align: center;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  border: 1px solid #ccc;
+}
+
+.App .throttledDiv {
+  height: 100px;
+  line-height: 100px;
+  text-align: center;
+  position: fixed;
+  top: 120px;
+  left: 10px;
+  border: 1px solid #ccc;
+}
