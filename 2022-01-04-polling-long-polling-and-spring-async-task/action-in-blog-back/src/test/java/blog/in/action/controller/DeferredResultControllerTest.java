@@ -9,6 +9,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import javax.servlet.AsyncListener;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -100,15 +101,23 @@ public class DeferredResultControllerTest {
                 .andReturn();
 
         // when
-        MockAsyncContext ctx = (MockAsyncContext) result.getRequest().getAsyncContext();
-        for (AsyncListener listener : ctx.getListeners()) {
-            listener.onTimeout(null);
-        }
+//        MockAsyncContext ctx = (MockAsyncContext) result.getRequest().getAsyncContext();
+//        for (AsyncListener listener : ctx.getListeners()) {
+//            listener.onTimeout(null);
+//        }
+//
+//        // then
+//        mockMvc.perform(asyncDispatch(result))
+//                .andExpect(status().is5xxServerError());
 
+        // given
+        result.getRequest().getAsyncContext().setTimeout(10);
 
-        // then
-        mockMvc.perform(asyncDispatch(result))
-                .andExpect(status().is5xxServerError());
+        // when, then
+        assertThrows(RuntimeException.class, () -> {
+            asyncDispatch(result);
+            // result.getAsyncResult(); // 동일한 결과
+        });
     }
 
     @Test
