@@ -38,7 +38,7 @@ describe('PollingClient test', () => {
         // 6 times run
         for (let i = 0; i < 6; i++) {
             jest.advanceTimersByTime(1000); // message queue is resolved
-            await Promise.resolve(); // `async () => {}` in `setTimeout()` is resolved
+            await Promise.resolve(); // `await` is resolved
         }
 
         expect(callback).toHaveBeenCalledTimes(6);
@@ -56,7 +56,7 @@ describe('PollingClient test', () => {
         // 6 times run
         for (let i = 0; i < 6; i++) {
             jest.advanceTimersByTime(1000); // message queue is resolved
-            await Promise.resolve(); // `async () => {}` in `setTimeout()` is resolved
+            await Promise.resolve(); // `await` is resolved
             await Promise.resolve(); // something wierd promise
             await Promise.resolve(); // something wierd promise
         }
