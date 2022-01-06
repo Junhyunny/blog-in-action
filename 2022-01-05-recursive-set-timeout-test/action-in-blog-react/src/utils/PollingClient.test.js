@@ -19,9 +19,12 @@ describe('PollingClient test', () => {
 
         // 1 time run
         jest.advanceTimersByTime(6000);
+        console.log(1);
 
         await waitFor(() => {
+            console.log(2);
             expect(callback).toHaveBeenCalledTimes(6);
+            console.log(3);
         });
         expect(callback).toHaveBeenLastCalledWith({data: true});
         expect(spyAxios).toHaveBeenCalledTimes(6);
@@ -38,7 +41,9 @@ describe('PollingClient test', () => {
         // 6 times run
         for (let i = 0; i < 6; i++) {
             jest.advanceTimersByTime(1000); // message queue is resolved
-            await Promise.resolve(); // `await` is resolved
+            console.log(1)
+            await Promise.resolve(); // `await` is resolved here
+            console.log(2)
         }
 
         expect(callback).toHaveBeenCalledTimes(6);
@@ -56,9 +61,13 @@ describe('PollingClient test', () => {
         // 6 times run
         for (let i = 0; i < 6; i++) {
             jest.advanceTimersByTime(1000); // message queue is resolved
-            await Promise.resolve(); // `await` is resolved
+            console.log(1)
             await Promise.resolve(); // something wierd promise
+            console.log(2)
             await Promise.resolve(); // something wierd promise
+            console.log(3)
+            await Promise.resolve(); // `await` is resolved here
+            console.log(4)
         }
 
         expect(callback).toHaveBeenCalledTimes(6);
