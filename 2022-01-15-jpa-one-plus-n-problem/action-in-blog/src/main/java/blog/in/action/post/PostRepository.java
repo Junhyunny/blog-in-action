@@ -11,7 +11,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
     List<Post> findByTitle(String title);
 
-    @Query(value = "SELECT p FROM Post p JOIN FETCH p.replies WHERE p.title = :title")
+    @Query(value = "SELECT DISTINCT p FROM Post p JOIN FETCH p.replies WHERE p.title = :title")
     List<Post> findDistinctByTitleFetchJoin(String title);
 
     @Query(value = "SELECT p FROM Post p JOIN FETCH p.replies WHERE p.title = :title")
