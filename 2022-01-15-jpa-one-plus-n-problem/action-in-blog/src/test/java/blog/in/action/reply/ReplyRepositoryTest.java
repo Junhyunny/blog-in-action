@@ -44,9 +44,19 @@ public class ReplyRepositoryTest {
     }
 
     @Test
-    public void givenFindReply_whenGetPost() {
+    public void givenFindReply_whenGetPost_thenNPlusOneQuery() {
 
         Reply reply = replyRepository.findByContent("reply-0");
+
+        Post post = reply.getPost();
+
+        assertThat(post.getTitle()).isEqualTo("first post");
+    }
+
+    @Test
+    public void givenFindReply_whenGetPost_thenJustOneQuery() {
+
+        Reply reply = replyRepository.findByContentFetchJoin("reply-0");
 
         Post post = reply.getPost();
 

@@ -20,7 +20,7 @@ public class Reply {
     @Column
     private String content;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "post_id")
     private Post post;
 }
