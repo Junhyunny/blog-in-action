@@ -44,7 +44,7 @@ public class ReplyRepositoryTest {
     }
 
     @Test
-    public void givenFindReply_whenGetPost_thenNPlusOneQuery() {
+    public void givenFindByContent_whenGetPost_thenNPlusOneQuery() {
 
         Reply reply = replyRepository.findByContent("reply-0");
 
@@ -54,9 +54,19 @@ public class ReplyRepositoryTest {
     }
 
     @Test
-    public void givenFindReply_whenGetPost_thenJustOneQuery() {
+    public void whenFindByContentFetchJoin_thenJustOneQuery() {
 
         Reply reply = replyRepository.findByContentFetchJoin("reply-0");
+
+        Post post = reply.getPost();
+
+        assertThat(post.getTitle()).isEqualTo("first post");
+    }
+
+    @Test
+    public void whenFindByContentEntityGraph_thenJustOneQuery() {
+
+        Reply reply = replyRepository.findByContentEntityGraph("reply-0");
 
         Post post = reply.getPost();
 

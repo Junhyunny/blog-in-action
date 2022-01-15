@@ -85,7 +85,7 @@ public class PostRepositoryTest {
     }
 
     @Test
-    public void givenFindDistinctByTitleFetchJoin_whenGetReplies_thenJustOneQuery() {
+    public void whenFindDistinctByTitleFetchJoin_thenJustOneQuery() {
 
         List<Post> posts = postRepository.findDistinctByTitleFetchJoin("first post");
 
@@ -101,7 +101,7 @@ public class PostRepositoryTest {
 
 
     @Test
-    public void givenFindByTitleFetchJoin_whenGetReplies_thenJustOneQuery() {
+    public void whenFindByTitleFetchJoin_thenJustOneQuery() {
 
         Set<Post> posts = postRepository.findByTitleFetchJoin("first post");
 
@@ -116,7 +116,7 @@ public class PostRepositoryTest {
     }
 
     @Test
-    public void givenFindDistinctByTitleEntityGraph_whenGetReplies_thenJustOneQuery() {
+    public void whenFindDistinctByTitleEntityGraph_thenJustOneQuery() {
 
         List<Post> posts = postRepository.findDistinctByTitleEntityGraph("first post");
 
@@ -132,7 +132,7 @@ public class PostRepositoryTest {
     }
 
     @Test
-    public void givenFindByTitleEntityGraph_whenGetReplies_thenJustOneQuery() {
+    public void whenFindByTitleEntityGraph_thenJustOneQuery() {
 
         Set<Post> posts = postRepository.findByTitleEntityGraph("first post");
 
