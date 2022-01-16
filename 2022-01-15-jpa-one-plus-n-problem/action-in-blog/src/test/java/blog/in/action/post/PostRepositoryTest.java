@@ -99,7 +99,6 @@ public class PostRepositoryTest {
         assertThat(replyContents.size()).isEqualTo(10);
     }
 
-
     @Test
     public void whenFindByTitleFetchJoin_thenJustOneQuery() {
 
