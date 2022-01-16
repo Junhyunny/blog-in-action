@@ -59,7 +59,7 @@ public class ReplyRepositoryTest {
 
         Pageable pageable = PageRequest.of(1, 5);
 
-        Page<Reply> replyPage = replyRepository.findByPostIdFetchJoin(1L, pageable);
+        Page<Reply> replyPage = replyRepository.findByContentLikeFetchJoin("0-reply-", pageable);
 
         assertThat(replyPage.getContent().size()).isEqualTo(5);
     }
@@ -69,7 +69,7 @@ public class ReplyRepositoryTest {
 
         Pageable pageable = PageRequest.of(1, 5);
 
-        Page<Reply> replyPage = replyRepository.findByPostIdInnerJoin(1L, pageable);
+        Page<Reply> replyPage = replyRepository.findByContentLikeInnerJoin("0-reply-", pageable);
 
         assertThat(replyPage.getContent().size()).isEqualTo(5);
     }
@@ -79,7 +79,7 @@ public class ReplyRepositoryTest {
 
         Pageable pageable = PageRequest.of(1, 5);
 
-        Page<Reply> replyPage = replyRepository.findByPostIdEntityGraph(1L, pageable);
+        Page<Reply> replyPage = replyRepository.findByContentLikeEntityGraph("0-reply-", pageable);
 
         assertThat(replyPage.getContent().size()).isEqualTo(5);
     }
