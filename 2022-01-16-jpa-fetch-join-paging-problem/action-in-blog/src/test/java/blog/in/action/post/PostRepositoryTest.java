@@ -61,7 +61,7 @@ public class PostRepositoryTest {
     @Test
     public void whenFindByContentLikeFetchJoin_thenOutOfMemoryWarningMessage() {
 
-        Pageable pageable = PageRequest.of(0, 5);
+        Pageable pageable = PageRequest.of(1, 5);
 
         Page<Post> postPage = postRepository.findByContentLikeFetchJoin("post", pageable);
 
@@ -77,7 +77,7 @@ public class PostRepositoryTest {
     @Test
     public void whenFindByContentLikeInnerJoin_thenSeeLimitKeywordButNPlusOne() {
 
-        Pageable pageable = PageRequest.of(0, 5);
+        Pageable pageable = PageRequest.of(1, 5);
 
         Page<Post> postPage = postRepository.findByContentLikeInnerJoin("post", pageable);
 
@@ -93,7 +93,7 @@ public class PostRepositoryTest {
     @Test
     public void whenFindByContentLikeEntityGraph_thenPagingWithInQuery() {
 
-        Pageable pageable = PageRequest.of(0, 5);
+        Pageable pageable = PageRequest.of(1, 5);
 
         Page<Post> postPage = postRepository.findByContentLikeEntityGraph("post", pageable);
 
@@ -109,7 +109,7 @@ public class PostRepositoryTest {
     @Test
     public void whenFindByContentLike_thenPagingWithInQuery() {
 
-        Pageable pageable = PageRequest.of(0, 5);
+        Pageable pageable = PageRequest.of(1, 5);
 
         Page<Post> postPage = postRepository.findByContentLike("post", pageable);
 

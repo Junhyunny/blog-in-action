@@ -57,7 +57,7 @@ public class ReplyRepositoryTest {
     @Test
     public void whenFindByPostIdFetchJoin_thenNothingWarning() {
 
-        Pageable pageable = PageRequest.of(0, 5);
+        Pageable pageable = PageRequest.of(1, 5);
 
         Page<Reply> replyPage = replyRepository.findByPostIdFetchJoin(1L, pageable);
 
@@ -67,7 +67,7 @@ public class ReplyRepositoryTest {
     @Test
     public void whenFindByPostIdInnerJoin_thenNothingWarning() {
 
-        Pageable pageable = PageRequest.of(0, 5);
+        Pageable pageable = PageRequest.of(1, 5);
 
         Page<Reply> replyPage = replyRepository.findByPostIdInnerJoin(1L, pageable);
 
@@ -77,7 +77,7 @@ public class ReplyRepositoryTest {
     @Test
     public void whenFindByPostIdEntityGraph_thenNothingWarning() {
 
-        Pageable pageable = PageRequest.of(0, 5);
+        Pageable pageable = PageRequest.of(1, 5);
 
         Page<Reply> replyPage = replyRepository.findByPostIdEntityGraph(1L, pageable);
 
