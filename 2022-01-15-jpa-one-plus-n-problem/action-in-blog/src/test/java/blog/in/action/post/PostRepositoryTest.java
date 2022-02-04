@@ -145,4 +145,20 @@ public class PostRepositoryTest {
         assertThat(posts.size()).isEqualTo(1);
         assertThat(replyContents.size()).isEqualTo(10);
     }
+
+    @Test
+    public void whenFindByTitleFetchJoinWithoutDistinct_thenJustOneQuery() {
+
+        List<Post> posts = postRepository.findByTitleFetchJoinWithoutDistinct("first post");
+
+        assertThat(posts.size()).isEqualTo(10);
+    }
+
+    @Test
+    public void whenFindByTitleEntityGraphWithoutDistinct_thenJustOneQuery() {
+
+        List<Post> posts = postRepository.findByTitleEntityGraphWithoutDistinct("first post");
+
+        assertThat(posts.size()).isEqualTo(1);
+    }
 }

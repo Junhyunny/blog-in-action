@@ -24,4 +24,11 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @EntityGraph(attributePaths = {"replies"})
     @Query(value = "SELECT p FROM Post p WHERE p.title = :title")
     Set<Post> findByTitleEntityGraph(String title);
+
+    @Query(value = "SELECT p FROM Post p JOIN FETCH p.replies WHERE p.title = :title")
+    List<Post> findByTitleFetchJoinWithoutDistinct(String title);
+
+    @EntityGraph(attributePaths = {"replies"})
+    @Query(value = "SELECT p FROM Post p WHERE p.title = :title")
+    List<Post> findByTitleEntityGraphWithoutDistinct(String title);
 }
