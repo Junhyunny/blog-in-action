@@ -1,0 +1,19 @@
+.App select {
+  display: inline-block;
+  margin: 5px;
+}
+
+.div {
+  margin: 5px;
+  border: 1px solid lightgray;
+}
+
+.div input {
+  display: block;
+  margin: 5px;
+}
+
+.div button {
+  display: block;
+  margin: 5px;
+}
