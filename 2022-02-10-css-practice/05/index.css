@@ -15,8 +15,6 @@ body {
     width: 100%;
     height: 528px;
     padding: 10px;
-    margin: 10px;
-    border: 5px solid black;
 }
 
 #product-overview h1 {
@@ -28,4 +26,30 @@ body {
 /* 상속 받을 때 inherit 키워드를 이용해 상속 가능 */
 .section-title {
     color: #2ddf5c;
+}
+
+.main-header {
+    width: 100%;
+    background: #2ddf5c;
+    padding: 8px 16px;
+}
+
+.main-header > div {
+    display: inline-block;
+}
+
+.main-nav {
+    width: calc(100% - 45px);
+    display: inline-block;
+    text-align: right;
+    list-style: none;
+}
+
+.main-nav__items {
+    margin: 0;
+    padding: 0;
+}
+
+.main-nav__item {
+    display: inline-block;
 }
