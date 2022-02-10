@@ -1,0 +1,22 @@
+
+body {
+    font-family: sans-serif;
+}
+
+h1 {
+    color: lightgray;
+}
+
+code {
+    color: red;
+    font-family: monospace;
+}
+
+.highlight-code {
+    color: green;
+}
+
+li + li {
+    background-color: black;
+    color: white;
+}
