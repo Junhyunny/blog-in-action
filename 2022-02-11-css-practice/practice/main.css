@@ -1,0 +1,26 @@
+
+html,
+body {
+    box-sizing: border-box;
+    height: 100%;
+}
+
+div {
+    display: inline-block;
+    padding: 5px;
+    margin: 5px;
+    border: 1px solid black;
+    border-radius: 5px;
+    height: 300px;
+    width: 45%;
+}
+
+#last-box:active,
+#last-box:hover {
+    border: 1px solid red;
+}
+
+#first-box {
+    display: none;
+    /*visibility: hidden;*/
+}

@@ -1,20 +1,22 @@
-
 * {
     box-sizing: border-box;
 }
 
-/* 기본적으로 모든 바디에서 사용되는 폰트 패밀리*/
 body {
     font-family: 'Montserrat', sans-serif;
     margin: 0;
 }
 
-/* box layout in css - content, padding, border, margin */
 #product-overview {
-    background: #ff1b68;
+    background: url("freedom.jpg");
     width: 100%;
     height: 528px;
     padding: 10px;
+}
+
+.section-title {
+    color: #2ddf5c;
+    text-align: center;
 }
 
 #product-overview h1 {
@@ -22,11 +24,9 @@ body {
     font-family: 'Anton', sans-serif;
 }
 
-/* 재사용 할 수 있을 때 클래스를 사용한다. */
-/* 상속 받을 때 inherit 키워드를 이용해 상속 가능 */
-.section-title {
-    color: #2ddf5c;
-}
+/* h1 {
+    font-family: sans-serif;
+} */
 
 .main-header {
     width: 100%;
@@ -47,22 +47,21 @@ body {
 }
 
 .main-nav {
-    width: calc(100% - 75px);
     display: inline-block;
     text-align: right;
-    list-style: none;
+    width: calc(100% - 74px);
     vertical-align: middle;
 }
 
 .main-nav__items {
     margin: 0;
     padding: 0;
+    list-style: none;
 }
 
 .main-nav__item {
     display: inline-block;
     margin: 0 16px;
-    font-weight: bold;
 }
 
 .main-nav__item a {
@@ -78,11 +77,6 @@ body {
     border-bottom: 5px solid white;
 }
 
-p::first-letter {
-    color: red;
-    font-size: 20px;
-}
-
 .main-nav__item--cta a {
     color: white;
     background: #ff1b68;
@@ -94,6 +88,73 @@ p::first-letter {
 .main-nav__item--cta a:active {
     color: #ff1b68;
     background: white;
-    border-radius: 8px;
     border: none;
+}
+
+.plan {
+    background: #d5ffdc;
+    text-align: center;
+    padding: 16px;
+    margin: 8px;
+    display: inline-block;
+    width: 30%;
+    vertical-align: middle;
+}
+
+/* 그림자 효과 */
+.plan--highlighted {
+    background: #19b84c;
+    color: white;
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
+    border-radius: 4px;
+}
+
+.plan__annotation {
+    background: white;
+    color: #19b84c;
+    padding: 8px;
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+.plan__title {
+    color: #0e4f1f;
+}
+
+.plan__price {
+    color: #858585;
+}
+
+.plan--highlighted .plan__price {
+    color: white;
+}
+
+.plan__features {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.plan__features li {
+    margin: 8px 0;
+}
+
+.button {
+    background: #0e4f1f;
+    color: white;
+    font: inherit;
+    border: 1px solid #0e4f1f;
+    padding: 8px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.button:active,
+.button:hover {
+    background: white;
+    color: #0e4f1f;
+}
+
+.button:focus {
+    outline: none;
 }
