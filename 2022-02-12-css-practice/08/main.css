@@ -1,23 +1,37 @@
 
+
 #product-overview {
-    background: url("freedom.jpg") left 0% top 25%/cover no-repeat border-box ;
+    background: url("freedom.jpg") left 0% top 30%/cover no-repeat border-box;
+    /* background-image: url("freedom.jpg");
+    background-size: cover;
+    background-position: left 10% bottom 20%; */
+    /* background-repeat: no-repeat;
+    background-origin: border-box;
+    background-clip: border-box; */
     width: 100%;
     height: 528px;
     padding: 10px;
     margin-top: 43px;
-    position: relative;
+    /* border: 5px dashed red; */
+    position: relative;   
+}
+
+.section-title {
+    color: #2ddf5c;
+    text-align: center;
 }
 
 #product-overview h1 {
     color: white;
     font-family: 'Anton', sans-serif;
     position: absolute;
-    left: 2%;
-    bottom: 2%;
+    bottom: 5%;
+    left: 3%;
 }
 
-.section-title {
-    color: #2ddf5c;
+.plan__list {
+    width: 80%;
+    margin: auto;
     text-align: center;
 }
 
@@ -35,13 +49,6 @@
     background: #19b84c;
     color: white;
     box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
-}
-
-/* block 센터 처리 */
-.plan__list {
-    width: 80%;
-    margin: auto;
-    text-align: center;
 }
 
 .plan__annotation {
@@ -121,3 +128,4 @@
 /* h1 {
     font-family: sans-serif;
 } */
+
