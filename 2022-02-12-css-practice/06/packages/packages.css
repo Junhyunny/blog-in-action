@@ -19,6 +19,7 @@ main {
     border: 4px solid #0e4f1f;
     border-left: none;
     position: relative;
+    z-index: 0;
 }
 
 .package:hover,
@@ -49,6 +50,7 @@ main {
     color: white;
     background: #ff5454;
     padding: 8px;
+    z-index: 10;
 }
 
 .package__subtitle {

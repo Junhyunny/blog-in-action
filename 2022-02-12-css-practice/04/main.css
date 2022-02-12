@@ -1,0 +1,39 @@
+html {
+    background: #b3b3b3;
+    padding: 15px;
+    border: 5px solid white;
+    margin: 15px;
+    height: 2000px;
+}
+
+body {
+    background: #e4deda;
+    padding: 20px;
+    border: 5px solid black;
+    margin: 0;
+}
+
+.parent {
+    background: white;
+    padding: 20px;
+    border: 5px solid black;
+    margin: 10px;
+}
+
+.parent .country {
+    background: #fa923f;
+    color: white;
+    padding: 10px;
+    border: 5px solid black;
+    margin: 10px;
+    position: sticky;
+    top: 10px;
+}
+
+.parent .cities {
+    background: rgb(105, 105, 109);
+    color: white;
+    padding: 10px;
+    border: 5px solid black;
+    margin: 10px;
+}
