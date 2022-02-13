@@ -1,0 +1,196 @@
+#product-overview {
+    background: linear-gradient(to top, rgba(80, 68, 18, 0.6) 10%, transparent),
+    url("images/freedom.jpg") center/cover no-repeat border-box,
+    #ff1b68;
+    /* background-image: url("freedom.jpg");
+      background-size: cover;
+      background-position: left 10% bottom 20%; */
+    /* background-repeat: no-repeat;
+      background-origin: border-box;
+      background-clip: border-box; */
+    /* background-image: linear-gradient(180deg, red 70%, blue 60%, rgba(0,0,0,0.5)); */
+    /* background-image: radial-gradient(ellipse farthest-corner at 20% 50%, red, blue 70%, green); */
+    width: 100%;
+    height: 33vh;
+    margin-top: 1.75rem;
+    /* border: 5px dashed red; */
+    position: relative;
+}
+
+.section-title {
+    color: #2ddf5c;
+    text-align: center;
+}
+
+#product-overview h1 {
+    color: white;
+    font-family: "Anton", sans-serif;
+    position: absolute;
+    bottom: 5%;
+    left: 3%;
+    font-size: 1.6rem;
+}
+
+/*.plan__list {*/
+/*    width: 100%;*/
+/*    text-align: center;*/
+/*}*/
+
+.plan {
+    background: #d5ffdc;
+    text-align: center;
+    padding: 1rem;
+    margin: 0.5rem 0;
+    width: 100%;
+}
+
+.plan--highlighted {
+    background: #19b84c;
+    color: white;
+}
+
+.plan__annotation {
+    background: white;
+    color: #19b84c;
+    padding: 0.5rem;
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+}
+
+.plan__title {
+    color: #0e4f1f;
+}
+
+.plan__price {
+    color: #858585;
+}
+
+.plan--highlighted .plan__title {
+    color: white;
+}
+
+.plan--highlighted .plan__price {
+    color: #0e4f1f;
+}
+
+.plan__features {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.plan__feature {
+    margin: 0.5rem 0;
+}
+
+@media (min-width: 40rem) {
+
+    .plan__list {
+        width: 100%;
+        text-align: center;
+    }
+
+    .plan {
+        display: inline-block;
+        width: 30%;
+        vertical-align: middle;
+        min-width: 13rem;
+        max-width: 25rem;
+        box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
+    }
+}
+
+#key-features {
+    background: #ff1b68;
+    margin-top: 5rem;
+    padding: 1rem;
+}
+
+#key-features .section-title {
+    color: white;
+    margin: 2rem;
+}
+
+.key-feature__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.key-feature {
+    margin: auto;
+}
+
+@media (min-width: 40rem) {
+
+    .key-feature {
+        display: inline-block;
+        width: 30%;
+        min-width: 12rem;
+        vertical-align: top;
+    }
+}
+
+.key-feature__image {
+    background: #ffcede;
+    width: 128px;
+    height: 128px;
+    border: 2px solid #424242;
+    border-radius: 50%;
+    margin: auto;
+    padding: 1.5rem;
+}
+
+.key-feature__description {
+    text-align: center;
+    font-weight: bold;
+    color: white;
+    font-size: 1.2rem;
+}
+
+/* h1 {
+    font-family: sans-serif;
+} */
+
+/* 미디어 쿼리도 순서가 중요하다. 나중에 오는 미디어 쿼리에 조건이 만족하면 둘 다 적용되므로 코드가 엎어쳐질 수 있다.*/
+/*@media (min-width: 60rem) {*/
+/*    #product-overview {*/
+/*        height: 50vh;*/
+/*        background-position: 50% 25%;*/
+/*    }*/
+/*    #product-overview h1 {*/
+/*        font-size: 5rem;*/
+/*    }*/
+/*}*/
+
+/* media (condition) */
+@media (min-width: 40rem) {
+
+    #product-overview {
+        height: 40vh;
+        background-position: 50% 25%;
+    }
+
+    #product-overview h1 {
+        font-size: 3rem;
+    }
+
+    .section-title {
+        color: #2ddf5c;
+        text-align: center;
+    }
+}
+
+/* media (condition) */
+@media (min-width: 60rem) {
+
+    #product-overview {
+        height: 50vh;
+        background-position: 50% 25%;
+    }
+
+    #product-overview h1 {
+        font-size: 5rem;
+    }
+}
