@@ -175,6 +175,11 @@
     #product-overview h1 {
         font-size: 3rem;
     }
+
+    .section-title {
+        color: #2ddf5c;
+        text-align: center;
+    }
 }
 
 /* media (condition) */
