@@ -54,6 +54,10 @@ main {
     font-size: 1.2rem;
     color: #0e4f1f;
     background: white;
+    /* font-style, font-size, font-weight 처리하는 방법 */
+    /*font-family: "Roboto", sans-serif;*/
+    /*font-style: italic;*/
+    /*font-weight: 900;*/
 }
 
 .clearfix {
