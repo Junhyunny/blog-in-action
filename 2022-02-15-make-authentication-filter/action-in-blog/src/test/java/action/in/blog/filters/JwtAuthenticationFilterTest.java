@@ -92,6 +92,7 @@ public class JwtAuthenticationFilterTest {
         // setup
         SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
         MockedStatic<SecurityContextHolder> utilities = Mockito.mockStatic(SecurityContextHolder.class);
+
         utilities.when(SecurityContextHolder::getContext).thenReturn(securityContext);
 
         mockRequest.addHeader("Authorization", "Bearer valid_token");
