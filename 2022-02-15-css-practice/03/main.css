@@ -1,0 +1,92 @@
+* {
+    box-sizing: border-box;
+    font-size: 1.5rem;
+}
+
+html {
+    background: #b3b3b3;
+    padding: 5px;
+}
+
+body {
+    background: #b3b3b3;
+    padding: 5px;
+    margin: 0;
+}
+
+.flex-container {
+    background: white;
+    padding: 10px;
+    border: 5px solid black;
+    height: 1300px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex-flow: nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    /*align-content: center;*/
+}
+
+.item-1 {
+    background: #ff7300;
+    color: white;
+    padding: 10px;
+    border: 5px solid black;
+    margin: 10px;
+}
+
+.item-2 {
+    background: #ff9640;
+    color: white;
+    padding: 10px;
+    border: 5px solid black;
+    margin: 10px;
+    width: 250px;
+    font-size: 1.8rem;
+}
+
+.item-3 {
+    background: #ff9640;
+    color: white;
+    padding: 10px;
+    border: 5px solid black;
+    margin: 10px;
+    height: 250px;
+    /*align-self: flex-end;*/
+}
+
+.item-4 {
+    background: #f5c096;
+    color: white;
+    padding: 10px;
+    border: 5px solid black;
+    margin: 10px;
+    width: 300px;
+    height: 300px;
+    /*order: 1; !* 숫자가 커질수록 start to end 에서 end 쪽으로 이동한다. 0 기본값, 작을수록 start 쪽으로 이동한다. *!*/
+}
+
+.item-5 {
+    background: #d3c0b1;
+    color: white;
+    padding: 10px;
+    border: 5px solid black;
+    margin: 10px;
+    width: 350px;
+    /*flex-grow: 0; !* 0이 아니면 남은 공간을 채우는데 숫자가 클수록 공간을 매꾸는 영향력이 크다. *!*/
+    /*flex-shrink: 1; !* 0이 아니면 먼저 값이 줄어든다. 숫자가 클수록 작아지는 경향이 크다. *!*/
+    flex-basis: 150px; /* main 축을 기준으로 값이 커진다. auto 인 경우에는 width, height 를 따라가고 아닌 경우에는 값을 overriding */
+    flex: 0 1 auto; /* grow shrink basis */
+}
+
+.item-6 {
+    background: #d3c0b1;
+    color: white;
+    padding: 10px;
+    border: 5px solid black;
+    margin: 10px;
+    width: 350px;
+    /*flex-grow: 1;*/
+    /*flex-shrink: 2;*/
+}
