@@ -1,2 +1,3 @@
-jwt:
-  secret: validSecreteKey
+spring:
+  profiles:
+    active: test

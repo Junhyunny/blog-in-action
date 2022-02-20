@@ -1,0 +1,24 @@
+spring:
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:db/schema.sql
+      data-locations: classpath:db/data.sql
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+    defer-datasource-initialization: true
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:~/test
+    username: sa
+    password:
+  h2:
+    console:
+      path: /h2-console
+      enabled: true
+
+jwt:
+  secret: validSecretKey
+  refresh-secret: refreshSecretKey
