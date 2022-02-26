@@ -1,0 +1,42 @@
+
+html {
+    height: 100%;
+}
+
+body {
+    display: grid;
+    margin: 20px;
+    height: 100%;
+    grid-template-columns: [col-1-start] 1fr [col-1-end col-2-start] 3fr [col-2-end];
+    grid-template-rows: 4.5rem auto 4.5rem;
+}
+
+header {
+    background: blue;
+    color: white;
+    grid-column-start: col-1-start;
+    grid-column-end: col-2-end;
+}
+
+aside {
+    background: red;
+    color: white;
+    grid-column-start: col-1-start;
+    grid-column-end: col-1-end;
+    grid-row-start: 2;
+    grid-row-end: span 1;
+}
+
+main {
+    background: green;
+    color: white;
+    grid-column-start: col-2-start;
+    grid-column-end: col-2-end;
+}
+
+footer {
+    background: purple;
+    color: white;
+    grid-column-start: col-1-start;
+    grid-column-end: col-2-end;
+}
