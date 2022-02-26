@@ -11,11 +11,19 @@
     grid-template-areas: "header header header header"
                         ". .  main main"
                         "footer footer footer footer";
+    /*justify-items: center;*/
+    /*justify-items: start;*/
+    /*justify-items: end;*/
+    justify-items: stretch;
+    /*align-items: center;*/
+    /*align-items: start;*/
+    /*align-items: end;*/
+    align-items: stretch;
 }
 
 .el1 {
     background: rgba(255, 154, 72, 0.5);
-    grid-column: col-start 1 / col-end 2;
+    grid-column: col-start 2 / col-end 2;
 }
 
 .el2 {

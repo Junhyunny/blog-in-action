@@ -1,21 +1,34 @@
 .container {
     margin: 20px;
     display: grid;
-    height: 500px;
+    height: 800px;
+    width: 800px;
     /*grid-column-gap: 20px;*/
     /*grid-row-gap: 10px;*/
     grid-gap: 10px;
     /* grid-template-columns: 200px 5rem 20% auto; */
-    grid-template-columns: repeat(4, 25%);
-    grid-template-rows: [row-1-start] 5rem [row-1-end row-2-start] minmax(10px, auto) [row-2-end row-3-start] 100px [row-3-end];
+    grid-template-columns: [head-start] repeat(4, [col-start] 20% [col-end]) [head-end];
+    grid-template-rows: [head-start] 5rem [head-end row-2-start] minmax(10px, 20rem) [row-2-end row-3-start] 100px [row-3-end];
     grid-template-areas: "header header header header"
-                        "side main main main"
+                        ". .  main main"
                         "footer footer footer footer";
+    /*justify-items: center;*/
+    /*justify-items: start;*/
+    /*justify-items: end;*/
+    justify-items: stretch;
+    /*align-items: center;*/
+    /*align-items: start;*/
+    /*align-items: end;*/
+    align-items: stretch;
+    justify-content: center;
+    /*justify-content: start;*/
+    /*justify-content: end;*/
+    align-content: center;
 }
 
 .el1 {
     background: rgba(255, 154, 72, 0.5);
-    grid-area: side;
+    grid-column: col-start 2 / col-end 2;
 }
 
 .el2 {
@@ -28,6 +41,9 @@
     /*grid-row: row-2-start / span 1;*/
     z-index: 10;
     grid-area: main;
+    /* self 가 붙은 경우 그리그 위치를 재조정할 수 있다. */
+    justify-self: center;
+    align-self: center;
 }
 
 .el3 {
@@ -36,7 +52,7 @@
     /*grid-column-end: span 3; */
     /*grid-row-start: row-1-start;*/
     /*grid-row-end: row-2-end;*/
-    grid-area: header;
+    grid-area: head;
 }
 
 .el4 {
