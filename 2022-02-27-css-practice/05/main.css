@@ -1,0 +1,36 @@
+.container {
+    position: relative;
+    margin: 150px auto;
+    border: 1px solid black;
+    width: 200px;
+    height: 200px;
+    perspective: 1000px;
+    perspective-origin: 500px;
+    transform: rotateY(130deg);
+    /* flat is default */
+    /*transform-style: flat;*/
+    transform-style: preserve-3d;
+}
+
+.box1 {
+    position: absolute;
+    background: red;
+    width: 100%;
+    height: 100%;
+    transform: rotateY(75deg);
+    color: white;
+    text-align: center;
+    z-index: 1;
+    /*backface-visibility: hidden;*/
+    backface-visibility: visible;
+}
+
+.box2 {
+    position: absolute;
+    background: blue;
+    width: 100%;
+    height: 100%;
+    transform: translateZ(-10rem);
+    color: white;
+    text-align: center;
+}
