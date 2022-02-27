@@ -1,0 +1,119 @@
+@import "variable";
+@import "typography";
+
+@mixin display-flex() {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+
+@mixin media-min-width($width) {
+  @media (min-width: $width) {
+    @content;
+  }
+}
+
+html {
+  font-size: 94.75%;
+  @include media-min-width(40rem) {
+    // @content 위치에 삽입된다.
+    font-size: 125%;
+  }
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+}
+
+.container {
+
+  @include display-flex();
+
+  flex: {
+    direction: column;
+    wrap: nowrap;
+  }
+
+  align-items: center;
+  padding: $size-default * 3 0;
+  box-sizing: border-box;
+
+  @include media-min-width(40rem) {
+    padding: $size-default * 3 0;
+  }
+}
+
+// 공통 기능 묶기, 상속 기능
+.sass-section {
+
+  border: $border-default;
+  background: lighten(map-get($colors, main), 70%);
+  padding: $size-default * 2;
+  text-align: center;
+  width: 90%;
+  box-sizing: border-box;
+
+  @include media-min-width(40rem) {
+    width: 30rem;
+  }
+}
+
+.sass-introduction {
+
+  // 공통 기능 확장 사용
+  @extend .sass-section;
+
+  box-shadow: $size-tiny $size-tiny 0.1rem #ccc;
+
+  p {
+    margin: 0;
+  }
+}
+
+.sass-details {
+
+  @extend .sass-section;
+
+  margin: 2rem 0;
+}
+
+.section-header {
+  border-bottom: $border-default;
+
+  h1 {
+    margin: 0 0 $size-default 0;
+  }
+}
+
+.documentation-links {
+  list-style: none;
+  margin: $size-default 0 0 0;
+  padding: 0;
+
+  @include display-flex();
+
+  flex-direction: column;
+
+  li {
+    margin: $size-tiny 0;
+    background: white;
+  }
+
+  .documentation-link {
+    text-decoration: none;
+    color: map-get($colors, main);
+    display: block;
+    padding: $size-tiny;
+    border: $border-default;
+
+    // nested 구조를 피하고 연결 구조를 가지기 위해선 & 사용
+    &:hover,
+    &:active {
+      color: white;
+      background: map-get($colors, secondary);
+      border-color: map-get($colors, secondary);
+    }
+  }
+}
