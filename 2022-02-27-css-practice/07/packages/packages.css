@@ -36,6 +36,7 @@ main {
     box-shadow: 2px 2px 4px rgba(0,0,0,0.5);
     border-color: #ff5454;
     /* border-color: #ff5454 !important; */
+    animation: push-up 1s ease-out forwards;
 }
 
 .package a {
@@ -126,5 +127,17 @@ main {
     #free:hover,
     #free:active {
       border-right-color: #ff5454;
+    }
+}
+
+@keyframes push-up {
+    0% {
+        transform: translateY(0);
+    }
+    33% {
+        transform: translateY(-1.5rem);
+    }
+    100% {
+        transform: translateY(-1rem);
     }
 }

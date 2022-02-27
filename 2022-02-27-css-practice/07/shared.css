@@ -257,10 +257,13 @@ main {
 }
 
 @keyframes wiggle {
-  from {
+  0% {
+    transform: rotateZ(0);
+  }
+  50% {
     transform: rotateZ(-10deg);
   }
-  to {
+  100% {
     transform: rotateZ(10deg);
   }
 }
