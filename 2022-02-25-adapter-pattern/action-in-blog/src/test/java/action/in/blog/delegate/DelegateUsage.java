@@ -1,8 +1,9 @@
-package action.in.blog.inheritance;
+package action.in.blog.delegate;
 
+import action.in.blog.RedisSessionClient;
 import action.in.blog.SessionHandler;
 
-public class InheritanceUsage {
+public class DelegateUsage {
 
     public static void main(String[] args) {
 
@@ -10,7 +11,8 @@ public class InheritanceUsage {
         // SessionHandler sessionHandler = new SessionHandler(new JdbcSessionRegistry());
 
         // new
-        ClientRegistryAdapter adapter = new ClientRegistryAdapter();
+        RedisSessionClient adaptee = new RedisSessionClient();
+        ClientRegistryAdapter adapter = new ClientRegistryAdapter(adaptee);
         SessionHandler sessionHandler = new SessionHandler(adapter);
 
         sessionHandler.getSession("J12345");
