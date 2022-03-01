@@ -58,6 +58,7 @@ body {
     /* 엘리먼트 이동, percent relate with parent element */
     top: 50%;
     left: 50%;
+    text-align: center;
 }
 
 .heading-primary {
@@ -81,21 +82,9 @@ body {
     font-size: 1.2rem;
     font-weight: 700;
     letter-spacing: 1rem;
+    margin-bottom: 2rem;
 
     animation: moveInRight 1s ease-out;
-}
-
-.heading-primary-button {
-    display: inline-block;
-    margin-top: 2rem;
-    border-radius: 1.5rem;
-    font-size: 1rem;
-    font-weight: 200;
-    background-color: white;;
-    color: black;
-    padding: 0.5rem 2.5rem;
-
-    animation: moveInTop 1s ease-out;
 }
 
 @keyframes moveInLeft {
@@ -138,4 +127,73 @@ body {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+@keyframes buttonBigger {
+    0% {
+        transform: scale(100%, 100%);
+    }
+    10% {
+        transform: scale(200%, 200%);
+    }
+    80% {
+        transform: scale(300%, 300%);
+    }
+    100% {
+        transform: scale(100%, 100%);
+    }
+}
+
+.btn:link,
+.btn:visited {
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1rem 2.5rem;
+    display: inline-block;
+    font-size: 1rem;
+    border-radius: 2rem;
+    transition: all 200ms;
+    position: relative;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+.btn-white {
+    background-color: white;
+    color: #777;
+}
+
+.btn::after {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    border-radius: 100px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: all 400ms;
+}
+
+.btn-white::after {
+    background-color: white;
+}
+
+.btn:hover::after {
+    transform: scaleX(1.4) scaleY(1.6);
+    opacity: 0;
+}
+
+.btn-animated {
+    animation: moveInTop 500ms ease-out 500ms;
+    animation-fill-mode:  backwards;
 }
