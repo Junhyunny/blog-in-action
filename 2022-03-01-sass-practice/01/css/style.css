@@ -8,20 +8,28 @@ Dark green: #28b485
 */
 
 /* to solve cross browser issue */
-* {
+*,
+*::before,
+*::after {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    box-sizing: inherit;
+}
+
+/* font-size in html selector is root font size */
+html {
+    font-size: 62.5%;
 }
 
 /* body initialize to inheritance */
 body {
     font-family: "Lato", sans-serif;
     font-weight: 400;
-    font-size: 16px;
+    font-size: 1.6rem;
     line-height: 1.7;
     color: #777;
     padding: 30px;
+    box-sizing: border-box;
 }
 
 /* 이미지 정보 load url method */
@@ -40,18 +48,18 @@ body {
     position: relative;
 }
 
-.logo-box {
+.header__logo-box {
     position: absolute;
     top: 2rem;
     left: 2rem;
 }
 
-.logo {
+.header__logo {
     height: 2rem;
 }
 
 /* 중앙 정렬을 위해선 translate 함수를 이용해 원소 센터를 미리 꼭지점 모서리로 이동시킨다. */
-.text-box {
+.header__text-box {
     position: absolute;
     /* 센터 정렬, percent relate with by my self */
     transform: translate(-50%, -50%);
@@ -68,7 +76,7 @@ body {
     backface-visibility: hidden;
 }
 
-.heading-primary-main {
+.heading-primary--main {
     display: block;
     font-size: 4rem;
     font-weight: 700;
@@ -77,7 +85,7 @@ body {
     animation: moveInLeft 1s ease-out;
 }
 
-.heading-primary-sub {
+.heading-primary--sub {
     display: block;
     font-size: 1.2rem;
     font-weight: 700;
@@ -129,21 +137,6 @@ body {
     }
 }
 
-@keyframes buttonBigger {
-    0% {
-        transform: scale(100%, 100%);
-    }
-    10% {
-        transform: scale(200%, 200%);
-    }
-    80% {
-        transform: scale(300%, 300%);
-    }
-    100% {
-        transform: scale(100%, 100%);
-    }
-}
-
 .btn:link,
 .btn:visited {
     text-transform: uppercase;
@@ -166,7 +159,7 @@ body {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
 }
 
-.btn-white {
+.btn--white {
     background-color: white;
     color: #777;
 }
@@ -184,7 +177,7 @@ body {
     transition: all 400ms;
 }
 
-.btn-white::after {
+.btn--white::after {
     background-color: white;
 }
 
@@ -193,7 +186,7 @@ body {
     opacity: 0;
 }
 
-.btn-animated {
+.btn--animated {
     animation: moveInTop 500ms ease-out 500ms;
-    animation-fill-mode:  backwards;
+    animation-fill-mode: backwards;
 }
