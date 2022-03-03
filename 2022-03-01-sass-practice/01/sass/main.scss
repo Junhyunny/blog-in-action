@@ -4,8 +4,18 @@ COLORS:
 Light green: #7ed56f
 Medium green: #55c57a
 Dark green: #28b485
-
 */
+
+@import "abstracts/functions";
+@import "abstracts/mixins";
+@import "sass/abstracts/variables";
+
+@import "sass/base/animations";
+@import "base/base";
+@import "base/typography";
+@import "base/utilities";
+
+@import "pages/home";
 
 $color-primary: #55c57a;
 $color-primary-light: #7ed56f;
