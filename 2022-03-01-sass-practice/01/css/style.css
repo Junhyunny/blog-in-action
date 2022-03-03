@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*
 COLORS:
 
@@ -6,187 +7,141 @@ Medium green: #55c57a
 Dark green: #28b485
 
 */
-
 /* to solve cross browser issue */
 *,
 *::before,
 *::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: inherit;
-}
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit; }
 
 /* font-size in html selector is root font size */
 html {
-    font-size: 62.5%;
-}
+  font-size: 62.5%; }
 
 /* body initialize to inheritance */
 body {
-    font-family: "Lato", sans-serif;
-    font-weight: 400;
-    font-size: 1.6rem;
-    line-height: 1.7;
-    color: #777;
-    padding: 30px;
-    box-sizing: border-box;
-}
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-size: 1.6rem;
+  line-height: 1.7;
+  color: #777;
+  padding: 30px;
+  box-sizing: border-box; }
 
 /* 이미지 정보 load url method */
 .header {
-    height: 95vh;
-    background-image: linear-gradient(to right bottom, rgba(126, 213, 111, 0.8), rgba(40, 180, 133, 0.8)), url(../img/hero.jpg);
-    background-size: cover;
-    background-position: top;
-    clip-path: polygon(
-            0 0,
-            100% 0,
-            100% 75%,
-            0 100%
-    );
-    /* 하위 엘리멘트에서 absolute 포지션을 사용하기 위해선 부모가 relative */
-    position: relative;
-}
-
-.header__logo-box {
+  height: 95vh;
+  background-image: linear-gradient(to right bottom, rgba(126, 213, 111, 0.8), rgba(40, 180, 133, 0.8)), url(../img/hero.jpg);
+  background-size: cover;
+  background-position: top;
+  clip-path: polygon(0 0, 100% 0, 100% 75%, 0 100%);
+  /* 하위 엘리멘트에서 absolute 포지션을 사용하기 위해선 부모가 relative */
+  position: relative;
+  /* 중앙 정렬을 위해선 translate 함수를 이용해 원소 센터를 미리 꼭지점 모서리로 이동시킨다. */ }
+  .header__logo-box {
     position: absolute;
     top: 2rem;
-    left: 2rem;
-}
-
-.header__logo {
-    height: 2rem;
-}
-
-/* 중앙 정렬을 위해선 translate 함수를 이용해 원소 센터를 미리 꼭지점 모서리로 이동시킨다. */
-.header__text-box {
+    left: 2rem; }
+  .header__logo {
+    height: 2rem; }
+  .header__text-box {
     position: absolute;
     /* 센터 정렬, percent relate with by my self */
     transform: translate(-50%, -50%);
     /* 엘리먼트 이동, percent relate with parent element */
     top: 50%;
     left: 50%;
-    text-align: center;
-}
+    text-align: center; }
 
 .heading-primary {
-    color: white;
-    text-transform: uppercase;
-    text-align: center;
-    backface-visibility: hidden;
-}
-
-.heading-primary--main {
+  color: white;
+  text-transform: uppercase;
+  text-align: center;
+  backface-visibility: hidden; }
+  .heading-primary--main {
     display: block;
     font-size: 4rem;
     font-weight: 700;
     letter-spacing: 2rem;
-
-    animation: moveInLeft 1s ease-out;
-}
-
-.heading-primary--sub {
+    animation: moveInLeft 1s ease-out; }
+  .heading-primary--sub {
     display: block;
     font-size: 1.2rem;
     font-weight: 700;
     letter-spacing: 1rem;
     margin-bottom: 2rem;
-
-    animation: moveInRight 1s ease-out;
-}
+    animation: moveInRight 1s ease-out; }
 
 @keyframes moveInLeft {
-    0% {
-        opacity: 0;
-        transform: translateX(-3rem);
-    }
-    80% {
-        transform: translateX(1rem);
-    }
-    100% {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
+  0% {
+    opacity: 0;
+    transform: translateX(-3rem); }
+  80% {
+    transform: translateX(1rem); }
+  100% {
+    opacity: 1;
+    transform: translateX(0); } }
 
 @keyframes moveInRight {
-    0% {
-        opacity: 0;
-        transform: translateX(3rem);
-    }
-    80% {
-        transform: translateX(-1rem);
-    }
-    100% {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
+  0% {
+    opacity: 0;
+    transform: translateX(3rem); }
+  80% {
+    transform: translateX(-1rem); }
+  100% {
+    opacity: 1;
+    transform: translateX(0); } }
 
 @keyframes moveInTop {
-    0% {
-        opacity: 0;
-        transform: translateY(3rem);
-    }
-    80% {
-        transform: translateY(-1rem);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
+  0% {
+    opacity: 0;
+    transform: translateY(3rem); }
+  80% {
+    transform: translateY(-1rem); }
+  100% {
+    opacity: 1;
+    transform: translateY(0); } }
 
-.btn:link,
-.btn:visited {
-    text-transform: uppercase;
-    text-decoration: none;
-    padding: 1rem 2.5rem;
-    display: inline-block;
-    font-size: 1rem;
-    border-radius: 2rem;
-    transition: all 200ms;
-    position: relative;
-}
+.btn:link, .btn:visited {
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 1rem 2.5rem;
+  display: inline-block;
+  font-size: 1rem;
+  border-radius: 2rem;
+  transition: all 200ms;
+  position: relative; }
 
 .btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-}
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); }
+  .btn:hover::after {
+    transform: scaleX(1.4) scaleY(1.6);
+    opacity: 0; }
 
 .btn:active {
-    transform: translateY(-1px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-}
-
-.btn--white {
-    background-color: white;
-    color: #777;
-}
+  transform: translateY(-1px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); }
 
 .btn::after {
-    content: "";
-    display: inline-block;
-    height: 100%;
-    width: 100%;
-    border-radius: 100px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    transition: all 400ms;
-}
-
-.btn--white::after {
-    background-color: white;
-}
-
-.btn:hover::after {
-    transform: scaleX(1.4) scaleY(1.6);
-    opacity: 0;
-}
+  content: "";
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  border-radius: 100px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  transition: all 400ms; }
 
 .btn--animated {
-    animation: moveInTop 500ms ease-out 500ms;
-    animation-fill-mode: backwards;
-}
+  animation: moveInTop 500ms ease-out 500ms;
+  animation-fill-mode: backwards; }
+
+.btn--white {
+  background-color: white;
+  color: #777; }
+  .btn--white::after {
+    background-color: white; }
