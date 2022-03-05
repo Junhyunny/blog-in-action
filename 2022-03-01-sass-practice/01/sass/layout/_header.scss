@@ -1,0 +1,46 @@
+
+.header {
+
+  height: 95vh;
+  background: {
+    image: linear-gradient(to right bottom,
+      // Sass 에서만 가능한 16진수 값 rgba 함수에 넣기
+            rgba($color-primary-light, 0.8),
+            rgba($color-primary-dark, 0.8)
+    ),
+    url(../img/hero.jpg);
+    size: cover;
+    position: top;
+  };
+
+  clip-path: polygon(
+                  0 0,
+                  100% 0,
+                  100% 75%,
+                  0 100%
+  );
+
+  /* 하위 엘리멘트에서 absolute 포지션을 사용하기 위해선 부모가 relative */
+  position: relative;
+
+  &__logo-box {
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+  }
+
+  &__logo {
+    height: 2rem;
+  }
+
+  /* 중앙 정렬을 위해선 translate 함수를 이용해 원소 센터를 미리 꼭지점 모서리로 이동시킨다. */
+  &__text-box {
+    position: absolute;
+    /* 센터 정렬, percent relate with by my self */
+    transform: translate(-50%, -50%);
+    /* 엘리먼트 이동, percent relate with parent element */
+    top: 50%;
+    left: 50%;
+    text-align: center;
+  }
+}

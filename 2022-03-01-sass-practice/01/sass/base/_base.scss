@@ -1,0 +1,25 @@
+
+/* to solve cross browser issue */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+/* font-size in html selector is root font size */
+html {
+  font-size: 62.5%;
+}
+
+/* body initialize to inheritance */
+body {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-size: 1.6rem;
+  line-height: 1.7;
+  color: $color-gray-dark;
+  padding: 30px;
+  box-sizing: border-box;
+}
