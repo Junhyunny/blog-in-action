@@ -15,6 +15,19 @@ public class JavascriptCallbackClient {
         this.webView = webView;
     }
 
+    private String publishEvent(String functionName, String data) {
+        StringBuffer buffer = new StringBuffer()
+                .append("window.dispatchEvent(\n")
+                .append("   new CustomEvent(\"").append(functionName).append("\", {\n")
+                .append("           detail: {\n")
+                .append("               data: ").append(data).append("\n")
+                .append("           }\n")
+                .append("       }\n")
+                .append("   )\n")
+                .append(");");
+        return buffer.toString();
+    }
+
     @JavascriptInterface
     public void showToastMessage(final String message) {
         Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
@@ -23,16 +36,11 @@ public class JavascriptCallbackClient {
     @JavascriptInterface
     public void callJavaScriptFunction() {
         webView.postDelayed(() -> {
-            webView.evaluateJavascript(
-                    "var event = new CustomEvent(\"javascriptFunction\", {\n" +
-                            "    detail: {\n" +
-                            "        data: 'KB-PIN'\n" +
-                            "    }\n" +
-                            "});\n" +
-                            "window.dispatchEvent(event);\n"
-                    , (result) -> {
+            webView.evaluateJavascript(publishEvent("javascriptFunction", "\"Hello, I'm message from Android\""),
+                    (result) -> {
                         Toast.makeText(mContext, result, Toast.LENGTH_SHORT).show();
-                    });
+                    }
+            );
         }, 5000);
     }
 }

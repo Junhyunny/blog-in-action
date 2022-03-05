@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.databinding.FragmentFirstBinding;
+import com.example.myapplication.web.JavascriptCallbackClient;
 
 public class FirstFragment extends Fragment {
 
@@ -53,7 +54,9 @@ public class FirstFragment extends Fragment {
 
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
-        webView.loadUrl("https://junhyunny.github.io/");
+
+        webView.addJavascriptInterface(new JavascriptCallbackClient(requireActivity(), webView), "android");
+        webView.loadUrl("http://192.168.0.216:3000/");
     }
 
     @Override
