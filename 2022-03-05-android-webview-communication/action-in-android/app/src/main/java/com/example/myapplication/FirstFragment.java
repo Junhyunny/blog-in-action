@@ -66,11 +66,11 @@ public class FirstFragment extends Fragment {
         binding = FragmentFirstBinding.inflate(inflater, container, false);
 
         webView = binding.wView;
-
         progressBar = binding.pBar;
+        urlEditText = binding.urlEt;
+
         progressBar.setVisibility(View.GONE);
 
-        urlEditText = binding.urlEt;
         urlEditText.setOnEditorActionListener((textView, actionId, keyEvent) -> {
             if (actionId == EditorInfo.IME_ACTION_NEXT) {
                 webView.loadUrl("https://" + urlEditText.getText().toString());
