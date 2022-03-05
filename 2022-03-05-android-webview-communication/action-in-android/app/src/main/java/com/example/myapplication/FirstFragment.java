@@ -58,15 +58,17 @@ public class FirstFragment extends Fragment {
 
     @Override
     public View onCreateView(
-            LayoutInflater inflater, ViewGroup container,
+            LayoutInflater inflater,
+            ViewGroup container,
             Bundle savedInstanceState
     ) {
+
         binding = FragmentFirstBinding.inflate(inflater, container, false);
+
         webView = binding.wView;
+
         progressBar = binding.pBar;
         progressBar.setVisibility(View.GONE);
-
-        initWebView();
 
         urlEditText = binding.urlEt;
         urlEditText.setOnEditorActionListener((textView, actionId, keyEvent) -> {
@@ -75,6 +77,8 @@ public class FirstFragment extends Fragment {
             }
             return false;
         });
+
+        initWebView();
 
         return binding.getRoot();
     }
