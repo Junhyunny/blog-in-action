@@ -70,6 +70,42 @@ body {
     margin-bottom: 2rem;
     animation: moveInRight 1s ease-out; }
 
+.heading-secondary {
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  display: inline-block;
+  background-image: linear-gradient(to right, #7ed56f, #28b485);
+  -webkit-background-clip: text;
+  color: transparent;
+  letter-spacing: 2px;
+  transition: all .2s; }
+  .heading-secondary:hover {
+    transform: skewY(2deg) scale(1.2);
+    text-shadow: 0.5rem 1rem 2rem #111111; }
+
+.heading-tertiary {
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-transform: uppercase; }
+
+.paragraph {
+  font-size: 1.6rem; }
+  .paragraph:not(:last-child) {
+    margin-bottom: 3rem; }
+
+.u-center-text {
+  text-align: center; }
+
+.u-margin-bottom-small {
+  margin-bottom: 2rem; }
+
+.u-margin-bottom-medium {
+  margin-bottom: 4rem; }
+
+.u-margin-bottom-big {
+  margin-bottom: 8rem; }
+
 .btn:link, .btn:visited {
   text-transform: uppercase;
   text-decoration: none;
@@ -113,29 +149,40 @@ body {
   .btn--white::after {
     background-color: white; }
 
-.header {
-  height: 95vh;
-  background-image: linear-gradient(to right bottom, rgba(126, 213, 111, 0.8), rgba(40, 180, 133, 0.8)), url(../img/hero.jpg);
-  background-size: cover;
-  background-position: top;
-  clip-path: polygon(0 0, 100% 0, 100% 75%, 0 100%);
-  /* 하위 엘리멘트에서 absolute 포지션을 사용하기 위해선 부모가 relative */
-  position: relative;
-  /* 중앙 정렬을 위해선 translate 함수를 이용해 원소 센터를 미리 꼭지점 모서리로 이동시킨다. */ }
-  .header__logo-box {
-    position: absolute;
-    top: 2rem;
-    left: 2rem; }
-  .header__logo {
-    height: 2rem; }
-  .header__text-box {
-    position: absolute;
-    /* 센터 정렬, percent relate with by my self */
-    transform: translate(-50%, -50%);
-    /* 엘리먼트 이동, percent relate with parent element */
-    top: 50%;
-    left: 50%;
-    text-align: center; }
+.btn-text:link, .btn-text:visited {
+  font-size: 1.6rem;
+  color: #55c57a;
+  display: inline-block;
+  text-decoration: none;
+  border-bottom: 1px solid #55c57a;
+  padding: 3px;
+  transition: all 200ms; }
+
+.btn-text:hover {
+  background-color: #55c57a;
+  color: white;
+  box-shadow: 0 1rem 2rem rgba(17, 17, 17, 0.15);
+  transform: scale(1.1) translateY(-2px); }
+
+.btn-text:active {
+  transform: translateY(0); }
+
+.row {
+  max-width: 114rem;
+  margin: 0 auto; }
+  .row:not(:last-child) {
+    margin-bottom: 8rem; }
+  .row::after {
+    content: '';
+    display: table;
+    clear: both; }
+  .row .col-1-of-2 {
+    width: calc((100% - 2rem) / 2); }
+
+[class^="col-"] {
+  float: left; }
+  [class^="col-"]:not(:last-child) {
+    margin-right: 2rem; }
 
 .header {
   height: 95vh;
@@ -160,3 +207,8 @@ body {
     top: 50%;
     left: 50%;
     text-align: center; }
+
+.section-about {
+  background-color: #f7f7f7;
+  padding: 25rem 0;
+  margin-top: -20vh; }
