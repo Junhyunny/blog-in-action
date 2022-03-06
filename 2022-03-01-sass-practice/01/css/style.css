@@ -167,6 +167,34 @@ body {
 .btn-text:active {
   transform: translateY(0); }
 
+.composition {
+  position: relative; }
+  .composition__photo {
+    position: absolute;
+    width: 55%;
+    box-shadow: 0 1.5rem 4rem rgba(17, 17, 17, 0.4);
+    z-index: 10;
+    transition: all 200ms;
+    outline-offset: 1rem; }
+    .composition__photo--p1 {
+      top: -2rem;
+      left: 0;
+      transition: all 200ms; }
+    .composition__photo--p2 {
+      top: 2rem;
+      right: 0;
+      transition: all 200ms; }
+    .composition__photo--p3 {
+      top: 10rem;
+      left: 20%; }
+    .composition__photo:hover {
+      outline: 1rem solid #55c57a;
+      transform: scale(1.05) translateY(-0.5rem);
+      box-shadow: 0 2.5rem 4rem rgba(17, 17, 17, 0.5);
+      z-index: 20; }
+  .composition:hover .composition__photo:not(:hover) {
+    transform: scale(0.9); }
+
 .row {
   max-width: 114rem;
   margin: 0 auto; }
@@ -178,6 +206,8 @@ body {
     clear: both; }
   .row .col-1-of-2 {
     width: calc((100% - 2rem) / 2); }
+  .row .col-1-of-4 {
+    width: calc((100% - 2rem * 3) / 2); }
 
 [class^="col-"] {
   float: left; }
