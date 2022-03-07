@@ -1,19 +1,25 @@
 
 .btn {
 
+  &,
   &:link,
   &:visited {
     text-transform: uppercase;
     text-decoration: none;
     padding: 1rem 2.5rem;
     display: inline-block;
-    font-size: 1rem;
+    font-size: $default-font-size;
     border-radius: 2rem;
     transition: all 200ms;
     position: relative;
+
+    // change for the button element
+    border: none;
+    cursor: pointer;
   }
 
-  &:hover {
+  &:hover,
+  &:focus {
 
     transform: translateY(-3px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
@@ -24,7 +30,9 @@
     }
   }
 
-  &:active {
+  &:active,
+  &:focus {
+    outline: none;
     transform: translateY(-1px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
   }
