@@ -1,0 +1,16 @@
+.region {
+    margin: 15px;
+    height: 400px;
+    border: 1px solid red;
+    /*transform: translate(-50%, -50%);*/
+    top: 50%;
+    left: 50%;
+    overflow: scroll;
+}
+
+.box {
+    margin: 15px;
+    height: 100px;
+    border: 1px solid black;
+    text-align: center;
+}
