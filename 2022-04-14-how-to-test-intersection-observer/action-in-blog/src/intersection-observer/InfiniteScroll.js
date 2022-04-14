@@ -39,7 +39,7 @@ export default () => {
                 })
             },
             {
-                root: document.querySelector('#region'),
+                root: document.querySelector('#viewPort'),
             }
         )
         return () => {
@@ -55,7 +55,7 @@ export default () => {
     }, [pokemons])
 
     return (
-        <div id={'region'} className={classes.region}>
+        <div id={'viewPort'} className={classes.viewPort}>
             {pokemons.map((pokemon, index) => (
                 <div key={index} className={`${classes.box} ${pokemon.isLastItem ? 'last-pokemon' : ''}`}>
                     {pokemon.name}

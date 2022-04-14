@@ -6,37 +6,38 @@ import App from '../App'
 
 const mockIntersectionObserver = class {
     constructor(callback, options) {
-        this.viewPort = options.root ? options.root : window
-        this.observable = []
+        this.viewPort = options.root
+        this.entries = []
         this.viewPort.addEventListener('scroll', () => {
-            this.observable.map((ob) => {
-                ob.isIntersecting = this.isInViewPort(ob.target)
+            this.entries.map((entry) => {
+                entry.isIntersecting = this.isInViewPort(entry.target)
             })
-            callback(this.observable, this)
+            callback(this.entries, this)
         })
     }
 
     isInViewPort(target) {
-        const rect = target.getBoundingClientRect()
-        const viewPortRect = this.viewPort.getBoundingClientRect()
-        return (
-            rect.left >= viewPortRect.x &&
-            rect.top >= viewPortRect.y &&
-            rect.right <= viewPortRect.right &&
-            rect.bottom <= viewPortRect.bottom
-        )
+        // const rect = target.getBoundingClientRect()
+        // const viewPortRect = this.viewPort.getBoundingClientRect()
+        // return (
+        //     rect.left >= viewPortRect.x &&
+        //     rect.top >= viewPortRect.y &&
+        //     rect.right <= viewPortRect.right &&
+        //     rect.bottom <= viewPortRect.bottom
+        // )
+        return true
     }
 
     observe(target) {
-        this.observable.push({ isIntersecting: false, target })
+        this.entries.push({ isIntersecting: false, target })
     }
 
     unobserve(target) {
-        this.observable = this.observable.map((ob) => ob.target !== target)
+        this.entries = this.entries.filter((ob) => ob.target !== target)
     }
 
     disconnect() {
-        this.observable = []
+        this.entries = []
     }
 }
 
@@ -69,10 +70,11 @@ describe('Intersection Observer', () => {
             return render(<App />)
         })
 
-        fireEvent.scroll(document.querySelector('#region'), { y: '500px' })
+        fireEvent.scroll(document.querySelector('#viewPort'), { target: { scrollY: 500 } })
 
         expect(await screen.findByText('11')).toBeInTheDocument()
         expect(spyAxios).toHaveBeenCalledTimes(2)
+        expect(spyAxios).toHaveBeenNthCalledWith(1, 'https://pokeapi.co/api/v2/pokemon/?offset=0&limit=20')
         expect(spyAxios).toHaveBeenNthCalledWith(2, 'https://pokeapi.co/api/v2/pokemon/?offset=1&limit=20')
     })
 })
