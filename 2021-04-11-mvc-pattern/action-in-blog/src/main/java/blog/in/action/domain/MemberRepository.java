@@ -1,4 +1,4 @@
-package blog.in.action.domain.member;
+package blog.in.action.domain;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
