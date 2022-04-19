@@ -3,6 +3,7 @@ package blog.in.action.domain;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class MemberService {
@@ -13,7 +14,8 @@ public class MemberService {
         this.memberRepository = memberRepository;
     }
 
-    public Member registMember(Member member) {
+    @Transactional
+    public Member registerMember(Member member) {
         return memberRepository.save(member);
     }
 

@@ -44,14 +44,13 @@ public class MemberController {
     }
 
     @PostMapping(path = "/index")
-    @Transactional(propagation = Propagation.REQUIRED)
     public String register(HttpServletRequest servletRequest, Model model) {
         Member member = new Member();
         member.setId(servletRequest.getParameter("id"));
         member.setPassword(servletRequest.getParameter("password"));
         member.setMemberName(servletRequest.getParameter("memberName"));
         member.setMemberEmail(servletRequest.getParameter("memberEmail"));
-        memberService.registMember(member);
+        memberService.registerMember(member);
         model.addAttribute("memberList", getAllMembers());
         return "index";
     }
