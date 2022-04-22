@@ -77,14 +77,14 @@
 <div class="container">
     <div class="container__cards">
         <c:forEach items="${teamList}" var="team">
-            <div class="container__card" onclick="moveTeamDetail(${team.getId()})">
+            <div class="container__card" onclick="moveTeamDetail(${team.id})">
                 <div>
                     <span>팀 이름</span>
-                    <span>${team.getTeamName()}</span>
+                    <span>${team.teamName}</span>
                 </div>
                 <div>
                     <span>팀 멤버 수</span>
-                    <span>${team.getMembersCount()}</span>
+                    <span>${team.members.size()}</span>
                 </div>
             </div>
         </c:forEach>

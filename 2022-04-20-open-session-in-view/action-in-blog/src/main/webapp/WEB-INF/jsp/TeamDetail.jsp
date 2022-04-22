@@ -91,19 +91,19 @@
 
 <div class="container">
     <div class="container__cards">
-        <c:forEach items="${team.getMembers()}" var="member">
+        <c:forEach items="${team.members}" var="member">
             <div class="container__card">
                 <div>
                     <span>ID</span>
-                    <span>${member.getId()}</span>
+                    <span>${member.id}</span>
                 </div>
                 <div>
                     <span>이름</span>
-                    <span>${member.getChangedName()}</span>
+                    <span>${member.memberName}</span>
                 </div>
                 <div>
                     <span>E-MAIL</span>
-                    <span>${member.getChangedEmail()}</span>
+                    <span>${member.memberEmail}</span>
                 </div>
             </div>
         </c:forEach>

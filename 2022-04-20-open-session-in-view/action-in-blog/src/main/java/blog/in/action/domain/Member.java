@@ -29,13 +29,4 @@ public class Member {
     @ManyToOne
     private Team team;
 
-    public String getChangedName() {
-        this.memberName += "-changed!";
-        return this.memberName;
-    }
-
-    public String getChangedEmail() {
-        this.memberEmail += "-changed!";
-        return this.memberEmail;
-    }
 }
