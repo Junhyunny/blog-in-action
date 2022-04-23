@@ -30,6 +30,6 @@ public class Team {
     private List<Member> members = new ArrayList<>();
 
     public int getMembersCount() {
-        return members.size();
+        return this.members.size();
     }
 }

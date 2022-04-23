@@ -1,7 +1,6 @@
 package blog.in.action.domain;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -15,7 +14,7 @@ public class TeamService {
         this.teamRepository = teamRepository;
     }
 
-    @Transactional(propagation = Propagation.REQUIRED)
+    @Transactional
     public Team registerTeam(Team team) {
         return teamRepository.save(team);
     }

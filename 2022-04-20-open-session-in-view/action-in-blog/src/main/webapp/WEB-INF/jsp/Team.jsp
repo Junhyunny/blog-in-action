@@ -84,7 +84,7 @@
                 </div>
                 <div>
                     <span>팀 멤버 수</span>
-                    <span>${team.members.size()}</span>
+                    <span>${team.getMembersCount()}</span>
                 </div>
             </div>
         </c:forEach>
