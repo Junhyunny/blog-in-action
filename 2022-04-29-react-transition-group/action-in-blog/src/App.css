@@ -1,0 +1,33 @@
+.wrapper {
+    overflow: hidden;
+    position: relative;
+}
+
+.container {
+    background: yellow;
+
+    width: 120px;
+    height: 200px;
+    border: 1px solid black;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container__content {
+    position: relative;
+    height: 100%;
+}
+
+.container__content p {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.container button {
+    width: 100%;
+}
