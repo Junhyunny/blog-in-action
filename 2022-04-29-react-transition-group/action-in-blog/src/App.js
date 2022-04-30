@@ -1,7 +1,8 @@
 import './App.css'
-import Slide from './components/Slide'
 import { useState } from 'react'
 import { CSSTransition } from 'react-transition-group'
+
+import Slide from './components/Slide'
 import TransitionSlide from './components/TransitionSlide'
 
 function App() {
