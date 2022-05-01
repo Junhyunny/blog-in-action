@@ -11,6 +11,9 @@ COPY . ./
 # command on container in working directory
 RUN npm install
 
+# exposed port number
+EXPOSE 80
+
 # command to start conatiner based on image
 CMD ["node", "server.js"]
 
