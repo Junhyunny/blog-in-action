@@ -18,4 +18,4 @@ CMD ["node", "server.js"]
 # docker build .
 
 # docker run iamges
-# docker run -name {server-name-what-you-want} -p 80:80 -d {image id}
+# docker run -name {server-name-what-you-want} -p {host listening port}:{conatiner listening port} -d {image id}
