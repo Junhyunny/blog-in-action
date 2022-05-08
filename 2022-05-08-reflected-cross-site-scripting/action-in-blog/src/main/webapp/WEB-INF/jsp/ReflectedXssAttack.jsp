@@ -44,6 +44,17 @@
             right: 1rem;
         }
     </style>
+    <script type="text/javascript">
+        function submitHandler() {
+            const keyword = document.querySelector("input[name='keyword']");
+            const regex = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9| |]+$/;
+            if (!regex.test(keyword.value)) {
+                alert('특수 문자는 입력할 수 없습니다.');
+                return false;
+            }
+            return true;
+        }
+    </script>
     <meta charset="UTF-8">
     <title>Reflected XSS 공격</title>
 </head>
@@ -52,7 +63,7 @@
 <h1>Reflected XSS 공격</h1>
 
 <div class="form">
-    <form action="/reflected" method="get">
+    <form action="/reflected" method="get" onsubmit="return submitHandler();">
         <div class="form__input">
             <div>
                 <span>검색어</span>
@@ -64,7 +75,8 @@
 </div>
 
 <div class="container">
-    <div class="container__header">검색어 ${keyword}</div>
+    <%-- <div class="container__header">검색어 ${keyword}</div>--%>
+    <div class="container__header">검색어 <c:out value="${keyword}"/></div>
 </div>
 
 </body>
