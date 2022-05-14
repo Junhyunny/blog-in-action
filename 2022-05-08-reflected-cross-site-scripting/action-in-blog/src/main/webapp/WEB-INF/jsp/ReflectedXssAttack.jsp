@@ -75,7 +75,7 @@
 </div>
 
 <div class="container">
-    <%-- <div class="container__header">검색어 ${keyword}</div>--%>
+    <%-- <div class="container__header">검색어 ${keyword}</div> --%>
     <div class="container__header">검색어 <c:out value="${keyword}"/></div>
 </div>
 
