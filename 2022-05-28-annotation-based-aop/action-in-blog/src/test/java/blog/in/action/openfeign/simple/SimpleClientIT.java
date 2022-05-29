@@ -8,10 +8,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.equalTo;
 
 @SpringBootTest
-public class SimpleClientTest {
+public class SimpleClientIT {
 
     @Autowired
     private SimpleClient simpleClient;
@@ -25,7 +25,7 @@ public class SimpleClientTest {
 
         simpleClient.home();
 
-        assertThat(repository.count(), greaterThan(0L));
+        assertThat(repository.count(), equalTo(1L));
     }
 
     @Test
@@ -34,6 +34,6 @@ public class SimpleClientTest {
 
         simpleClient.about();
 
-        assertThat(repository.count(), greaterThan(0L));
+        assertThat(repository.count(), equalTo(1L));
     }
 }
