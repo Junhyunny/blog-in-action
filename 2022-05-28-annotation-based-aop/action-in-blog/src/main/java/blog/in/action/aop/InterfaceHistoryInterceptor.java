@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.sql.Timestamp;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Aspect
 @Component
@@ -42,12 +42,12 @@ public class InterfaceHistoryInterceptor {
 
     @Around("@within(org.springframework.cloud.openfeign.FeignClient) && @annotation(blog.in.action.annotation.InterfaceMeta)")
     public Object aroundCallFeignClient(ProceedingJoinPoint pjp) throws Throwable {
-        Timestamp requestTime = new Timestamp(new Date().getTime());
+        Timestamp requestTime = Timestamp.valueOf(LocalDateTime.now());
 
         Object result = pjp.proceed();
 
         try {
-            Timestamp responseTime = new Timestamp(new Date().getTime());
+            Timestamp responseTime = Timestamp.valueOf(LocalDateTime.now());
             MethodSignature signature = (MethodSignature) pjp.getSignature();
             Method method = signature.getMethod();
             InterfaceMeta interfaceMeta = method.getAnnotation(InterfaceMeta.class);
