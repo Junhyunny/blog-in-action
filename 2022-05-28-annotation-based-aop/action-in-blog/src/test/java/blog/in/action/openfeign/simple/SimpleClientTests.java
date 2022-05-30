@@ -32,10 +32,13 @@ public class SimpleClientTests {
 
     @BeforeEach
     void setUp() {
+
         targetClient = Mockito.mock(SimpleClient.class);
         mockRepository = Mockito.mock(InterfaceHistoryRepository.class);
+
         factory = new AspectJProxyFactory(targetClient);
         aspectInterceptor = new InterfaceHistoryInterceptor(mockRepository);
+
         factory.addAspect(aspectInterceptor);
 
         requestTime = LocalDateTime.now();
