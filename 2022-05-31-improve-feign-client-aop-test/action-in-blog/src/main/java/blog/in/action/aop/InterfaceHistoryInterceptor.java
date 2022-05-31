@@ -58,6 +58,7 @@ public class InterfaceHistoryInterceptor {
                     .serviceId(interfaceMeta.serviceId())
                     .explainText(interfaceMeta.explainText())
                     .path(getPath(annotations))
+                    .response(String.valueOf(result))
                     .requestTime(requestTime)
                     .responseTime(responseTime)
                     .build();
