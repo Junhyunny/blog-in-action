@@ -40,7 +40,7 @@ public class InterfaceHistoryInterceptor {
         return null;
     }
 
-    @Around("@within(org.springframework.cloud.openfeign.FeignClient) && @annotation(blog.in.action.annotation.InterfaceMeta)")
+    @Around("@annotation(blog.in.action.annotation.InterfaceMeta)")
     public Object aroundCallFeignClient(ProceedingJoinPoint pjp) throws Throwable {
         Timestamp requestTime = Timestamp.valueOf(LocalDateTime.now());
 
