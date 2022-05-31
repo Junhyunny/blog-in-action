@@ -26,6 +26,7 @@ public class InterfaceHistory {
     @Convert(converter = StringArrayConverter.class)
     private String[] path;
     private String explainText;
+    private String response;
     private Timestamp requestTime;
     private Timestamp responseTime;
 }
