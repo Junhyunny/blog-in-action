@@ -8,10 +8,10 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableFeignClients
 @EnableHystrixDashboard
 @SpringBootApplication
-public class AServiceApplication {
+public class ActionInBlogApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AServiceApplication.class, args);
+		SpringApplication.run(ActionInBlogApplication.class, args);
 	}
 
 }

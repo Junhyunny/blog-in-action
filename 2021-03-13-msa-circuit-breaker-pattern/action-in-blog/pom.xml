@@ -10,9 +10,9 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>cloud.in.action</groupId>
-	<artifactId>a-service</artifactId>
+	<artifactId>action-in-blog</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>a-service</name>
+	<name>action-in-blog</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>
