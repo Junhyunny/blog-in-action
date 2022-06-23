@@ -11,9 +11,9 @@
     </parent>
 
     <groupId>blog.in.action</groupId>
-    <artifactId>action-in-blog</artifactId>
+    <artifactId>attacker</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>action-in-blog</name>
+    <name>attacker</name>
     <packaging>war</packaging>
 
     <properties>
