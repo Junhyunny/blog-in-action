@@ -11,9 +11,9 @@
 	</parent>
 
 	<groupId>blog.in.action</groupId>
-	<artifactId>action-in-blog</artifactId>
+	<artifactId>backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>action-in-blog</name>
+	<name>backend</name>
 
 	<properties>
 		<java.version>11</java.version>
