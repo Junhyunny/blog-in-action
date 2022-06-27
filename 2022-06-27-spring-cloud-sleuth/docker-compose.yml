@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  a-service:
+    container_name: a-service
+    build: ./a-service
+    ports:
+      - '8080:8080'
+  b-service:
+    container_name: b-service
+    build: ./b-service
