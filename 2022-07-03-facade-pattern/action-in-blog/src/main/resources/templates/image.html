@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Barcode Image 생성</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #container {
+            width: 100%;
+        }
+
+        .image__wrap {
+            width: 50%;
+            min-width: 16rem;
+            max-width: 20rem;
+
+            margin: 1rem;
+            padding: 1rem;
+            border: 1px solid #AAA;
+            border-radius: 5px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .image__wrap img {
+            border: 1px solid;
+            width: 100%;
+            height: 7.5rem;
+            min-width: 18rem;
+            max-width: 18rem;
+        }
+
+        .text__wrap {
+            margin: 0.5rem;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 1rem;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <div class="image__wrap">
+        <img id="barcodeImage" src="/barcode" alt="이미지">
+        <div class="text__wrap">
+            <input id="barcodeValue" type="text" placeholder="바코드 생성 문자열" onkeypress="pressEnter()">
+            <button onclick="createBarcode()">생성</button>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+    const input = document.querySelector("#barcodeValue");
+    input.addEventListener("keyup", function (event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            createBarcode();
+        }
+    });
+
+    function createBarcode() {
+        const input = document.querySelector("#barcodeValue");
+        const image = document.querySelector("#barcodeImage");
+        image.src = "/barcode/" + input.value;
+    }
+</script>
+</html>
