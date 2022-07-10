@@ -1,0 +1,4 @@
+
+blog.in.action.annotation.CustomAutoConfiguration=\
+blog.in.action.config.CustomConfiguration,\
+blog.in.action.beans.ThirdBean
