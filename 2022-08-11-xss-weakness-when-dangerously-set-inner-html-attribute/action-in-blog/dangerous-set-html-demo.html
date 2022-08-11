@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap" rel="stylesheet"/>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+
+<body>
+<section id="demo"></section>
+</body>
+
+<script type="text/jsx">
+    const App = () => {
+        const htmlCode = () => {
+            return {__html: '<ul><li>Hello</li><li>React</li><li>World</li></ul>'}
+        }
+        return <div dangerouslySetInnerHTML={htmlCode()}></div>
+    }
+
+    ReactDOM.render(
+        <App/>,
+        document.getElementById('demo')
+    )
+</script>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    html {
+        font-family: 'Jost', sans-serif;
+    }
+
+    body {
+        margin: 0;
+    }
+
+    #demo {
+        border: 1px solid #ccc;
+    }
+
+    #demo {
+        margin: 1rem auto;
+        width: 50%;
+    }
+</style>
+</html>
