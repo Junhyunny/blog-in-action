@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap" rel="stylesheet"/>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+<section id="demo">
+    <div v-html="htmlCode"></div>
+</section>
+</body>
+
+<script type="text/javascript">
+    Vue.createApp({
+        data() {
+            return {
+                htmlCode: '<ul><li>Hello</li><li>World</li></ul>'
+            }
+        }
+    }).mount("#demo");
+</script>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+    html {
+        font-family: 'Jost', sans-serif;
+    }
+    body {
+        margin: 0;
+    }
+    #demo {
+        border: 1px solid #ccc;
+    }
+    #demo {
+        margin: 1rem auto;
+        width: 50%;
+    }
+</style>
+</html>
