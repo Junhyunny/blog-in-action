@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -23,4 +24,8 @@ public class Member {
     private String email;
 
     private String address;
+
+    private LocalDate joinedDate;
+
+    private boolean activate;
 }

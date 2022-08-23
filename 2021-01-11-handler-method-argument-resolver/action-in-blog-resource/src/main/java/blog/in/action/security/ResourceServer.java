@@ -39,7 +39,7 @@ public class ResourceServer extends ResourceServerConfigurerAdapter {
                 // /h2-console/** 경로는 모든 요청에 대해 허용
                 .antMatchers("/h2-console/**").permitAll()
                 // /member/user-info 경로는 ADMIN만 접근 가능
-                .antMatchers("/member/user-info").hasAnyAuthority("USER")
+                .antMatchers("/member/user-info").hasAnyAuthority("ADMIN")
                 // 나머지 요청은 인증만 필요
                 .anyRequest().authenticated()
                 .and()
