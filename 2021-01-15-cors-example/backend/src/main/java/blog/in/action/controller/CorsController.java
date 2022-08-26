@@ -6,17 +6,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/api/cors")
 public class CorsController {
 
-	@GetMapping("/health")
-	public String health() {
-		return "health";
-	}
+    @GetMapping("/health")
+    public String health() {
+        return "It occurs CORS policy error.";
+    }
 
-	@CrossOrigin(origins = "http://localhost:8080")
-	@GetMapping("/health-cors-annotaion")
-	public String healthCorsAnnotation() {
-		return "health-cors-annotaion";
-	}
+    @CrossOrigin(origins = "http://localhost")
+    @GetMapping("/cors-health")
+    public String healthCorsAnnotation() {
+        return "It's okay because of @CrossOrigin annotation.";
+    }
 }

@@ -1,0 +1,18 @@
+version: "3.9"
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "80:80"
+  backend:
+    build: ./backend
+    ports:
+      - "8080:8080"
+  backend-configure:
+    build: ./backend-configure
+    ports:
+      - "8081:8081"
+  backend-filter:
+    build: ./backend-filter
+    ports:
+      - "8082:8082"

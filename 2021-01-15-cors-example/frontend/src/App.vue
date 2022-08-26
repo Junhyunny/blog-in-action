@@ -1,26 +1,22 @@
 <template>
-    <img alt="Vue logo" src="./assets/logo.png">
-    <CorsReuqest />
+  <cors-request/>
 </template>
 
 <script>
-import CorsReuqest from './components/CorsReuqest.vue'
+import CorsRequest from './components/CorsRequest.vue'
 
 export default {
-    name: 'App',
-    components: {
-        CorsReuqest
-    }
+  components: {
+    CorsRequest
+  }
 }
 </script>
 
 <style>
-#app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-    margin-top: 60px;
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+
+body {
+  font-family: sans-serif;
+  font-size: 62.5%
 }
 </style>
