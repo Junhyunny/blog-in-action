@@ -1,32 +1,31 @@
 package blog.in.action.controller;
 
-import java.io.FileOutputStream;
-import java.util.List;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.FileOutputStream;
+import java.nio.file.Paths;
+import java.util.List;
+
 @RestController
-@RequestMapping(value = "/api/file")
 public class FileController {
 
-    @CrossOrigin("*")
-    @PostMapping(value = "/upload/profile-img")
+    @GetMapping("/files")
+    public void getFiles() {
+        System.out.println("files");
+    }
+
+    @PostMapping(value = "/files")
     public @ResponseBody
-    String requestUploadFile(@RequestParam("fileList") List<MultipartFile> fileList) {
-        try {
-            for (MultipartFile multipartFile : fileList) {
-                FileOutputStream writer = new FileOutputStream("./images/" + multipartFile.getOriginalFilename());
+    String uploadFiles(@RequestParam("files") List<MultipartFile> files) {
+        String projectPath = Paths.get("").toAbsolutePath().toString();
+        for (MultipartFile multipartFile : files) {
+            try (FileOutputStream writer = new FileOutputStream(projectPath + "/images/" + multipartFile.getOriginalFilename())) {
                 writer.write(multipartFile.getBytes());
-                writer.close();
+            } catch (Exception e) {
+
             }
-        } catch (Exception e) {
-            return "upload fail";
         }
-        return "upload success";
+        return "SUCCESS";
     }
 }

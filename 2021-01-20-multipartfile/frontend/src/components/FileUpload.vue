@@ -1,46 +1,49 @@
 <template>
+  <div>
     <div>
-        <h3>파일 업로드 결과: {{this.response === '' ? 'waiting' : this.response}}</h3>
-        <div>
-            <button @click="selectUploadFile()">이미지 선택</button>
-        </div>
+      <p>이미지를 업로드하세요.</p>
+      <button @click="$refs.fileRef.click">선택</button>
+      <input type="file" @change="selectFile" multiple accept="image/*" ref="fileRef" hidden/>
     </div>
+    <div>
+      <div v-for="filePath in filePaths" :key="filePath">
+        <img src="filePath" alt="이미지">
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 import axios from 'axios'
 
 export default {
-    name: 'CorsReuqest',
-    data() {
-        return {
-            response: ''
-        }
-    },
-    methods: {
-        selectUploadFile() {
-            var vue = this
-            let elem = document.createElement('input')
-            // 이미지 파일 업로드 / 동시에 여러 파일 업로드
-            elem.id = 'image'
-            elem.type = 'file'
-            elem.accept = 'image/*'
-            elem.multiple = true
-            // 클릭
-            elem.click();
-            // 이벤트 감지
-            elem.onchange = function() {
-                const formData = new FormData()
-                for (var index = 0; index < this.files.length; index++) {
-                    formData.append('fileList', this.files[index])
-                }
-                axios.post('http://localhost:8081/api/file/upload/profile-img', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
-                    vue.response = response.data
-                }).catch(error => {
-                    vue.response = error.message
-                })
-            }
-        }
+  data() {
+    return {
+      filePaths: []
     }
+  },
+  mounted() {
+    this.fetchFilePaths()
+  },
+  methods: {
+    async fetchFilePaths() {
+      const response = await axios.get('/files')
+      this.filePaths = response.data;
+    },
+    async selectFile(event) {
+      const formData = new FormData()
+      for (const file of event.target.files) {
+        formData.append('files', file)
+      }
+      try {
+        const response = await axios.post('/files', formData, {
+          headers: {'Content-Type': 'multipart/form-data'}
+        })
+        alert(response.data)
+      } catch (error) {
+        alert(error.message)
+      }
+    },
+  }
 }
 </script>

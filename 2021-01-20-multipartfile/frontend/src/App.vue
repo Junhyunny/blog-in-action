@@ -1,14 +1,14 @@
 <template>
-    <FileUpload />
+  <file-upload/>
 </template>
 
 <script>
 import FileUpload from './components/FileUpload.vue'
 
 export default {
-    name: 'App',
-    components: {
-        FileUpload
-    }
+  name: 'App',
+  components: {
+    FileUpload
+  }
 }
 </script>
