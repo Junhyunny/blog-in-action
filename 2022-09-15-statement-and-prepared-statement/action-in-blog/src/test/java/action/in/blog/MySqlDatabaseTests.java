@@ -6,23 +6,28 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.sql.*;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+
 @Log4j2
 @SpringBootTest(properties = {
-        "spring.sql.init.mode=embedded",
-        "spring.sql.init.schema-locations=classpath:db/schema.sql",
-        "spring.datasource.url=jdbc:h2:mem:test",
-        "spring.datasource.driver-class-name=org.h2.Driver",
-        "spring.datasource.username=sa",
-        "spring.datasource.password="
+        "spring.sql.init.mode=always",
+        "spring.sql.init.schema-locations=classpath:db/schema-mysql.sql",
+        "spring.datasource.url=jdbc:mysql://localhost:3306/mysql",
+        "spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver",
+        "spring.datasource.username=root",
+        "spring.datasource.password=123"
 })
-public class ActionInBlogApplicationTests {
+public class MySqlDatabaseTests {
+
+    // please run mysql-server.sh before testing
 
     Connection getConnection() {
-        String url = "jdbc:h2:mem:test";
-        String id = "sa";
-        String pw = "";
+        String url = "jdbc:mysql://localhost:3306/mysql";
+        String id = "root";
+        String pw = "123";
         try {
-            Class.forName("org.h2.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             Connection connection = DriverManager.getConnection(url, id, pw);
             connection.setAutoCommit(false);
             return connection;
@@ -34,7 +39,7 @@ public class ActionInBlogApplicationTests {
 
     void insertSamples(Connection connection) {
         try (PreparedStatement preparedStatement = connection.prepareStatement("insert into country (name) values (?)")) {
-            for (int index = 0; index < 15000; index++) {
+            for (int index = 0; index < 10000; index++) {
                 preparedStatement.setString(1, "countryName-" + index);
                 preparedStatement.execute();
             }
@@ -44,13 +49,13 @@ public class ActionInBlogApplicationTests {
     }
 
     @Test
-    void select_15000_times_with_statement() {
+    void select_10000_times_with_statement() {
         try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
             insertSamples(connection);
 
             long startTime = System.currentTimeMillis();
 
-            for (int index = 0; index < 15000; index++) {
+            for (int index = 0; index < 10000; index++) {
                 statement.execute("select name from country where name = 'countryName-" + index + "'");
             }
 
@@ -64,13 +69,13 @@ public class ActionInBlogApplicationTests {
     }
 
     @Test
-    void select_15000_times_with_prepared_statement() {
+    void select_10000_times_with_prepared_statement() {
         try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("select name from country where name = ?")) {
             insertSamples(connection);
 
             long startTime = System.currentTimeMillis();
 
-            for (int index = 0; index < 15000; index++) {
+            for (int index = 0; index < 10000; index++) {
                 preparedStatement.setString(1, "countryName-" + index);
                 preparedStatement.execute();
             }
@@ -84,15 +89,17 @@ public class ActionInBlogApplicationTests {
         }
     }
 
-    void printCountOfRows(Connection connection) {
+    int getCountOfRows(Connection connection) {
         try (PreparedStatement statement = connection.prepareStatement("select count(*) as cnt from country")) {
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                log.info("total count: {}", resultSet.getInt("cnt"));
+                return resultSet.getInt("cnt");
             }
+            return 0;
         } catch (Exception e) {
             log.error(e);
         }
+        return -1;
     }
 
     @Test
@@ -100,11 +107,15 @@ public class ActionInBlogApplicationTests {
         String parameter = "''); delete from country; --";
         try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
             insertSamples(connection);
-            printCountOfRows(connection);
+            int beforeCount = getCountOfRows(connection);
 
             statement.execute("insert into country (name) values (" + parameter + ")");
 
-            printCountOfRows(connection);
+            int afterCount = getCountOfRows(connection);
+
+            assertThat(beforeCount, equalTo(10000));
+            assertThat(afterCount, equalTo(0));
+
             connection.rollback();
         } catch (Exception e) {
             log.error(e);
@@ -116,12 +127,16 @@ public class ActionInBlogApplicationTests {
         String parameter = "''); delete from country; --";
         try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("insert into country (name) values (?)")) {
             insertSamples(connection);
-            printCountOfRows(connection);
+            int beforeCount = getCountOfRows(connection);
 
             preparedStatement.setString(1, parameter);
             preparedStatement.execute();
 
-            printCountOfRows(connection);
+            int afterCount = getCountOfRows(connection);
+
+            assertThat(beforeCount, equalTo(10000));
+            assertThat(afterCount, equalTo(10001));
+
             connection.rollback();
         } catch (Exception e) {
             log.error(e);

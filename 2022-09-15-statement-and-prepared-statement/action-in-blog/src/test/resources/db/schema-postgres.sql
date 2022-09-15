@@ -1,0 +1,7 @@
+DROP TABLE IF EXISTS country;
+
+CREATE TABLE country
+(
+    id   SERIAL PRIMARY KEY,
+    name VARCHAR(128) NOT NULL
+);
