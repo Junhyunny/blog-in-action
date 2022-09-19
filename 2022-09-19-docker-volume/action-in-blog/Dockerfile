@@ -14,11 +14,11 @@ FROM openjdk:11-jdk-slim-buster
 
 WORKDIR /app
 
-# RUN mkdir -p /app/volume
+VOLUME /app/volume
 
 ARG JAR_FILE=*.jar
 
-ENV TODO_FILE_PATH todos
+ENV TODO_FILE_PATH /app/volume/todos
 
 COPY --from=MAVEN_BUILD /build/target/${JAR_FILE} ./app.jar
 
