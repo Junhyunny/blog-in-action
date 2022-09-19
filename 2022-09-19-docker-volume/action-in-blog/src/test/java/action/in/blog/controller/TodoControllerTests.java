@@ -35,10 +35,19 @@ public class TodoControllerTests {
         futures.add(CompletableFuture.runAsync(() -> addTodos(sut, 1000)));
         futures.add(CompletableFuture.runAsync(() -> addTodos(sut, 1000)));
         futures.add(CompletableFuture.runAsync(() -> addTodos(sut, 1000)));
+        futures.add(CompletableFuture.runAsync(() -> addTodos(sut, 1000)));
+        futures.add(CompletableFuture.runAsync(() -> addTodos(sut, 1000)));
+        futures.add(CompletableFuture.runAsync(() -> addTodos(sut, 1000)));
+        futures.add(CompletableFuture.runAsync(() -> addTodos(sut, 1000)));
+        futures.add(CompletableFuture.runAsync(() -> addTodos(sut, 1000)));
+        futures.add(CompletableFuture.runAsync(() -> addTodos(sut, 1000)));
+        futures.add(CompletableFuture.runAsync(() -> addTodos(sut, 1000)));
+        futures.add(CompletableFuture.runAsync(() -> addTodos(sut, 1000)));
+        futures.add(CompletableFuture.runAsync(() -> addTodos(sut, 1000)));
 
 
         futures.stream().forEach(future -> future.join());
         List<String> todos = TodoUtil.readTodoList(filePath);
-        assertThat(todos.size(), equalTo(6000));
+        assertThat(todos.size(), equalTo(15000));
     }
 }

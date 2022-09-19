@@ -34,8 +34,10 @@ public class TodoController {
     @PostMapping("/todo")
     public String addTodo(@RequestParam("todo") String todo) {
         synchronized (todoList) {
+            List<String> temp = new ArrayList<>(todoList);
+            temp.add(todo);
+            TodoUtil.writeTodoList(filePath, temp);
             todoList.add(todo);
-            TodoUtil.writeTodoList(filePath, todoList);
         }
         return "redirect:/";
     }
