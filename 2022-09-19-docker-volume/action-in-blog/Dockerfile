@@ -14,7 +14,9 @@ FROM openjdk:11-jdk-slim-buster
 
 WORKDIR /app
 
-VOLUME /app/volume
+# RUN mkdir -p /app/volume
+
+# VOLUME /app/volume
 
 ARG JAR_FILE=*.jar
 
