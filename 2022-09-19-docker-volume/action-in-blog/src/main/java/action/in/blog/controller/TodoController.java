@@ -27,6 +27,10 @@ public class TodoController {
 
     @GetMapping("/")
     public String index(Model model) {
+        synchronized (todoList) {
+            todoList.clear();
+            todoList.addAll(TodoUtil.readTodoList(filePath));
+        }
         model.addAttribute("todoList", todoList);
         return "index";
     }
