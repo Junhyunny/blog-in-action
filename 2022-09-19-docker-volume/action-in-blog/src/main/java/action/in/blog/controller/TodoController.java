@@ -17,31 +17,26 @@ import java.util.List;
 public class TodoController {
 
     private final String filePath;
-    private final List<String> todoList;
 
     public TodoController(@Value("${todo.file.path}") String filePath) {
         log.info(filePath);
         this.filePath = filePath;
-        this.todoList = TodoUtil.readTodoList(filePath);
     }
 
     @GetMapping("/")
     public String index(Model model) {
-        synchronized (todoList) {
-            todoList.clear();
-            todoList.addAll(TodoUtil.readTodoList(filePath));
+        synchronized (this) {
+            model.addAttribute("todoList", TodoUtil.readTodoList(filePath));
         }
-        model.addAttribute("todoList", todoList);
         return "index";
     }
 
     @PostMapping("/todo")
     public String addTodo(@RequestParam("todo") String todo) {
-        synchronized (todoList) {
-            List<String> temp = new ArrayList<>(todoList);
+        synchronized (this) {
+            List<String> temp = new ArrayList<>(TodoUtil.readTodoList(filePath));
             temp.add(todo);
             TodoUtil.writeTodoList(filePath, temp);
-            todoList.add(todo);
         }
         return "redirect:/";
     }
