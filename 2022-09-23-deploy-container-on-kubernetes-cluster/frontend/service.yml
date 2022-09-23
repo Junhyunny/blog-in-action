@@ -1,0 +1,13 @@
+
+apiVersion: v1
+kind: Service # 오브젝트 종류
+metadata:
+  name: external-connection-service # 해당 오브젝트의 이름
+spec:
+  selector:
+    app-type: frontend # 라벨의 키-값이 "app-type: frontend" 파드만 노출
+  ports:
+    - protocol: 'TCP'
+      port: 80 # 서비스가 사용할 포트
+      targetPort: 80 # 대상 파드들의 포트
+  type: LoadBalancer # external IP를 사용하여 해당 오브젝트를 외부로 노출하는 서비스 타입

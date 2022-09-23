@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-app-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app-type: frontend
+  template:
+    metadata:
+      labels:
+        app-type: frontend
+    spec:
+      containers:
+        - name: react-application
+          image: opop3966/react-application:latest
