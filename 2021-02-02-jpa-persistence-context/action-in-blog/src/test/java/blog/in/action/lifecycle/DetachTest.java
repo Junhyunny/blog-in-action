@@ -1,24 +1,23 @@
 package blog.in.action.lifecycle;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import blog.in.action.entity.Member;
-import java.util.ArrayList;
-import java.util.List;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
-import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
-import org.springframework.boot.test.context.SpringBootTest;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @Slf4j
-@TestMethodOrder(OrderAnnotation.class)
-@SpringBootTest
+@SpringBootTest(properties = {
+        "spring.jpa.show-sql=true",
+})
 public class DetachTest {
 
     @PersistenceUnit
@@ -29,91 +28,54 @@ public class DetachTest {
         EntityManager em = factory.createEntityManager();
         try {
             em.getTransaction().begin();
-            Member member = em.find(Member.class, "01012341234");
-            if (member == null) {
-                member = new Member();
-                member.setId("01012341234");
-                member.setPassword("1234");
-                List<String> authorities = new ArrayList<>();
-                authorities.add("ADMIN");
-                member.setAuthorities(authorities);
-                member.setMemberName("Junhyunny");
-                member.setMemberEmail("kang3966@naver.com");
-                em.persist(member);
-            } else {
-                List<String> authorities = new ArrayList<>();
-                authorities.add("ADMIN");
-                member.setAuthorities(authorities);
-            }
+            Member member = new Member();
+            member.setId("010-1234-1234");
+            member.setName("Junhyunny");
+            em.persist(member);
             em.getTransaction().commit();
         } catch (Exception ex) {
             em.getTransaction().rollback();
-            log.error("exception occurs", ex);
+            throw new RuntimeException(ex);
         } finally {
             em.close();
         }
     }
 
     @Test
-    @Order(value = 0)
-    void detachTest() {
+    void detached_entity_is_not_updated() {
         EntityManager em = factory.createEntityManager();
         try {
             em.getTransaction().begin();
-            Member member = em.find(Member.class, "01012341234");
-            if (member != null) {
-                // 영속된 객체를 detached 상태로 변경 후 값 변경
-                log.info("detach 이후 객체의 값을 변경합니다.");
-                em.detach(member);
-                List<String> authorities = new ArrayList<>();
-                authorities.add("DETACHED_ADMIN");
-                member.setAuthorities(authorities);
-            }
+            Member member = em.find(Member.class, "010-1234-1234");
+            em.detach(member);
+            member.setName("Jua");
             em.getTransaction().commit();
+            em.clear();
+
+
+            member = em.find(Member.class, "010-1234-1234");
+            assertThat(member.getName(), equalTo("Junhyunny"));
         } catch (Exception ex) {
             em.getTransaction().rollback();
-            log.error("exception occurs", ex);
+            throw new RuntimeException(ex);
         } finally {
             em.close();
         }
     }
 
     @Test
-    @Order(value = 1)
-    void valueCheckTest() {
+    void throw_exception_when_remove_detached_entity() {
         EntityManager em = factory.createEntityManager();
         try {
             em.getTransaction().begin();
-            Member member = em.find(Member.class, "01012341234");
-            if (member != null) {
-                String actual = member.getAuthorities().get(0);
-                assertEquals("ADMIN", actual);
-            }
-            em.getTransaction().commit();
-        } catch (Exception ex) {
-            em.getTransaction().rollback();
-            log.error("exception occurs", ex);
-        } finally {
-            em.close();
-        }
-    }
+            Member member = em.find(Member.class, "010-1234-1234");
+            em.detach(member);
 
-    @Test
-    @Order(value = 2)
-    void detachRemoveTest() {
-        EntityManager em = factory.createEntityManager();
-        try {
-            em.getTransaction().begin();
-            Member member = em.find(Member.class, "01012341234");
-            if (member != null) {
-                // 영속된 객체를 detached 상태로 변경 후 remove
-                log.info("detach 이후 객체를 삭제합니다.");
-                em.detach(member);
-                assertThrows(IllegalArgumentException.class, () -> em.remove(member));
-            }
+            Throwable throwable = assertThrows(IllegalArgumentException.class, () -> em.remove(member));
+            log.warn(throwable.getMessage());
         } catch (Exception ex) {
             em.getTransaction().rollback();
-            log.error("exception occurs", ex);
+            throw new RuntimeException(ex);
         } finally {
             em.close();
         }
