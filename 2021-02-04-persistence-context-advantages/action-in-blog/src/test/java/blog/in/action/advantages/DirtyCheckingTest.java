@@ -1,18 +1,20 @@
 package blog.in.action.advantages;
 
 import blog.in.action.entity.Member;
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceUnit;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+
 @Log4j2
-@SpringBootTest
+@SpringBootTest(properties = {"spring.jpa.show-sql=true"})
 public class DirtyCheckingTest {
 
     @PersistenceUnit
@@ -23,44 +25,36 @@ public class DirtyCheckingTest {
         EntityManager em = factory.createEntityManager();
         try {
             em.getTransaction().begin();
-            Member member = em.find(Member.class, "01012341234");
-            if (member == null) {
-                member = new Member();
-                member.setId("01012341234");
-                member.setPassword("1234");
-                List<String> authorities = new ArrayList<>();
-                authorities.add("ADMIN");
-                member.setAuthorities(authorities);
-                member.setMemberName("Junhyunny");
-                member.setMemberEmail("kang3966@naver.com");
-                em.persist(member);
-            }
+            Member member = new Member();
+            member.setId("010-1234-1234");
+            member.setName("Junhyunny");
+            em.persist(member);
             em.getTransaction().commit();
         } catch (Exception ex) {
             em.getTransaction().rollback();
-            log.error("exception occurs", ex);
+            throw new RuntimeException(ex);
         } finally {
             em.close();
         }
     }
 
     @Test
-    public void test() {
+    public void member_name_is_changed_because_of_dirty_check() {
         EntityManager em = factory.createEntityManager();
         try {
+            
             em.getTransaction().begin();
-            Member member = em.find(Member.class, "01012341234");
-            if (member != null) {
-                // 권한 변경
-                List<String> authorities = new ArrayList<>(member.getAuthorities());
-                authorities.add("MEMBER");
-                authorities.add("TESTER");
-                member.setAuthorities(authorities);
-            }
+            Member member = em.find(Member.class, "010-1234-1234");
+            member.setName("Jua");
             em.getTransaction().commit();
+            em.clear();
+
+            Member target = em.find(Member.class, "010-1234-1234");
+            assertThat(target.getName(), equalTo("Jua"));
+
         } catch (Exception ex) {
             em.getTransaction().rollback();
-            log.error("exception occurs", ex);
+            throw new RuntimeException(ex);
         } finally {
             em.close();
         }
