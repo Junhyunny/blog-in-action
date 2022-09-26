@@ -42,7 +42,7 @@ public class DirtyCheckingTest {
     public void member_name_is_changed_because_of_dirty_check() {
         EntityManager em = factory.createEntityManager();
         try {
-            
+
             em.getTransaction().begin();
             Member member = em.find(Member.class, "010-1234-1234");
             member.setName("Jua");
