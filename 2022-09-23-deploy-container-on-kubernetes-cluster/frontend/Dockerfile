@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY package.json .
 
-RUN npm install --slient
+RUN npm install --silent
 
 COPY . .
 
