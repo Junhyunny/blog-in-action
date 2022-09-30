@@ -1,4 +1,5 @@
 import {useRef, useState} from "react";
+import {addTodo} from "../repository/TodoRepository"
 
 function Todos() {
 
@@ -8,15 +9,17 @@ function Todos() {
     const [valid, setValid] = useState(true)
 
     const addTodoHandler = () => {
-        const newTodo = todoRef.current.value;
+        const newTodo = todoRef.current.value
         if (newTodo === '') {
-            setValid(false);
+            setValid(false)
             return
         }
         todoRef.current.value = ''
+        setValid(true)
         setTodos(prevState => {
             return [...prevState, newTodo]
         })
+        addTodo(newTodo)
     }
 
     return (
