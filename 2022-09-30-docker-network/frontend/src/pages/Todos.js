@@ -8,9 +8,6 @@ function Todos() {
     const [todos, setTodos] = useState([])
     const [valid, setValid] = useState(true)
 
-    const cleanUp = () => {
-    }
-
     const fetchTodos = () => {
         getTodos().then(todos => {
             setTodos(todos)
@@ -30,7 +27,6 @@ function Todos() {
 
     useEffect(() => {
         fetchTodos()
-        return cleanUp
     }, [])
 
     return (
