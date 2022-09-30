@@ -7,3 +7,8 @@ export const addTodo = async (todo) => {
         }
     })
 }
+
+export const getTodos = async () => {
+    const {data} = await axios.get(`${process.env.REACT_APP_SERVER}/todos`)
+    return data
+}

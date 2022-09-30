@@ -1,6 +1,6 @@
 package action.in.blog.todo.service;
 
-import action.in.blog.todo.Todo;
+import action.in.blog.todo.domain.Todo;
 
 import java.util.List;
 

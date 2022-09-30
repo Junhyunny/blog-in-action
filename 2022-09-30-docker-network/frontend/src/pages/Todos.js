@@ -1,5 +1,5 @@
-import {useRef, useState} from "react";
-import {addTodo} from "../repository/TodoRepository"
+import {useEffect, useRef, useState} from "react";
+import {addTodo, getTodos} from "../repository/TodoRepository"
 
 function Todos() {
 
@@ -8,19 +8,30 @@ function Todos() {
     const [todos, setTodos] = useState([])
     const [valid, setValid] = useState(true)
 
+    const cleanUp = () => {
+    }
+
+    const fetchTodos = () => {
+        getTodos().then(todos => {
+            setTodos(todos)
+        })
+    }
+
     const addTodoHandler = () => {
-        const newTodo = todoRef.current.value
-        if (newTodo === '') {
+        const title = todoRef.current.value
+        if (title === '') {
             setValid(false)
             return
         }
         todoRef.current.value = ''
         setValid(true)
-        setTodos(prevState => {
-            return [...prevState, newTodo]
-        })
-        addTodo(newTodo)
+        addTodo(title).then(fetchTodos)
     }
+
+    useEffect(() => {
+        fetchTodos()
+        return cleanUp
+    }, [])
 
     return (
         <div>
@@ -29,7 +40,7 @@ function Todos() {
             {!valid && <p>please write something</p>}
             <button onClick={addTodoHandler}>ADD</button>
             <ul>
-                {todos.map((todo, index) => <li key={index}>{todo}</li>)}
+                {todos.map((todo) => <li key={todo.id}>{todo.title}</li>)}
             </ul>
         </div>
     )
