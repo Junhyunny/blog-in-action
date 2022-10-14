@@ -27,7 +27,7 @@ const UIProvider = ({children}) => {
 
     const middleware = async (action) => {
         if (typeof action === 'function') {
-            action(dispatch, state)
+            await action(dispatch, state)
         } else {
             dispatch(action)
         }

@@ -11,7 +11,7 @@ const reducer = (state, action) => {
                 pokemons: action.pokemons
             }
         default:
-            throw new Error();
+            throw new Error(`not supported action type: ${action.type}`);
     }
 };
 
@@ -23,7 +23,7 @@ const PokeProvider = ({children}) => {
 
     const middleware = async (action) => {
         if (typeof action === 'function') {
-            action(dispatch, state)
+            await action(dispatch, state)
         } else {
             dispatch(action)
         }
