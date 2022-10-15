@@ -36,5 +36,10 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://pokeapi.co"
+  "proxy": "https://pokeapi.co",
+  "jest": {
+    "transformIgnorePatterns": [
+      "node_modules\/(?!axios)"
+    ]
+  }
 }
