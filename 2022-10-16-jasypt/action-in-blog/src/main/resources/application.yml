@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url: jdbc:mysql://database-host:3306/mysql
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ENC(rCnFZG4bfEfOSrYhVUh0pA==)
+    password: ENC(xvEJVPJcJi8Ja1zeRhbX+w==)
+jasypt:
+  secrete-key: ${JASYPT_SECRETE_KEY}
