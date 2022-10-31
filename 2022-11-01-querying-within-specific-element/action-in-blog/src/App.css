@@ -1,0 +1,11 @@
+
+table {
+    border: 1px solid lightgray;
+    border-collapse: collapse;
+}
+
+tr, th, td {
+    border: 1px solid lightgray;
+    border-collapse: collapse;
+    padding: 7px 15px;
+}
