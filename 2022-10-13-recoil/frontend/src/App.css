@@ -1,9 +1,0 @@
-.title {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-}
-
-.title input {
-  width: 2.5rem;
-}
