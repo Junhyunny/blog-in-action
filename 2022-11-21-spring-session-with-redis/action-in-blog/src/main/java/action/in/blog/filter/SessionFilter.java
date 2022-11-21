@@ -15,11 +15,12 @@ public class SessionFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        HttpSession httpSession = request.getSession(false);
         if (sessionCreationUri.equals(request.getRequestURI())) {
             filterChain.doFilter(request, response);
             return;
-        } else if (httpSession == null) {
+        }
+        HttpSession httpSession = request.getSession(false);
+        if (httpSession == null) {
             response.sendRedirect(sessionCreationUri);
             return;
         }

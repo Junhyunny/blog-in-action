@@ -11,7 +11,7 @@ import java.io.IOException;
 @RestController
 public class SessionController {
 
-    private final String key = "key";
+    private final String key = "accessCount";
 
     @GetMapping("/session/creation")
     public void createSession(HttpServletRequest servletRequest, HttpServletResponse servletResponse) throws IOException {
