@@ -22,4 +22,4 @@ EXPOSE 8080
 
 ENV RUN_ENV dev
 
-CMD ["java", "-Dspring.profiles.active=${RUN_ENV}","-jar", "app.jar"]
+CMD ["java", "-Dspring.profiles.active=${RUN_ENV}", "-jar", "app.jar"]
