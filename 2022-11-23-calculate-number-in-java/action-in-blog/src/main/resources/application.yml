@@ -1,0 +1,12 @@
+server:
+  servlet:
+    session:
+      cookie:
+        name: custom-session-id
+spring:
+  redis:
+    host: localhost
+    password:
+    port: 6370
+  session:
+    store-type: redis
