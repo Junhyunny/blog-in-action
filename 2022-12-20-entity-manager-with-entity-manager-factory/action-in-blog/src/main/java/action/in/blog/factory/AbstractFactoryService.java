@@ -36,36 +36,6 @@ public abstract class AbstractFactoryService {
         }
     }
 
-    protected void transaction(EntityManagerRunnable runnable) {
-        transaction(runnable, false);
-    }
-
-    protected void transaction(EntityManagerRunnable runnable, boolean readonly) {
-        EntityManager em = factory.createEntityManager();
-        EntityTransaction transaction = em.getTransaction();
-        transaction.begin();
-        try {
-            runnable.run(em);
-            if (readonly) {
-                transaction.rollback();
-            } else {
-                transaction.commit();
-            }
-        } catch (Throwable e) {
-            if (transaction.isActive()) {
-                transaction.rollback();
-            }
-            throw new RuntimeException(e);
-        } finally {
-            em.close();
-
-        }
-    }
-
-    protected interface EntityManagerRunnable {
-        void run(EntityManager em);
-    }
-
     protected interface EntityManagerCallable<V> {
         V run(EntityManager em);
     }

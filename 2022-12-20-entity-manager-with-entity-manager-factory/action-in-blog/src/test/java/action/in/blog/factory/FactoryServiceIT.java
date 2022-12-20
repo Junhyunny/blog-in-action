@@ -19,8 +19,19 @@ public class FactoryServiceIT {
 
     @PersistenceUnit
     EntityManagerFactory factory;
+    
     @Autowired
     FactoryService sut;
+
+    @Test
+    @DisplayName("EntityManager 는 매번 새롭게 만든다.")
+    void create_entity_manager() {
+        EntityManager firstEntityManager = factory.createEntityManager();
+        EntityManager secondEntityManager = factory.createEntityManager();
+
+        assertThat(firstEntityManager == secondEntityManager, equalTo(false));
+        assertThat(firstEntityManager.equals(secondEntityManager), equalTo(false));
+    }
 
     @Test
     @DisplayName("정상 처리되면 데이터베이스에 데이터가 저장된다.")
