@@ -19,12 +19,12 @@ public class FactoryServiceIT {
 
     @PersistenceUnit
     EntityManagerFactory factory;
-    
+
     @Autowired
     FactoryService sut;
 
     @Test
-    @DisplayName("EntityManager 는 매번 새롭게 만든다.")
+    @DisplayName("EntityManagerFactory는 EntityManager를 매번 새롭게 만든다.")
     void create_entity_manager() {
         EntityManager firstEntityManager = factory.createEntityManager();
         EntityManager secondEntityManager = factory.createEntityManager();
