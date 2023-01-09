@@ -39,10 +39,8 @@ public class DeliveryServiceTest {
                 .deliveryState(DeliveryState.START)
                 .build();
         deliveryRepository.save(delivery);
-
         order.startDelivery(delivery.getId());
         orderRepository.flush();
-        deliveryRepository.flush();
 
 
         sut.finishDelivery(delivery.getId());
