@@ -1,6 +1,6 @@
 package blog.in.action.order.listner;
 
-import blog.in.action.common.event.OrderDeliveryCompleteEvent;
+import blog.in.action.base.DeliveryCompleteEvent;
 import blog.in.action.order.service.OrderService;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
@@ -15,7 +15,7 @@ public class OrderEventListener {
     }
 
     @EventListener
-    public void listenOrderDeliveryCompleteEvent(OrderDeliveryCompleteEvent orderDeliveryCompleteEvent) {
-        orderService.updateOrderDeliveryComplete(orderDeliveryCompleteEvent.getOrderId(), orderDeliveryCompleteEvent.getDeliveryCode());
+    public void listenOrderDeliveryCompleteEvent(DeliveryCompleteEvent deliveryCompleteEvent) {
+        orderService.finishDelivery(deliveryCompleteEvent.getDeliveryId());
     }
 }

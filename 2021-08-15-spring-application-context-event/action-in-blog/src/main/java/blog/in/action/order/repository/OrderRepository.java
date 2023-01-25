@@ -1,10 +1,10 @@
 package blog.in.action.order.repository;
 
-import blog.in.action.order.entity.Order;
-import java.util.Optional;
+import blog.in.action.order.domain.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface OrderRepository extends JpaRepository<Order, Long> {
+import java.util.Optional;
 
-    Optional<Order> findByOrderCode(String orderCode);
+public interface OrderRepository extends JpaRepository<Order, Long> {
+    Optional<Order> findByDeliveryId(long deliveryId);
 }

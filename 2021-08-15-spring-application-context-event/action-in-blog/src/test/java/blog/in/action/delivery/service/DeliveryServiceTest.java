@@ -1,24 +1,23 @@
 package blog.in.action.delivery.service;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import blog.in.action.delivery.entity.Delivery;
+import blog.in.action.delivery.domain.Delivery;
+import blog.in.action.delivery.domain.DeliveryState;
 import blog.in.action.delivery.repository.DeliveryRepository;
-import blog.in.action.order.entity.Order;
+import blog.in.action.order.domain.Order;
+import blog.in.action.order.domain.OrderState;
 import blog.in.action.order.repository.OrderRepository;
-import java.util.Optional;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 @SpringBootTest
 public class DeliveryServiceTest {
-
-    private static String DELIVERY_CODE = "DELIVERY_CODE";
-
-    private static String ORDER_CODE = "ORDER_CODE";
-
-    private static String DELIVERY_COMPLETE = "DELIVERY_COMPLETE";
 
     @Autowired
     private DeliveryRepository deliveryRepository;
@@ -27,23 +26,28 @@ public class DeliveryServiceTest {
     private OrderRepository orderRepository;
 
     @Autowired
-    private DeliveryService deliveryService;
-
-    @BeforeEach
-    public void beforeEach() {
-        deliveryRepository.deleteAll();
-        orderRepository.deleteAll();
-        Order order = new Order(ORDER_CODE);
-        orderRepository.save(order);
-        Delivery delivery = new Delivery(DELIVERY_CODE, order);
-        deliveryRepository.save(delivery);
-    }
+    private DeliveryService sut;
 
     @Test
-    public void test_updateDeliveryComplete_changeOrderState() {
-        deliveryService.updateDeliveryComplete(DELIVERY_CODE);
-        Optional<Order> optional = orderRepository.findByOrderCode(ORDER_CODE);
-        assertThat(optional).isNotEmpty();
-        assertThat(optional.get().getOrderState()).isEqualTo(DELIVERY_COMPLETE);
+    @Transactional
+    public void delivery_is_finished_then_order_state_is_changed() {
+        Order order = Order.builder()
+                .build();
+        orderRepository.save(order);
+        Delivery delivery = Delivery.builder()
+                .orderId(order.getId())
+                .deliveryState(DeliveryState.START)
+                .build();
+        deliveryRepository.save(delivery);
+        order.startDelivery(delivery.getId());
+        orderRepository.flush();
+
+
+        sut.finishDelivery(delivery.getId());
+
+
+        Optional<Order> optional = orderRepository.findByDeliveryId(delivery.getId());
+        Order result = optional.get();
+        assertThat(result.getOrderState(), equalTo(OrderState.DELIVERY_FINISHED));
     }
 }

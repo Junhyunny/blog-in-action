@@ -1,34 +1,32 @@
 package blog.in.action.delivery.service;
 
-import blog.in.action.common.event.OrderDeliveryCompleteEvent;
-import blog.in.action.delivery.entity.Delivery;
+import blog.in.action.base.DeliveryCompleteEvent;
+import blog.in.action.delivery.domain.Delivery;
+import blog.in.action.delivery.proxy.ApplicationContextDeliveryEventProxy;
+import blog.in.action.delivery.proxy.DeliveryEventProxy;
 import blog.in.action.delivery.repository.DeliveryRepository;
-import java.util.Optional;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 @Transactional
 public class DeliveryService {
 
-    private final ApplicationContext applicationContext;
 
     private final DeliveryRepository deliveryRepository;
+    private final DeliveryEventProxy deliveryEventProxy;
 
-    public DeliveryService(ApplicationContext applicationContext, DeliveryRepository deliveryRepository) {
-        this.applicationContext = applicationContext;
+    public DeliveryService(DeliveryRepository deliveryRepository, ApplicationContextDeliveryEventProxy deliveryEventProxy) {
         this.deliveryRepository = deliveryRepository;
+        this.deliveryEventProxy = deliveryEventProxy;
     }
 
-    public void updateDeliveryComplete(String deliveryCode) {
-        Optional<Delivery> optional = deliveryRepository.findByDeliveryCode(deliveryCode);
-        if (optional.isEmpty()) {
-            throw new RuntimeException(deliveryCode + " 코드에 해당하는 배송 정보가 없습니다.");
-        }
-        Delivery delivery = optional.get();
-        delivery.setDeliveryEndTp("*");
-        deliveryRepository.save(delivery);
-        applicationContext.publishEvent(new OrderDeliveryCompleteEvent(delivery.getOrder().getId(), deliveryCode));
+    public void finishDelivery(long deliveryId) {
+        Optional<Delivery> optional = deliveryRepository.findById(deliveryId);
+        Delivery delivery = optional.orElseThrow(() -> new RuntimeException(String.format("[%s]에 해당하는 배송 정보가 없습니다.", deliveryId)));
+        delivery.finishDelivery();
+        deliveryEventProxy.publishDeliveryCompleteEvent(new DeliveryCompleteEvent(deliveryId));
     }
 }

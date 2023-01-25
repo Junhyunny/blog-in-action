@@ -1,11 +1,14 @@
 package blog.in.action.order.service;
 
-import blog.in.action.order.entity.Order;
+import blog.in.action.order.domain.Order;
 import blog.in.action.order.repository.OrderRepository;
-import java.util.Optional;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-@Component
+import java.util.Optional;
+
+@Service
+@Transactional
 public class OrderService {
 
     private final OrderRepository orderRepository;
@@ -14,13 +17,9 @@ public class OrderService {
         this.orderRepository = orderRepository;
     }
 
-    public void updateOrderDeliveryComplete(long orderId, String deliveryCode) {
-        Optional<Order> optional = orderRepository.findById(orderId);
-        if (optional.isEmpty()) {
-            throw new RuntimeException(deliveryCode + " 배송 코드에 해당하는 주문 정보가 없습니다.");
-        }
-        Order order = optional.get();
-        order.setOrderState("DELIVERY_COMPLETE");
-        orderRepository.save(order);
+    public void finishDelivery(long deliveryId) {
+        Optional<Order> optional = orderRepository.findByDeliveryId(deliveryId);
+        Order order = optional.orElseThrow(() -> new RuntimeException("[%s] 배송 아이디에 해당하는 주문 정보가 없습니다."));
+        order.finishDelivery();
     }
 }
