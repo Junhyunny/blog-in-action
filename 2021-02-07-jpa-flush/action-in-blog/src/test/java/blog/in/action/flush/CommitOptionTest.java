@@ -28,9 +28,9 @@ public class CommitOptionTest {
         try {
             consumer.accept(entityManager);
         } catch (Exception ex) {
-            transaction.rollback();
             throw ex;
         } finally {
+            transaction.rollback();
             entityManager.close();
         }
     }
