@@ -28,8 +28,8 @@ interface PostRepository extends JpaRepository<Post, Long> {
 class AsyncTransaction {
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public CompletableFuture<Void> runAsync(Runnable runnable) {
-        return CompletableFuture.runAsync(runnable);
+    public void run(Runnable runnable) {
+        runnable.run();
     }
 }
 
@@ -61,19 +61,19 @@ public class RepositoryTest {
 
     @Test
     public void optimistic_lock_with_repository() {
-        CompletableFuture<Void> tx = asyncTransaction.runAsync(() -> {
+        CompletableFuture<Void> tx = CompletableFuture.runAsync(() -> asyncTransaction.run(() -> {
             Post post = postRepository.findByTitle("Hello World");
             post.setContents("This is tx1.");
             sleep(500);
             postRepository.save(post);
-        });
+        }));
         Throwable throwable = assertThrows(Exception.class, () -> {
-            asyncTransaction.runAsync(() -> {
+            CompletableFuture.runAsync(() -> asyncTransaction.run(() -> {
                 Post post = postRepository.findByTitle("Hello World");
                 post.setContents("This is tx2.");
                 sleep(1000);
                 postRepository.save(post);
-            }).join();
+            })).join();
         });
         tx.join();
 
