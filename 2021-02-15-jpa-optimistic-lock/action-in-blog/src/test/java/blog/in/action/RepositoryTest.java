@@ -65,14 +65,12 @@ public class RepositoryTest {
             Post post = postRepository.findByTitle("Hello World");
             post.setContents("This is tx1.");
             sleep(500);
-            postRepository.save(post);
         }));
         Throwable throwable = assertThrows(Exception.class, () -> {
             CompletableFuture.runAsync(() -> asyncTransaction.run(() -> {
                 Post post = postRepository.findByTitle("Hello World");
                 post.setContents("This is tx2.");
                 sleep(1000);
-                postRepository.save(post);
             })).join();
         });
         tx.join();
