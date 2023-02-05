@@ -1,5 +1,0 @@
-server:
-  port: 8000
-spring:
-  application:
-    name: a-service
