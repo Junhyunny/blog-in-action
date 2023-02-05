@@ -19,13 +19,13 @@ public class PostController {
         }
     }
 
-    @GetMapping(value = "/post/{index}")
-    public String getPost(@PathVariable(name = "index") Integer index) {
+    @GetMapping(value = "/post/{id}")
+    public String getPost(@PathVariable(name = "id") Integer id) {
         boolean execution = new Random().nextBoolean();
-        String result = String.format("POST(id: %s)", index);
-        if (25 <= index && index < 50 && execution) {
+        String result = String.format("POST(id: %s)", id);
+        if (25 <= id && id < 50 && execution) {
             sleep(1000);
-        } else if (50 <= index && index < 75 && execution) {
+        } else if (50 <= id && id < 75 && execution) {
             throw new RuntimeException("occur intentional exception");
         }
         return result;
