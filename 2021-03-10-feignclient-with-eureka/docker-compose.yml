@@ -1,0 +1,12 @@
+version: "3.9"
+services:
+  eureka-service:
+    build: ./eureka
+    ports:
+      - "8761:8761"
+  a-service:
+    build: ./a-service
+    ports:
+      - "8080:8080"
+  b-service:
+    build: ./b-service

@@ -1,44 +1,51 @@
 package cloud.in.action;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import cloud.in.action.domain.Health;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.google.gson.GsonBuilder;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
-import lombok.extern.log4j.Log4j2;
+@FeignClient(name = "test-client", url = "http://localhost:8080")
+interface TestClient {
 
-@FeignClient(name = "a-service")
-interface ASerivceClient {
-
-	@GetMapping(path = "/call-b-service")
-	String requestCallBService();
+    @GetMapping(path = "/health")
+    List<Health> health();
 }
 
-@Log4j2
+@Slf4j
 @SpringBootTest
 class AServiceApplicationTests {
 
-	@Autowired
-	private ASerivceClient client;
+    @Autowired
+    TestClient testClient;
 
-	@Test
-	void test() {
-		Map<String, Integer> result = new HashMap<>();
-		for (int index = 0; index < 1000; index++) {
-			String response = client.requestCallBService();
-			if (result.containsKey(response)) {
-				result.put(response, result.get(response) + 1);
-			} else {
-				result.put(response, Integer.valueOf(1));
-			}
-		}
-		log.info("result: " + new GsonBuilder().setPrettyPrinting().create().toJson(result));
-	}
+    @Test
+    void health_check() {
 
+        List<Health> healthList = new ArrayList<>();
+        for (int index = 0; index < 100; index++) {
+            healthList.addAll(testClient.health());
+        }
+
+        Map<String, List<Health>> result = healthList.stream()
+                .collect(
+                        Collectors.groupingBy(
+                                (health) -> String.format("%s:%s", health.getServiceName(), health.getPort())
+                        )
+                );
+
+        result.entrySet()
+                .stream()
+                .forEach((entry) -> {
+                    log.info(String.format("Response count from (%s) - %s", entry.getKey(), entry.getValue().size()));
+                });
+    }
 }
