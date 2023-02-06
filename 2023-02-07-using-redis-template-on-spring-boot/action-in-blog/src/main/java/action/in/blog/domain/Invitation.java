@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class Message {
-    private String title;
-    private String content;
+public class Invitation {
+
+    private String inviter;
+    private String invitee;
 }

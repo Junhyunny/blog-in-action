@@ -1,9 +1,9 @@
 package action.in.blog.proxy;
 
-import action.in.blog.domain.Message;
+import action.in.blog.domain.InvitationMessage;
 
 import java.util.List;
 
 public interface UserMessageProxy {
-    List<Message> getMessagesForUser(String id);
+    List<InvitationMessage> getInvitationMessage(String userId);
 }
