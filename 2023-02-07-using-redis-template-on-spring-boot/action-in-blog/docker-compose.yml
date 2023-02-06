@@ -1,0 +1,15 @@
+version: "3.9"
+services:
+  redis:
+    image: redis
+    command: redis-server --port 6379
+    container_name: redis-server
+    ports:
+      - '6379:6379'
+  backend:
+    build: .
+    ports:
+      - '8080:8080'
+    depends_on:
+      - redis
+    restart: on-failure
