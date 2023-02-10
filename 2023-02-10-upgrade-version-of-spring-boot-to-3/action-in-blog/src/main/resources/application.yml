@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: action-in-blog
+logging:
+  pattern:
+    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
