@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Redis Spike</title>
+    <script type="text/javascript">
+
+        window.onpageshow = function (event) {
+            if (event.persisted) {
+                getUnreadListSize()
+            }
+        }
+
+        async function getUnreadListSize() {
+            const result = await fetch('/unread-list/size',).then(response => response.text())
+            document.getElementById('fragment').innerHTML = result
+        }
+
+        async function onSubmitHandler() {
+            const messageDom = document.getElementById('message')
+            const message = messageDom.value
+            const formData = new FormData();
+            formData.append("message", message)
+            const result = await fetch('/', {
+                method: 'POST',
+                body: formData,
+            }).then(response => response.text())
+            messageDom.value = ''
+            document.getElementById('fragment').innerHTML = result
+        }
+    </script>
+</head>
+<body>
+<div>
+    <div>
+        <input type="text" name="message" id="message">
+        <button th:onclick="onSubmitHandler()">Submit</button>
+    </div>
+    <div id="fragment" th:fragment="fragment">
+        <p id="" th:text="'Unread Messages: ' + ${unreadListSize}"></p>
+        <a href="/messages">See your messages</a>
+    </div>
+</div>
+</body>
+</html>

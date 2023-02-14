@@ -1,0 +1,2 @@
+redis-sentinel:
+  hosts: action-in-blog-redis-sentinel-1,action-in-blog-redis-sentinel-2,action-in-blog-redis-sentinel-3

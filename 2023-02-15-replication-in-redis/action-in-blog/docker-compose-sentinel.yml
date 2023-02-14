@@ -1,0 +1,68 @@
+version: "3.9"
+services:
+  redis-master:
+    hostname: redis-master
+    container_name: redis-master
+    image: redis
+    volumes:
+      - ./conf:/usr/local/etc/redis/
+    command: redis-server /usr/local/etc/redis/redis-master.conf --port 6379
+    environment:
+      - REDIS_REPLICATION_MODE=master
+      - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - '6379:6379'
+  redis-slave-1:
+    hostname: redis-slave-1
+    container_name: redis-slave-1
+    image: redis
+    volumes:
+      - ./conf:/usr/local/etc/redis/
+    command: redis-server /usr/local/etc/redis/redis-slave-1.conf --port 6379
+    environment:
+      - REDIS_REPLICATION_MODE=slave
+      - REDIS_MASTER_HOST=redis-master
+      - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - '6480:6379'
+    depends_on:
+      - redis-master
+  redis-slave-2:
+    hostname: redis-slave-2
+    container_name: redis-slave-2
+    image: redis
+    volumes:
+      - ./conf:/usr/local/etc/redis/
+    command: redis-server /usr/local/etc/redis/redis-slave-2.conf --port 6379
+    environment:
+      - REDIS_REPLICATION_MODE=slave
+      - REDIS_MASTER_HOST=redis-master
+      - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - '6481:6379'
+    depends_on:
+      - redis-master
+      - redis-slave-1
+  redis-sentinel:
+    image: 'bitnami/redis-sentinel:latest'
+    environment:
+      - REDIS_SENTINEL_DOWN_AFTER_MILLISECONDS=3000
+      - REDIS_MASTER_HOST=redis-master
+      - REDIS_MASTER_PORT_NUMBER=6379
+      - REDIS_MASTER_SET=mymaster
+      - REDIS_SENTINEL_QUORUM=2
+    depends_on:
+      - redis-master
+      - redis-slave-1
+      - redis-slave-2
+  backend:
+    build: .
+    ports:
+      - '8080:8080'
+    environment:
+      - RUN_ENV=sentinel
+    depends_on:
+      - redis-master
+      - redis-slave-1
+      - redis-slave-2
+    restart: on-failure
