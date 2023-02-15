@@ -7,29 +7,30 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 
-@FeignClient(name = "a-service")
-interface ASerivceClient {
+@FeignClient(name = "test-client", url = "http://localhost:8080")
+interface TestClient {
 
     @GetMapping(path = "/timeout")
-    String requestWithTimeout();
+    String requestWithTimeoutException();
 
     @GetMapping(path = "/exception")
-    String requestWithException();
+    String requestWithIntentionalException();
 }
 
 @Log4j2
-@SpringBootTest(value = {"spring.application.name=a-service-test",
-    "feign.circuitbreaker.enabled=false",
-    "feign.client.config.default.connectTimeout=100000",
-    "feign.client.config.default.readTimeout=100000"})
+@SpringBootTest(value = {
+        "feign.hystrix.enabled=false",
+        "feign.client.config.default.connect-timeout=100000",
+        "feign.client.config.default.read-timeout=100000"
+})
 class AServiceApplicationTests {
 
     @Autowired
-    private ASerivceClient client;
+    private TestClient testClient;
 
     @Test
-    void test() {
-        log.info("requestWithTimeout response: " + client.requestWithTimeout());
-        log.info("requestWithException response: " + client.requestWithException());
+    void request_api_expect_without_exception() {
+        log.info(testClient.requestWithTimeoutException());
+        log.info(testClient.requestWithIntentionalException());
     }
 }
