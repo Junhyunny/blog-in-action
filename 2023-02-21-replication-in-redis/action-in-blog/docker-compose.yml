@@ -6,25 +6,21 @@ services:
     image: redis
     volumes:
       - ./conf:/usr/local/etc/redis/
-    command: redis-server /usr/local/etc/redis/redis-master.conf --port 6379
+    command: redis-server /usr/local/etc/redis/redis-master.conf
     environment:
       - REDIS_REPLICATION_MODE=master
       - ALLOW_EMPTY_PASSWORD=yes
-    ports:
-      - '6379:6379'
   redis-slave-1:
     hostname: redis-slave-1
     container_name: redis-slave-1
     image: redis
     volumes:
       - ./conf:/usr/local/etc/redis/
-    command: redis-server /usr/local/etc/redis/redis-slave-1.conf --port 6379
+    command: redis-server /usr/local/etc/redis/redis-slave-1.conf
     environment:
       - REDIS_REPLICATION_MODE=slave
       - REDIS_MASTER_HOST=redis-master
       - ALLOW_EMPTY_PASSWORD=yes
-    ports:
-      - '6480:6379'
     depends_on:
       - redis-master
   redis-slave-2:
@@ -33,13 +29,11 @@ services:
     image: redis
     volumes:
       - ./conf:/usr/local/etc/redis/
-    command: redis-server /usr/local/etc/redis/redis-slave-2.conf --port 6379
+    command: redis-server /usr/local/etc/redis/redis-slave-2.conf
     environment:
       - REDIS_REPLICATION_MODE=slave
       - REDIS_MASTER_HOST=redis-master
       - ALLOW_EMPTY_PASSWORD=yes
-    ports:
-      - '6481:6379'
     depends_on:
       - redis-master
       - redis-slave-1
@@ -47,8 +41,6 @@ services:
     build: .
     ports:
       - '8080:8080'
-    environment:
-      - RUN_ENV=replication
     depends_on:
       - redis-master
       - redis-slave-1

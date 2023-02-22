@@ -1,0 +1,18 @@
+spring:
+  mvc:
+    static-path-pattern: /static/**
+  thymeleaf:
+    prefix: classpath:templates/
+    check-template-location: true
+    suffix: .html
+    mode: HTML5
+    cache: false
+redis:
+  master:
+    host: redis-master
+    port: 6379
+  slaves:
+    - host: redis-slave-1
+      port: 6379
+    - host: redis-slave-2
+      port: 6379

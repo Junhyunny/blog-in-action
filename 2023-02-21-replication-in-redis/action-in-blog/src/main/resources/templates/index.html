@@ -21,7 +21,7 @@
             const message = messageDom.value
             const formData = new FormData();
             formData.append("message", message)
-            const result = await fetch('/', {
+            const result = await fetch('/message', {
                 method: 'POST',
                 body: formData,
             }).then(response => response.text())

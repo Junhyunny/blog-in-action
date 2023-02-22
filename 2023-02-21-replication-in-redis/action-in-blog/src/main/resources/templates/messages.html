@@ -27,7 +27,7 @@
         .right .items {
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: space-evenly;
         }
 
         .item {
@@ -35,6 +35,13 @@
             border-radius: 5px;
         }
     </style>
+    <script type="text/javascript">
+        function flushMessages() {
+            fetch('/messages/flush', {method: 'POST'})
+        }
+
+        flushMessages()
+    </script>
 </head>
 <body>
 <div class="container">

@@ -4,9 +4,7 @@ import io.lettuce.core.ReadFrom;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.connection.RedisSentinelConfiguration;
 import org.springframework.data.redis.connection.RedisStaticMasterReplicaConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceClientConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
@@ -16,11 +14,10 @@ import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSeriali
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
-@Profile("replication")
 @RequiredArgsConstructor
 @Configuration
 @EnableRedisRepositories
-public class RedisReplicationFactoryConfig {
+public class RedisTemplateConfig {
 
     private final RedisConfiguration redisConfiguration;
 
@@ -35,5 +32,22 @@ public class RedisReplicationFactoryConfig {
         );
         redisConfiguration.getSlaves().forEach(slave -> staticMasterReplicaConfiguration.addNode(slave.getHost(), slave.getPort()));
         return new LettuceConnectionFactory(staticMasterReplicaConfiguration, clientConfig);
+    }
+
+    @Bean
+    public RedisSerializer<Object> springSessionDefaultRedisSerializer() {
+        return new GenericJackson2JsonRedisSerializer();
+    }
+
+    @Bean
+    public RedisTemplate<String, Object> redisTemplate(
+            RedisConnectionFactory connectionFactory,
+            RedisSerializer<Object> springSessionDefaultRedisSerializer
+    ) {
+        RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
+        redisTemplate.setConnectionFactory(connectionFactory);
+        redisTemplate.setKeySerializer(new StringRedisSerializer());
+        redisTemplate.setValueSerializer(springSessionDefaultRedisSerializer);
+        return redisTemplate;
     }
 }
