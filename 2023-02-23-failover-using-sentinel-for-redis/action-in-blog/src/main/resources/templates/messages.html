@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Redis Spike</title>
+    <style>
+        * {
+            margin: 5px;
+            padding: 5px;
+        }
+
+        .container {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .left, .right {
+            font-size: 12px;
+            border: 1px solid gray;
+            border-radius: 5px;
+            width: 45%;
+        }
+
+        .left .items,
+        .right .items {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+        }
+
+        .item {
+            border: 1px solid indianred;
+            border-radius: 5px;
+        }
+    </style>
+    <script type="text/javascript">
+        function flushMessages() {
+            fetch('/messages/flush', {method: 'POST'})
+        }
+
+        flushMessages()
+    </script>
+</head>
+<body>
+<div class="container">
+    <div class="left">
+        <h2>UNREAD MESSAGES</h2>
+        <div class="items">
+            <div class="item" th:each="item : ${unreadMessages}">
+                <p th:text="${item.id}"></p>
+                <p th:text="${item.message}"></p>
+            </div>
+        </div>
+    </div>
+    <div class="right">
+        <h2>READ MESSAGES</h2>
+        <div class="items">
+            <div class="item" th:each="item : ${readMessages}">
+                <p th:text="${item.id}"></p>
+                <p th:text="${item.message}"></p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

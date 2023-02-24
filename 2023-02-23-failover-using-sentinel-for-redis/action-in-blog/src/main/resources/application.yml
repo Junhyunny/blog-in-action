@@ -1,0 +1,17 @@
+spring:
+  mvc:
+    static-path-pattern: /static/**
+  thymeleaf:
+    prefix: classpath:templates/
+    check-template-location: true
+    suffix: .html
+    mode: HTML5
+    cache: false
+redis:
+  sentinels:
+    - host: action-in-blog-redis-sentinel-1
+      port: 26379
+    - host: action-in-blog-redis-sentinel-2
+      port: 26379
+    - host: action-in-blog-redis-sentinel-3
+      port: 26379
