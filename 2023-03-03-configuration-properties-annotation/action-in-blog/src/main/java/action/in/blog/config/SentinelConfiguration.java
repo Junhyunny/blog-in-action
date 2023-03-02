@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @Configuration
-@ConfigurationProperties("redis")
+@ConfigurationProperties(prefix = "redis")
 public class SentinelConfiguration {
 
     private List<SentinelInstance> sentinels;
