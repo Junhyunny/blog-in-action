@@ -1,0 +1,2 @@
+redis:
+  sentinels: http://sentinel-1:8080,http://sentinel-2:8081,http://sentinel-3:8082

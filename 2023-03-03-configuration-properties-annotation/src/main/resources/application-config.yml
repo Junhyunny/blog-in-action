@@ -1,0 +1,8 @@
+redis:
+  sentinels:
+    - host: http://sentinel-1
+      port: 8080
+    - host: http://sentinel-2
+      port: 8081
+    - host: http://sentinel-3
+      port: 8082
