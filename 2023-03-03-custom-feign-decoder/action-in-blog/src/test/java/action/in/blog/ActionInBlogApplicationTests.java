@@ -27,7 +27,7 @@ class ActionInBlogApplicationTests {
     BlogClient sut;
 
     @Test
-    void contextLoads() {
+    void feign_client_decoding_escaped_message() {
         String expectResponse = "[{&#39;id&#39;: &#39;0001&#39;, &#39;title&#39;: &#39;hello world&#39;, &#39;content&#39;: &#39;this is post test for feign client&#39;}]";
         stubFor(get("/posts")
                 .willReturn(
