@@ -1,40 +1,46 @@
 package blog.in.action;
 
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@Log4j2
-@SpringBootTest
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
+import static java.lang.Thread.MAX_PRIORITY;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+
+@Slf4j
 public class ImmutableTest {
 
     @Test
-    public void test() {
-        String str = "A";
-        log.info("값 변경 전 객체 주소: " + System.identityHashCode(str) + ", 객체 value 값: " + str);
-        // str = str + "B";
-        str = str.concat("B");
-        log.info("값 변경 후 객체 주소: " + System.identityHashCode(str) + ", 객체 value 값: " + str);
+    public void change_state_single_thread() {
+
+        final String immutableObject = "Junhyunny";
+
+
+        assertThat(immutableObject.concat(" Kang"), equalTo("Junhyunny Kang"));
+        assertThat(immutableObject, equalTo("Junhyunny"));
     }
 
     @Test
-    public void test_integer() {
-        Integer integer = Integer.valueOf(0);
-        log.info("값 변경 전 객체 주소: " + System.identityHashCode(integer) + ", 객체 value 값: " + integer);
-        integer = integer + 2;
-        log.info("값 변경 후 객체 주소: " + System.identityHashCode(integer) + ", 객체 value 값: " + integer);
-    }
-}
+    public void change_state_with_multi_thread() throws InterruptedException {
 
-class ImmutableObject {
+        final String immutableObject = "Junhyunny";
 
-    private final int value;
 
-    public ImmutableObject(int value) {
-        this.value = value;
-    }
+        ExecutorService executorService = Executors.newFixedThreadPool(10);
+        for (int index = 0; index < 100; index++) {
+            final int value = index;
+            executorService.submit(() -> {
+                immutableObject.concat(" Kang");
+            });
+        }
+        executorService.shutdown();
+        executorService.awaitTermination(MAX_PRIORITY, TimeUnit.HOURS);
 
-    public int getValue() {
-        return value;
+
+        assertThat(immutableObject, equalTo("Junhyunny"));
     }
 }

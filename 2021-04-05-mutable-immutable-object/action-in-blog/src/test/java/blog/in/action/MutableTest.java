@@ -1,36 +1,65 @@
 package blog.in.action;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
-import lombok.extern.log4j.Log4j2;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
-@Log4j2
-@SpringBootTest
+import static java.lang.Thread.MAX_PRIORITY;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+
+class MutableObject {
+
+    private int value;
+
+    public MutableObject(int value) {
+        this.value = value;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
+}
+
+@Slf4j
 public class MutableTest {
 
-	class MutableObject {
+    @Test
+    void change_state_single_thread() {
 
-		private int value;
+        final MutableObject mutableObject = new MutableObject(0);
 
-		public MutableObject(int value) {
-			this.value = value;
-		}
 
-		public int getValue() {
-			return value;
-		}
+        mutableObject.setValue(1);
 
-		public void setValue(int value) {
-			this.value = value;
-		}
-	}
 
-	@Test
-	public void test() {
-		MutableObject mutableObject = new MutableObject(0);
-		log.info("값 변경 전 객체 주소: " + System.identityHashCode(mutableObject) + ", 객체 value 값: " + mutableObject.getValue());
-		mutableObject.setValue(1);
-		log.info("값 변경 후 객체 주소: " + System.identityHashCode(mutableObject) + ", 객체 value 값: " + mutableObject.getValue());
-	}
+        assertThat(mutableObject.getValue(), equalTo(1));
+    }
+
+    @Test
+    void change_state_with_multi_thread() throws InterruptedException {
+
+        final MutableObject mutableObject = new MutableObject(0);
+
+
+        ExecutorService executorService = Executors.newFixedThreadPool(10);
+        for (int index = 0; index < 100; index++) {
+            final int value = index;
+            executorService.submit(() -> {
+                mutableObject.setValue(value);
+            });
+        }
+        executorService.shutdown();
+        executorService.awaitTermination(MAX_PRIORITY, TimeUnit.HOURS);
+
+
+        log.info("result - {}", mutableObject.getValue());
+    }
 }
