@@ -1,0 +1,41 @@
+
+body {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    gap: 5px;
+    width: 100%;
+    max-width: 750px;
+}
+
+body > div, form {
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    width: 45%;
+    height: 25vh;
+}
+
+#user, form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 10px;
+    gap: 5px;
+}
+
+.row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.row > input {
+    width: 75%;
+}
+
+.row .value {
+    width: 75%;
+    border-bottom: 1px solid lightgray;
+}
