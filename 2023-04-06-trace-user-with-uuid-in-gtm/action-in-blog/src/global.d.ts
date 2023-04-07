@@ -1,9 +1,9 @@
 declare global {
-    interface Window {
-        dataLayer: {
-            push: (data: any) => void
-        }
-    }
+  interface Window {
+    dataLayer: {
+      push: (data: any) => void;
+    };
+  }
 }
 
-export {}
+export {};
