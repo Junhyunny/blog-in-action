@@ -1,4 +1,3 @@
-
 package action.in.blog;
 
 import org.junit.jupiter.api.Test;
@@ -16,7 +15,7 @@ public class ApplicationTests {
     }
 
     @Test
-    void dirty_context_problem_when_using_thread_local_with_thread_pool() {
+    void dirty_context_problem_when_using_thread_local_with_thread_pool() throws InterruptedException {
 
         int taskCount = 10;
         ExecutorService executorService = Executors.newFixedThreadPool(3);
@@ -32,10 +31,11 @@ public class ApplicationTests {
             }
             latch.countDown();
         });
+        latch.await();
     }
 
     @Test
-    void solving_the_problem_when_using_thread_local_with_thread_pool() {
+    void solving_the_problem_when_using_thread_local_with_thread_pool() throws InterruptedException {
 
         int taskCount = 10;
         ExecutorService executorService = Executors.newFixedThreadPool(3);
@@ -52,6 +52,7 @@ public class ApplicationTests {
             ContextHolder.remove();
             latch.countDown();
         });
+        latch.await();
     }
 }
 
