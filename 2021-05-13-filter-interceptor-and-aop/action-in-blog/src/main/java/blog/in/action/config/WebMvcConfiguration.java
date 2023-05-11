@@ -8,12 +8,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import javax.servlet.Filter;
+
 @Configuration
 public class WebMvcConfiguration implements WebMvcConfigurer {
 
     @Bean
-    public FilterRegistrationBean filterRegistrationBean() {
-        FilterRegistrationBean registrationBean = new FilterRegistrationBean(new BlogFilter(BlogFilter.class.getSimpleName()));
+    public FilterRegistrationBean<Filter> filterRegistrationBean() {
+        FilterRegistrationBean<Filter> registrationBean = new FilterRegistrationBean<>(new BlogFilter(BlogFilter.class.getSimpleName()));
         registrationBean.addUrlPatterns("/*");
         registrationBean.setOrder(1);
         return registrationBean;
@@ -22,6 +24,6 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new BlogHandlerInterceptor())
-            .addPathPatterns("/**");
+                .addPathPatterns("/**");
     }
 }
