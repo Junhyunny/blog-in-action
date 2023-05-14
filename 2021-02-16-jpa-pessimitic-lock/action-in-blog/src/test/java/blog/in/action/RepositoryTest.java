@@ -66,7 +66,7 @@ public class RepositoryTest {
     }
 
     @Test
-    public void optimistic_lock_with_repository() {
+    public void pessimistic_lock_with_repository() {
         CompletableFuture<Void> tx = CompletableFuture.runAsync(() -> asyncTransaction.run(() -> {
             Post post = postRepository.findByTitle("Hello World");
             post.setContents("This is tx1.");
