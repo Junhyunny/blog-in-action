@@ -1,0 +1,63 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <main>
+        <div class="image">
+            <img id="cat-image" src="https://cdn2.thecatapi.com/images/3k0.jpg" alt="cat">
+        </div>
+        <div class="buttons">
+            <button onclick="clearCache()">Clear Cache</button>
+            <button onclick="fetchCat()">Cat Image</button>
+        </div>
+    </main>
+</body>
+
+<script>
+    function regsiterServiceWorker() {
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker
+                .register('./service-worker.js')
+                .then(function (registration) {
+                    if (registration.active && !navigator.serviceWorker.controller) {
+                        window.location.reload();
+                    }
+                    console.log('register service worker - ', serviceWorker);
+                });
+        }
+    }
+
+    function clearCache() {
+        if ('caches' in window) {
+            return caches.keys()
+                .then(function (keyList) {
+                    console.log(keyList)
+                    return Promise.all(keyList.map(function (key) {
+                        return caches.delete(key);
+                    }));
+                })
+        }
+        return Promise.resolve();
+    }
+
+    function fetchCat() {
+        fetch('https://api.thecatapi.com/v1/images/search?limit=1')
+            .then(response => response.json())
+            .then(data => {
+                const catImage = document.querySelector("#cat-image");
+                catImage.src = data[0].url;
+            })
+            .catch(error => console.log(error));
+    }
+
+    regsiterServiceWorker();
+</script>
+
+</html>
