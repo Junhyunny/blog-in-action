@@ -1,0 +1,38 @@
+.app {
+    margin: auto;
+    padding: 10px;
+    width: 300px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.todo-list {
+    width: 100%;
+    padding: 10px 10px 0 10px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+}
+
+.todo-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.todo-list li {
+    margin-bottom: 10px;
+}
+
+.todo-form input {
+    padding: 5px;
+}
+
+.todo-form button {
+    padding: 5px;
+}
