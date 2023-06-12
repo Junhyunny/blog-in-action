@@ -1,0 +1,17 @@
+spring:
+  profiles:
+    active: local
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+log:
+  path: ./dev-logs
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+log:
+  path: ./prod-logs

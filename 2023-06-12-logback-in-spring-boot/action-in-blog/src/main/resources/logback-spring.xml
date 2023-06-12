@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <timestamp key="LOG_DATE" datePattern="yyyy-MM-dd"/>
+    <springProperty name="LOG_PATH" source="log.path" defaultValue="./local-logs"/>
+    <include resource="appender/console-appender.xml" />
+    <include resource="appender/error-rolling-file-appender.xml" />
+    <include resource="appender/rolling-file-appender.xml" />
+
+    <springProfile name="local">
+        <root level="DEBUG">
+            <appender-ref ref="STDOUT"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="dev">
+        <root level="DEBUG">
+            <appender-ref ref="STDOUT"/>
+            <appender-ref ref="ERROR_ROLLING_FILE"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="prod">
+        <root level="INFO">
+            <appender-ref ref="STDOUT"/>
+            <appender-ref ref="ROLLING_FILE"/>
+            <appender-ref ref="ERROR_ROLLING_FILE"/>
+        </root>
+    </springProfile>
+</configuration>
