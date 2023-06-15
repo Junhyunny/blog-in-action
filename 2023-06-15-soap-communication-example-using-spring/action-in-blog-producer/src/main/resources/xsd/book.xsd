@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="http://blog.in.action/book"
+           targetNamespace="http://blog.in.action/book"
+           elementFormDefault="qualified">
+
+    <xs:element name="getBooksRequest">
+        <xs:complexType>
+            <xs:sequence/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getBooksResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="books" type="tns:book" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="book">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="isbn" type="xs:string"/>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="author" type="xs:long"/>
+            <xs:element name="authorPenName" type="xs:string"/>
+            <xs:element name="price" type="xs:int"/>
+            <xs:element name="genre" type="tns:genre"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="genre">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="ESSAY"/>
+            <xs:enumeration value="POEM"/>
+            <xs:enumeration value="NOVEL"/>
+            <xs:enumeration value="PLAY"/>
+            <xs:enumeration value="LITERATURE"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+</xs:schema>

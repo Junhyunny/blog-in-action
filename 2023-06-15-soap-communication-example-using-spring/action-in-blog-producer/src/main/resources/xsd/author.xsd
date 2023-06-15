@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="http://blog.in.action/author"
+           targetNamespace="http://blog.in.action/author"
+           elementFormDefault="qualified">
+
+    <xs:element name="getAuthorsRequest">
+        <xs:complexType>
+            <xs:sequence/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getAuthorsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="authors" type="tns:author" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="author">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="penName" type="xs:string"/>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="email" type="xs:string"/>
+            <xs:element name="contact" type="xs:string"/>
+            <xs:element name="sex" type="tns:sex"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="sex">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="MALE"/>
+            <xs:enumeration value="FEMALE"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+</xs:schema>

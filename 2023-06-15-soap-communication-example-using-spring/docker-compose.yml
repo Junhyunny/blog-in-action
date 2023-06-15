@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  provider:
+    build: ./action-in-blog-producer
+    container_name: provider-service
+  consumer:
+    build: ./action-in-blog-consumer
+    container_name: consumer-service
+    ports:
+      - '80:8080'
