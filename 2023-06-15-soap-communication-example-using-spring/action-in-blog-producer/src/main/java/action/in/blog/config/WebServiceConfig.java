@@ -34,7 +34,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
         return schemaCollection;
     }
 
-    @Bean(name = "schemas")
+    @Bean(name = "schemas") // http://localhost:8080/ws/schemas.wsdl
     public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchemaCollection wsdlSchemas) {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("BookStorePort");

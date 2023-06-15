@@ -12,13 +12,13 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
 import java.util.stream.IntStream;
 
-@Endpoint // @RestController
+@Endpoint // RestController
 public class AuthorEndPoint {
 
     private static final String NAMESPACE_URI = "http://blog.in.action/author";
 
-    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getAuthorsRequest") // GetMapping
-    @ResponsePayload // response body
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getAuthorsRequest") // RequestMapping
+    @ResponsePayload // ResponseBody
     public GetAuthorsResponse getAuthors(@RequestPayload GetAuthorsRequest request) {
         var faker = new Faker();
         var response = new GetAuthorsResponse();

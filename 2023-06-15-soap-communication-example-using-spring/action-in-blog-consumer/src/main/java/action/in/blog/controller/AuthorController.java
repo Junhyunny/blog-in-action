@@ -20,5 +20,4 @@ public class AuthorController {
     public List<Author> getAuthors() {
         return bookStoreProxy.getAuthors();
     }
-
 }

@@ -19,7 +19,7 @@ sourceSets {
     main {
         java {
             srcDir 'src/main/java'
-            srcDir 'src/main/jaxb'
+            srcDir 'src/main/jaxb' // 소스 코드 경로로 src/main/jaxb 추가
         }
     }
 }
@@ -34,25 +34,27 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web-services'
+    implementation 'org.springframework.boot:spring-boot-starter-web-services' // Spring Web Service
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
     implementation 'com.github.javafaker:javafaker:1.0.2'
-    implementation 'wsdl4j:wsdl4j'
-    implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.0'
-    implementation 'org.apache.ws.xmlschema:xmlschema-core:2.2.1'
+    implementation 'wsdl4j:wsdl4j' // WSDL 처리 모듈
+    implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.0' // JDK17 관련 에러 보완
+    implementation 'org.apache.ws.xmlschema:xmlschema-core:2.2.1' // Apache Web Service URIResolver 관련 에러 보완
 
-    jaxb "org.glassfish.jaxb:jaxb-xjc"
+    jaxb "org.glassfish.jaxb:jaxb-xjc" // OXM
 }
 
 tasks.named('test') {
     useJUnitPlatform()
 }
 
+// XSD 파일을 기준으로 Java 클래스를 생성하는 태스크(task)
 tasks.register('genJaxb') {
+    // XSD 파일을 Java 클래스로 변환하여 jaxb 폴더에 위치시킵니다.
     ext.sourcesDir = "src/main/jaxb"
     ext.schema = "src/main/resources/xsd"
 

@@ -19,7 +19,7 @@ sourceSets {
     main {
         java {
             srcDir 'src/main/java'
-            srcDir 'src/main/jaxb'
+            srcDir 'src/main/jaxb' // 소스 코드 경로로 src/main/jaxb 추가
         }
     }
 }
@@ -35,25 +35,26 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-web-services'
+    implementation 'org.springframework.boot:spring-boot-starter-web-services' // Spring Web Services
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
-    implementation 'org.springframework.ws:spring-ws-core'
-    implementation 'org.glassfish.jaxb:jaxb-runtime'
-    implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.0'
+    implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.0' // JDK17 에러 보완
 
-    jaxb "org.glassfish.jaxb:jaxb-xjc"
+    jaxb "org.glassfish.jaxb:jaxb-xjc" // OXM
 }
 
 tasks.named('test') {
     useJUnitPlatform()
 }
 
+// 서비스 제공자가 노출한 WSDL 파일을 기준으로 클래스를 생성하는 태스크
 tasks.register('genJaxb') {
+    // 생성한 소스 코드 경로
     ext.sourcesDir = "src/main/jaxb"
+    // 스키마 정보를 받을 수 있는 주소
     ext.schema = "http://localhost:8080/ws/schemas.wsdl"
 
     outputs.dir sourcesDir
