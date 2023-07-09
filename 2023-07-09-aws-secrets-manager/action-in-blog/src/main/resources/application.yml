@@ -1,0 +1,6 @@
+spring:
+  profiles:
+    active: dev
+database:
+  user: ${DB_USER}
+  password: ${DB_PASSWORD}

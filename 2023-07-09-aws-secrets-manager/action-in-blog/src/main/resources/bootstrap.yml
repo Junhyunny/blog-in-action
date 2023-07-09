@@ -1,0 +1,7 @@
+aws:
+  secretsmanager:
+    name: action-in-blog
+cloud:
+  aws:
+    region:
+      static: us-east-1
