@@ -1,0 +1,2 @@
+auth:
+  ignore-paths: /blog/bar
