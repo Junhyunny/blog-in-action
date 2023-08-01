@@ -1,63 +1,54 @@
 package blog.in.action.volatilekeyword;
 
+import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
+
+import java.util.concurrent.CompletableFuture;
+
+@Getter
+class NormalInteger {
+    private volatile int value;
+
+    public NormalInteger(int value) {
+        this.value = value;
+    }
+
+    public void increase() {
+        this.value++;
+    }
+
+    public void decrease() {
+        this.value--;
+    }
+}
 
 @Log4j2
 public class VolatileTest {
 
-    class NormalInteger {
-
-        volatile int value;
-
-        NormalInteger(int value) {
-            this.value = value;
-        }
-    }
-
-    class SynchronizedThread extends Thread {
-
-        boolean operation;
-
-        VolatileTest.NormalInteger normalInteger;
-
-        public SynchronizedThread(boolean operation, VolatileTest.NormalInteger normalInteger) {
-            this.operation = operation;
-            this.normalInteger = normalInteger;
-        }
-
-        void add() {
-            normalInteger.value++;
-        }
-
-        void subtract() {
-            normalInteger.value--;
-        }
-
-        @Override
-        public void run() {
-            int limit = Integer.MAX_VALUE / 10;
-            for (int index = 0; index < limit; index++) {
-                if (operation) {
-                    add();
-                } else {
-                    subtract();
-                }
-            }
-        }
-    }
+    int limit = Integer.MAX_VALUE / 10;
 
     @Test
-    public void synchronized_test() throws InterruptedException {
-        long start = System.currentTimeMillis();
-        VolatileTest.NormalInteger integer = new VolatileTest.NormalInteger(0);
-        Thread addTh = new VolatileTest.SynchronizedThread(true, integer);
-        Thread subTh = new VolatileTest.SynchronizedThread(false, integer);
-        addTh.start();
-        subTh.start();
-        addTh.join();
-        subTh.join();
-        long end = System.currentTimeMillis();
-        log.info("operation time: " + (end - start) + ", value: " + integer.value);
+    public void test() {
+
+        var start = System.currentTimeMillis();
+        var normalInteger = new NormalInteger(0);
+
+        var firstThread = CompletableFuture.runAsync(() -> {
+            for (int index = 0; index < limit; index++) {
+                normalInteger.increase();
+            }
+        });
+        var secondThread = CompletableFuture.runAsync(() -> {
+            for (int index = 0; index < limit; index++) {
+                normalInteger.decrease();
+            }
+        });
+
+        firstThread.join();
+        secondThread.join();
+
+        var end = System.currentTimeMillis();
+        log.info("operation time: {}, value: {}", (end - start), normalInteger.getValue());
     }
 }
