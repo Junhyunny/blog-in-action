@@ -12,6 +12,7 @@ interface UserService {
 class DefaultUserService(
     private val userRepository: UserRepository
 ) : UserService {
+    
     override fun getUser(id: Long): User {
         val userEntity = userRepository.findById(id).orElseThrow()
         return User.of(userEntity)

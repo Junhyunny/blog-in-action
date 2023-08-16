@@ -1,6 +1,7 @@
 package action.`in`.blog.domain.dto
 
 import action.`in`.blog.domain.entity.UserEntity
+import org.hibernate.collection.spi.PersistentBag
 import java.io.Serializable
 
 data class User(
@@ -17,7 +18,8 @@ data class User(
             return User(
                 id = userEntity.id,
                 name = userEntity.name,
-                favoritePosts = userEntity.favoritePosts
+                // favoritePosts = userEntity.favoritePosts // Serializable 에러
+                favoritePosts = ArrayList(userEntity.favoritePosts) // 정상
             )
         }
     }
