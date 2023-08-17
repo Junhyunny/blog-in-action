@@ -1,0 +1,10 @@
+spring:
+  profiles:
+    active: local
+    group:
+      local:
+        - etc-1
+        - etc-2
+      dev:
+        - etc-1
+        - etc-3
