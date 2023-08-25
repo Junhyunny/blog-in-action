@@ -1,5 +1,6 @@
 buildscript {
     dependencies {
+        // 그래이들 태스크에서 데이터베이스 접속하기 위한 의존성
         classpath 'org.flywaydb:flyway-mysql:9.21.2'
     }
 }
@@ -8,6 +9,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.1.2'
     id 'io.spring.dependency-management' version '1.1.2'
+    // 그래이들 태스크 수행을 위한 Flyway 플러그인
     id "org.flywaydb.flyway" version "9.21.2"
 }
 
@@ -35,6 +37,7 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
+// 데이터베이스 접속 정보
 flyway {
     url = 'jdbc:mysql://localhost:3306/junhyunny-db?allowPublicKeyRetrieval=true&useSSL=false'
     user = 'root'
@@ -42,5 +45,4 @@ flyway {
     locations = ['classpath:db/migration', 'classpath:db/seed']
 }
 
-// we need to build classes before we can migrate
 flywayMigrate.dependsOn classes
