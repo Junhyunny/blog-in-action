@@ -1,7 +1,14 @@
+buildscript {
+    dependencies {
+        classpath 'org.flywaydb:flyway-mysql:9.21.2'
+    }
+}
+
 plugins {
     id 'java'
     id 'org.springframework.boot' version '3.1.2'
     id 'io.spring.dependency-management' version '1.1.2'
+    id "org.flywaydb.flyway" version "9.21.2"
 }
 
 group = 'action.in.blog'
@@ -27,3 +34,13 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
+
+flyway {
+    url = 'jdbc:mysql://localhost:3306/junhyunny-db?allowPublicKeyRetrieval=true&useSSL=false'
+    user = 'root'
+    password = 'password!1234'
+    locations = ['classpath:db/migration', 'classpath:db/seed']
+}
+
+// we need to build classes before we can migrate
+flywayMigrate.dependsOn classes
