@@ -1,0 +1,1 @@
+insert into TB_USER (name) values ('Junhyunny');

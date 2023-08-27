@@ -1,0 +1,10 @@
+spring:
+  sql:
+    init:
+      mode: embedded
+      data-locations: classpath:data.sql
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    defer-datasource-initialization: true
