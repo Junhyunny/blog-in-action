@@ -22,7 +22,10 @@ public class MemberService implements UserDetailsService {
     private final MemberRepository memberRepository;
 
     private Collection<? extends GrantedAuthority> authorities(Member member) {
-        return member.getAuthorities().stream().map(authority -> new SimpleGrantedAuthority(authority)).collect(Collectors.toList());
+        return member.getAuthorities()
+                .stream()
+                .map(authority -> new SimpleGrantedAuthority(authority))
+                .collect(Collectors.toList());
     }
 
     @Override
