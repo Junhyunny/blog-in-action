@@ -1,0 +1,14 @@
+spring:
+  profiles:
+    active: test
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+  sql:
+    init:
+      mode: always
+      data-locations: classpath:data.sql
+  jpa:
+    defer-datasource-initialization: true
