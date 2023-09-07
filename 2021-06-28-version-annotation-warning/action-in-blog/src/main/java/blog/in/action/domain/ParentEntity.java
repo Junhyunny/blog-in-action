@@ -11,8 +11,9 @@ public class ParentEntity {
     private Long id;
     private String state;
     @Version
-    private Long versionNo = 0L;
-//    private Long versionNo;
+    private Long versionNo = 0L; // error
+//    private Long versionNo; // ok
+//    private long versionNo; // ok
 
     public ParentEntity() {
         state = "CREATED";
