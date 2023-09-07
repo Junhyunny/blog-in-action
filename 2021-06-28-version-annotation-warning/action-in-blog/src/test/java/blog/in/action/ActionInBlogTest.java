@@ -30,17 +30,16 @@ public class ActionInBlogTest {
     void zeroDefaultValueForVersionNo_throwTransientPropertyValueException() {
 
         var parentEntity = new ParentEntity();
-        parentEntity.setSomeValue("Hello World");
-        parentEntity.setChildEntity(ChildEntity.create(null, parentEntity, "START"));
         parentRepository.save(parentEntity);
 
 
-        var childEntity = parentEntity.getChildEntity();
-        childEntity.finish();
+        var childEntity = ChildEntity.create(null, "CREATED", parentEntity);
+        childEntity.update();
 
 
         var throwable = assertThrows(InvalidDataAccessApiUsageException.class, () -> childRepository.save(childEntity));
         assertInstanceOf(TransientPropertyValueException.class, throwable.getRootCause());
+        assertNull(parentEntity.getId());
     }
 
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
@@ -48,16 +47,15 @@ public class ActionInBlogTest {
     void defaultValueIsNullForVersionNo_updateStatus() {
 
         var parentEntity = new ParentEntity();
-        parentEntity.setSomeValue("Hello World");
-        parentEntity.setChildEntity(ChildEntity.create(null, parentEntity, "START"));
         parentRepository.save(parentEntity);
 
 
-        var childEntity = parentEntity.getChildEntity();
-        childEntity.finish();
+        var childEntity = ChildEntity.create(null, "CREATED", parentEntity);
+        childEntity.update();
 
 
         var result = childRepository.save(childEntity);
-        assertEquals("FINISH", result.getState());
+        assertEquals("UPDATED", result.getState());
+        assertNotNull(parentEntity.getId());
     }
 }

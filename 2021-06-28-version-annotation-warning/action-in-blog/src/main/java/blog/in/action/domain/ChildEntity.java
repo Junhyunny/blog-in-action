@@ -13,11 +13,11 @@ public class ChildEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String state;
     @OneToOne
     private ParentEntity parentEntity;
-    private String state;
 
-    public void finish() {
-        state = "FINISH";
+    public void update() {
+        state = "UPDATED";
     }
 }
