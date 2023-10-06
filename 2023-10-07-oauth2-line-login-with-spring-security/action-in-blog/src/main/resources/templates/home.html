@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Thymeleaf Hello World Example</title>
+    <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square.css" rel="stylesheet">
+    <style>
+        * {
+            font-family: "NanumSquare";
+            letter-spacing: 0;
+            margin: 0;
+            padding: 0;
+        }
+
+        div.wrap {
+            display: flex;
+            justify-content: space-around;
+            gap: 10px;
+
+            width: 450px;
+            margin: 30px;
+            padding: 10px;
+            border: 1px lightgray solid;
+            border-radius: 5px;
+        }
+
+        div.wrap > div {
+            width: 150px;
+            height: 150px;
+        }
+
+        div.wrap > div:first-child {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50px;
+        }
+
+        a.button {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 50px;
+            border-radius: 10px;
+            background-color: #027dff;
+            text-decoration: none;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div>
+        <h2 th:text="${'Hello, ' + displayName}"/>
+        <a class="button" href="/logout">Logout</a>
+    </div>
+    <div>
+        <img th:src="${pictureUrl}" alt="profile-image"/>
+    </div>
+</div>
+</body>
+</html>
