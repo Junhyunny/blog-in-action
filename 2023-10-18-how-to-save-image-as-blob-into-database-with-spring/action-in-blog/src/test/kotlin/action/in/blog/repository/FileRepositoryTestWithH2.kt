@@ -30,7 +30,6 @@ class FileRepositoryTestWithH2 {
     @Autowired
     lateinit var sut: FileRepository
 
-
     fun flushAndClear() {
         entityManager.flush()
         entityManager.clear()
