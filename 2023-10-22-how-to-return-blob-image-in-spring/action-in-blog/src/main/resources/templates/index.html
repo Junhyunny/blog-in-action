@@ -1,0 +1,51 @@
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <title>Document</title>
+    <style>
+        .container {
+            margin: 10px;
+            border: 1px solid lightgray;
+            border-radius: 5px;
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container input {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <input accept="image/*" id="image-input" type="file">
+    <img alt="image" id="image" src="/images/default-image.jpg">
+</div>
+</body>
+<script>
+    const input = document.getElementById("image-input");
+    const image = document.getElementById("image")
+    // 이미지 파일을 선택하면 input 엘리먼트의 onchange 콜백 함수가 실행됩니다.
+    input.onchange = function (event) {
+        const file = event.target.files[0];
+        // 선택된 이미지가 있는지 확인합니다.
+        if (file) {
+            // 이미지 파일을 폼 데이터에 담아 업로드합니다.
+            const formData = new FormData();
+            formData.append("file", file);
+            fetch('/api/files', {
+                method: 'POST',
+                body: formData,
+            })
+                .then(res => res.text())
+                // 응답으로 받은 리소스 위치 URL로 이미지 태그 src 속성의 값을 변경합니다.
+                .then(url => image.src = url);
+        }
+    };
+</script>
+</html>

@@ -1,0 +1,7 @@
+spring:
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+hostname: http://localhost:8080
