@@ -26,7 +26,7 @@ import java.util.*
 class FileRepositoryTestWithPostgres {
 
     @Container
-    var mysqlContainer = PostgreSQLContainer("postgres:latest").withDatabaseName("test")
+    var postgresContainer = PostgreSQLContainer("postgres:latest").withDatabaseName("test")
 
     @Autowired
     lateinit var entityManager: EntityManager

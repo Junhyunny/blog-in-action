@@ -17,9 +17,6 @@ class FileController(
     private val fileRepository: FileRepository
 ) {
 
-    @GetMapping
-    fun helloWorld() = "hello"
-
     @PostMapping
     fun uploadFiles(file: MultipartFile): String {
         val entity = FileEntity(
@@ -37,7 +34,7 @@ class FileController(
         @PathVariable name: String
     ): ResponseEntity<ByteArrayResource> {
         val result = fileRepository.findById(id).orElseThrow {
-            EntityNotFoundException("entity not found when id:${id}")
+            EntityNotFoundException("entity not found when ID is $id")
         }
         return ResponseEntity.ok()
             .contentType(MediaType.parseMediaType(result.contentType))
