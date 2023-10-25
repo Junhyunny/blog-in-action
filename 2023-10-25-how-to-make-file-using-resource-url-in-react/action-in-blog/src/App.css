@@ -1,0 +1,14 @@
+.App {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 500px;
+}
+
+.App button {
+    height: 30px;
+}
+
+.App button:enabled {
+    border-color: cornflowerblue;
+}
