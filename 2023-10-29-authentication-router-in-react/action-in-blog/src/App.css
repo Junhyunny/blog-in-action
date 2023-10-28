@@ -1,0 +1,24 @@
+.home,
+.user,
+.admin {
+    margin: 10px;
+    width: 50%;
+    height: 100px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.home {
+    background-color: cornflowerblue;
+}
+
+.user {
+    background-color: plum;
+}
+
+.admin {
+    background-color: aquamarine;
+}
