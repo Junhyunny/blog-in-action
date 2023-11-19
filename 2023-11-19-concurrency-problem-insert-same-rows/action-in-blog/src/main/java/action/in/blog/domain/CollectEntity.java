@@ -12,7 +12,6 @@ public class CollectEntity {
     private String userId;
     private String cardId;
 
-
     public CollectEntity() {
     }
 
