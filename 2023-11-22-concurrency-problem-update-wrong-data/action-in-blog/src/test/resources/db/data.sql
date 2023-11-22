@@ -1,0 +1,1 @@
+insert into card_like_entity (count, card_id) values (1, 'card-01');
