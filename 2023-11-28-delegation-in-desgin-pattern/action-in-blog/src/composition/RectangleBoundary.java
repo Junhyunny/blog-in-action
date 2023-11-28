@@ -13,11 +13,12 @@ public class RectangleBoundary implements Boundary {
     }
 
     @Override
-    public void printArea() {
-        System.out.printf("Rectangle window area is %s\n", getArea());
+    public String getName() {
+        return "Rectangle";
     }
 
-    private BigDecimal getArea() {
+    @Override
+    public BigDecimal getArea() {
         return BigDecimal.valueOf((long) width * height);
     }
 }

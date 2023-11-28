@@ -3,6 +3,7 @@ package composition;
 import java.math.BigDecimal;
 
 public class SquareBoundary implements Boundary {
+
     private final int side;
 
     public SquareBoundary(int side) {
@@ -10,11 +11,12 @@ public class SquareBoundary implements Boundary {
     }
 
     @Override
-    public void printArea() {
-        System.out.printf("Square window area is %s\n", getArea());
+    public String getName() {
+        return "Square";
     }
 
-    private BigDecimal getArea() {
+    @Override
+    public BigDecimal getArea() {
         return BigDecimal.valueOf((long) side * side);
     }
 }

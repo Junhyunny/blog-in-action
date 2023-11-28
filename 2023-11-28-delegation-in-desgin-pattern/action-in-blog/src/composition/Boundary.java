@@ -1,6 +1,10 @@
 package composition;
 
+import java.math.BigDecimal;
+
 public interface Boundary {
 
-    void printArea();
+    String getName();
+    
+    BigDecimal getArea();
 }

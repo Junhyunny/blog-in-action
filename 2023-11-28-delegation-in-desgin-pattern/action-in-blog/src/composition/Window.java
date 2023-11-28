@@ -21,6 +21,6 @@ public class Window {
     }
 
     public void printArea() {
-        windowBoundary.printArea();
+        System.out.printf("%s window area is %s\n", windowBoundary.getName(), windowBoundary.getArea());
     }
 }
