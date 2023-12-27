@@ -1,0 +1,2 @@
+service:
+  name: ${SERVICE_NAME:action-in-blog}
