@@ -7,11 +7,11 @@ metadata:
     app: foo-app
 spec:
   containers:
-    - name: foo-pod
+    - name: foo-container
       image: opop3966/ns-poc
       env:
         - name: SERVICE_NAME
-          value: foo-pod
+          value: foo-pod-in-foo-ns
       resources:
         requests:
           memory: 2Gi

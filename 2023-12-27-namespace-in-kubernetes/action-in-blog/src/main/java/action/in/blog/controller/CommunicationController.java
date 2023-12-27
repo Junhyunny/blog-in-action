@@ -23,11 +23,6 @@ public class CommunicationController {
         this.externalServiceClient = externalServiceClient;
     }
 
-    @GetMapping
-    public String index() {
-        return "index";
-    }
-
     @GetMapping("/service-name")
     public String serviceName() {
         return serviceName;

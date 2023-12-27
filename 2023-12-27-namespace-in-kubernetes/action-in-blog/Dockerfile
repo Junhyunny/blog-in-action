@@ -1,3 +1,4 @@
+# STAGE 1
 FROM gradle:jdk17 as builder
 
 WORKDIR /build
@@ -10,7 +11,7 @@ COPY . /build
 
 RUN gradle build -x test --parallel
 
-# APP
+# STAGE 2
 FROM eclipse-temurin:17-jammy
 
 WORKDIR /app
