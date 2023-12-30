@@ -1,0 +1,29 @@
+.App {
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.App label {
+    width: 250px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.App textarea {
+    width: 181px;
+}
+
+.validate-component div.error {
+    color: tomato;
+    font-size: 14px;
+}
+
+.validate-component input.error {
+    border: 1px solid tomato;
+}
+
+.validate-component textarea.error {
+    border: 1px solid tomato;
+}
