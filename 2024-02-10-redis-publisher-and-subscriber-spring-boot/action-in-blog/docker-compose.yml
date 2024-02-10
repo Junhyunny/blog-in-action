@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  publisher:
+    build: ./publisher
+    container_name: publisher-container
+    ports:
+      - '8080:8080'
+  subsriber:
+    build: ./subscriber
+    container_name: subscriber-container
+    ports:
+      - '8081:8080'
+  redis:
+    image: redis:latest
+    container_name: redis-container
+    ports:
+      - "6379:6379"
