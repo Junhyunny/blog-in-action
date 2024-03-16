@@ -24,8 +24,7 @@ class ItemStoreTest {
 
     @BeforeEach
     fun setUp() {
-        val cache = cacheManager.getCache("items")!!
-        cache.clear()
+        cacheManager.getCache("items")?.clear()
     }
 
     @Test
