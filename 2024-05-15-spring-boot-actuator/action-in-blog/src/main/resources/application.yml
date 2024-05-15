@@ -1,0 +1,8 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, heapdump, threaddump, metrics
+      base-path: /custom-actuator
+  server:
+    port: 9090
