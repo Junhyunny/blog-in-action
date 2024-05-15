@@ -1,0 +1,21 @@
+services:
+  action-service:
+    build:
+      context: ./action-in-blog
+    ports:
+      - 8080:8080
+    depends_on:
+      - postgres
+      - redis
+    restart: on-failure
+  external-service:
+    build:
+      context: ./demo
+  redis:
+    image: redis:latest
+  postgres:
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=pgadmin
+      - POSTGRES_PASSWORD=pgadmin-password
+      - POSTGRES_DB=test

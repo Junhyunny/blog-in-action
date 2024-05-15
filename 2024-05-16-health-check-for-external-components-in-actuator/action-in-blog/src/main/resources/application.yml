@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://postgres:5432/test
+    username: pgadmin
+    password: pgadmin-password
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      connection-timeout: 5000
+  data:
+    redis:
+      host: redis
+      password:
+      port: 6379
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: health
