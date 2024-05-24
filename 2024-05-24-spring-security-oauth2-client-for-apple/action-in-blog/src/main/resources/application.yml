@@ -1,0 +1,26 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          apple:
+            client-id: ${APPLE_CLIENT_ID}
+            client-secret: ${APPLE_CLIENT_SECRET}
+            authorization-grant-type: "authorization_code"
+            redirect-uri: ${APPLE_REDIRECT_URL}
+            scope:
+              - openid
+              - email
+              - name
+            client-name: "Apple"
+            client-authentication-method: "client_secret_post"
+        provider:
+          apple:
+            authorizationUri: "https://appleid.apple.com/auth/authorize?response_mode=form_post"
+            tokenUri: "https://appleid.apple.com/auth/token"
+            jwkSetUri: "https://appleid.apple.com/auth/keys"
+            user-name-attribute: "sub"
+# 새로운 클라이언트 시크릿 생성에 필요한 정보
+apple:
+  key-id: ${APPLE_KEY_ID}
+  team-id: ${APPLE_TEAM_ID}
