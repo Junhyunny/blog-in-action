@@ -7,14 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8640A6CE2C09F8D800133E05 /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = 8640A6CD2C09F8D800133E05 /* ViewInspector */; };
+		8640A6D02C09F99400133E05 /* Inspection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8640A6CF2C09F99400133E05 /* Inspection.swift */; };
+		8640A6D32C09FAF900133E05 /* Inspection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8640A6CF2C09F99400133E05 /* Inspection.swift */; };
+		8640A6D62C0A8B8100133E05 /* OnChangeSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8640A6D52C0A8B8100133E05 /* OnChangeSpy.swift */; };
 		864FE4152C089F5500EA50E4 /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864FE4142C089F5500EA50E4 /* CheckBox.swift */; };
 		864FE4162C089F5500EA50E4 /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864FE4142C089F5500EA50E4 /* CheckBox.swift */; };
 		864FE41A2C08A12D00EA50E4 /* SupportedCheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864FE4192C08A12D00EA50E4 /* SupportedCheckBox.swift */; };
 		864FE41B2C08A12D00EA50E4 /* SupportedCheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864FE4192C08A12D00EA50E4 /* SupportedCheckBox.swift */; };
 		864FE4202C08A2DE00EA50E4 /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = 864FE41F2C08A2DE00EA50E4 /* Nimble */; };
-		864FE4222C08A2EB00EA50E4 /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = 864FE4212C08A2EB00EA50E4 /* ViewInspector */; };
 		864FE4252C08A3F000EA50E4 /* SupportedCheckBoxTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864FE4232C08A3F000EA50E4 /* SupportedCheckBoxTests.swift */; };
-		864FE4282C08A71C00EA50E4 /* Inspection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864FE4272C08A71C00EA50E4 /* Inspection.swift */; };
 		864FE42A2C08A73500EA50E4 /* Inspection+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864FE4292C08A73500EA50E4 /* Inspection+.swift */; };
 		866C48892C07517A0073F3C3 /* ActionInBlogApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 866C48882C07517A0073F3C3 /* ActionInBlogApp.swift */; };
 		866C488B2C07517A0073F3C3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 866C488A2C07517A0073F3C3 /* ContentView.swift */; };
@@ -34,10 +36,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8640A6CF2C09F99400133E05 /* Inspection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inspection.swift; sourceTree = "<group>"; };
+		8640A6D52C0A8B8100133E05 /* OnChangeSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnChangeSpy.swift; sourceTree = "<group>"; };
 		864FE4142C089F5500EA50E4 /* CheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
 		864FE4192C08A12D00EA50E4 /* SupportedCheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportedCheckBox.swift; sourceTree = "<group>"; };
 		864FE4232C08A3F000EA50E4 /* SupportedCheckBoxTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportedCheckBoxTests.swift; sourceTree = "<group>"; };
-		864FE4272C08A71C00EA50E4 /* Inspection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inspection.swift; sourceTree = "<group>"; };
 		864FE4292C08A73500EA50E4 /* Inspection+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Inspection+.swift"; sourceTree = "<group>"; };
 		866C48852C07517A0073F3C3 /* ActionInBlog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ActionInBlog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		866C48882C07517A0073F3C3 /* ActionInBlogApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionInBlogApp.swift; sourceTree = "<group>"; };
@@ -61,29 +64,53 @@
 			buildActionMask = 2147483647;
 			files = (
 				864FE4202C08A2DE00EA50E4 /* Nimble in Frameworks */,
-				864FE4222C08A2EB00EA50E4 /* ViewInspector in Frameworks */,
+				8640A6CE2C09F8D800133E05 /* ViewInspector in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		864FE4132C089F3B00EA50E4 /* components */ = {
+		8640A6D12C09FA8F00133E05 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				8640A6CF2C09F99400133E05 /* Inspection.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		8640A6D22C09FA9F00133E05 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				864FE4292C08A73500EA50E4 /* Inspection+.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		8640A6D42C0A8B6800133E05 /* TestDoubles */ = {
+			isa = PBXGroup;
+			children = (
+				8640A6D52C0A8B8100133E05 /* OnChangeSpy.swift */,
+			);
+			path = TestDoubles;
+			sourceTree = "<group>";
+		};
+		864FE4132C089F3B00EA50E4 /* Components */ = {
 			isa = PBXGroup;
 			children = (
 				864FE4142C089F5500EA50E4 /* CheckBox.swift */,
 				864FE4192C08A12D00EA50E4 /* SupportedCheckBox.swift */,
 			);
-			path = components;
+			path = Components;
 			sourceTree = "<group>";
 		};
-		864FE4262C08A4D800EA50E4 /* components */ = {
+		864FE4262C08A4D800EA50E4 /* Components */ = {
 			isa = PBXGroup;
 			children = (
 				866C48992C07517F0073F3C3 /* CheckBoxTests.swift */,
 				864FE4232C08A3F000EA50E4 /* SupportedCheckBoxTests.swift */,
 			);
-			path = components;
+			path = Components;
 			sourceTree = "<group>";
 		};
 		866C487C2C07517A0073F3C3 = {
@@ -109,9 +136,9 @@
 			children = (
 				866C48882C07517A0073F3C3 /* ActionInBlogApp.swift */,
 				866C488A2C07517A0073F3C3 /* ContentView.swift */,
-				864FE4272C08A71C00EA50E4 /* Inspection.swift */,
 				866C488C2C07517E0073F3C3 /* Assets.xcassets */,
-				864FE4132C089F3B00EA50E4 /* components */,
+				864FE4132C089F3B00EA50E4 /* Components */,
+				8640A6D12C09FA8F00133E05 /* Utils */,
 				866C488E2C07517E0073F3C3 /* Preview Content */,
 			);
 			path = ActionInBlog;
@@ -128,8 +155,9 @@
 		866C48982C07517F0073F3C3 /* ActionInBlogTests */ = {
 			isa = PBXGroup;
 			children = (
-				864FE4292C08A73500EA50E4 /* Inspection+.swift */,
-				864FE4262C08A4D800EA50E4 /* components */,
+				8640A6D42C0A8B6800133E05 /* TestDoubles */,
+				864FE4262C08A4D800EA50E4 /* Components */,
+				8640A6D22C09FA9F00133E05 /* Utils */,
 			);
 			path = ActionInBlogTests;
 			sourceTree = "<group>";
@@ -170,7 +198,7 @@
 			name = ActionInBlogTests;
 			packageProductDependencies = (
 				864FE41F2C08A2DE00EA50E4 /* Nimble */,
-				864FE4212C08A2EB00EA50E4 /* ViewInspector */,
+				8640A6CD2C09F8D800133E05 /* ViewInspector */,
 			);
 			productName = ActionInBlogTests;
 			productReference = 866C48952C07517F0073F3C3 /* ActionInBlogTests.xctest */;
@@ -245,7 +273,7 @@
 				866C488B2C07517A0073F3C3 /* ContentView.swift in Sources */,
 				866C48892C07517A0073F3C3 /* ActionInBlogApp.swift in Sources */,
 				864FE4152C089F5500EA50E4 /* CheckBox.swift in Sources */,
-				864FE4282C08A71C00EA50E4 /* Inspection.swift in Sources */,
+				8640A6D02C09F99400133E05 /* Inspection.swift in Sources */,
 				864FE41A2C08A12D00EA50E4 /* SupportedCheckBox.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -254,6 +282,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8640A6D62C0A8B8100133E05 /* OnChangeSpy.swift in Sources */,
+				8640A6D32C09FAF900133E05 /* Inspection.swift in Sources */,
 				864FE4162C089F5500EA50E4 /* CheckBox.swift in Sources */,
 				864FE41B2C08A12D00EA50E4 /* SupportedCheckBox.swift in Sources */,
 				866C489A2C07517F0073F3C3 /* CheckBoxTests.swift in Sources */,
@@ -542,15 +572,15 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		8640A6CD2C09F8D800133E05 /* ViewInspector */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 864FE4172C08A0A900EA50E4 /* XCRemoteSwiftPackageReference "ViewInspector" */;
+			productName = ViewInspector;
+		};
 		864FE41F2C08A2DE00EA50E4 /* Nimble */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 864FE4182C08A0B800EA50E4 /* XCRemoteSwiftPackageReference "Nimble" */;
 			productName = Nimble;
-		};
-		864FE4212C08A2EB00EA50E4 /* ViewInspector */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 864FE4172C08A0A900EA50E4 /* XCRemoteSwiftPackageReference "ViewInspector" */;
-			productName = ViewInspector;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

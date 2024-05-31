@@ -3,18 +3,20 @@ import SwiftUI
 struct iOSCheckboxToggleStyle: ToggleStyle {
     func makeBody(configuration: Configuration) -> some View {
         Button(action: {
-            configuration.isOn.toggle()
+            configuration.isOn.toggle() // 1
         }, label: {
             HStack {
-                Image(systemName: configuration.isOn ? "checkmark.square" : "square")
+                Image(systemName: configuration.isOn ? "checkmark.square" : "square") // 2
                 configuration.label
-                    .colorMultiply(.black)
+                    .colorMultiply(.black) // 3
             }
         })
     }
 }
 
 struct SupportedCheckBox: View {
+    internal let inspection = Inspection<Self>()
+    
     @State var isOn: Bool = false
     
     let label: String
@@ -23,8 +25,8 @@ struct SupportedCheckBox: View {
     
     var body: some View {
         Toggle(label, isOn: $isOn)
-            .toggleStyle(iOSCheckboxToggleStyle())
-            .onChange(of: isOn, { onChange(isOn, value) })
-            .accessibilityIdentifier("checkbox")
+            .toggleStyle(iOSCheckboxToggleStyle()) // 1
+            .onChange(of: isOn, { onChange(isOn, value) }) // 2
+            .onReceive(inspection.notice) { self.inspection.visit(self, $0) }
     }
 }
