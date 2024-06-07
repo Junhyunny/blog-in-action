@@ -1,7 +1,7 @@
 package blog.in.action.controller;
 
-import blog.in.action.domain.member.Member;
-import blog.in.action.domain.member.MemberService;
+import blog.in.action.domain.Member;
+import blog.in.action.service.MemberService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +17,7 @@ public class ResourceController {
     }
 
     @GetMapping("/change")
-    public void changeMemberNameByGet(HttpServletRequest request, @RequestParam("name") String name) {
+    public void changeMemberNameByGet(HttpServletRequest request, @RequestParam String name) {
         HttpSession httpSession = request.getSession(false);
         Member member = (Member) httpSession.getAttribute("member");
         Member persistedMember = memberService.findById(member.getId());

@@ -62,8 +62,8 @@
 <div>
     <input id="memberName" type="text" id="memberName" name="memberName"/>
     <input id="csrfToken" type="hidden" name="_csrf" value="${CSRF_TOKEN}"/>
-<%--    <button onclick="onSubmitHandler()">Submit</button>--%>
-    <button onclick="doubleSubmitHandler()">Double Submit Cookie</button>
+    <button onclick="onSubmitHandler()">Submit</button>
+    <%--    <button onclick="doubleSubmitHandler()">Double Submit Cookie</button>--%>
 </div>
 </body>
 </html>

@@ -1,4 +1,4 @@
-package blog.in.action.domain.member;
+package blog.in.action.domain;
 
 import lombok.*;
 
@@ -15,13 +15,10 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @Table(name = "TB_MEMBER")
 public class Member {
-
     @Id
     private String id;
-
     @Column
     private String password;
-
     @Column
     private String memberName;
 }

@@ -10,13 +10,11 @@ public class DoubleSubmitCookieInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        // 헤더로 전달된 csrf 토큰 값
-        String paramToken = request.getHeader("X-CSRF-HEADER");
+        String paramToken = request.getHeader("X-CSRF-HEADER");  // 1
         String cookieToken = null;
         for (Cookie cookie : request.getCookies()) {
-            if ("CSRF_TOKEN".equals(cookie.getName())) { // 쿠키로 전달되 csrf 토큰 값
-                cookieToken = cookie.getValue();
-                // 재사용이 불가능하도록 쿠키 만료
+            if ("CSRF_TOKEN".equals(cookie.getName())) { // 2
+                cookieToken = cookie.getValue(); // 3
                 cookie.setPath("/");
                 cookie.setValue("");
                 cookie.setMaxAge(0);
@@ -24,8 +22,7 @@ public class DoubleSubmitCookieInterceptor implements HandlerInterceptor {
                 break;
             }
         }
-        // 두 값이 일치하는 지 검증
-        if (cookieToken == null || !cookieToken.equals(paramToken)) {
+        if (cookieToken == null || !cookieToken.equals(paramToken)) { // 4
             response.sendRedirect("/");
             return false;
         }

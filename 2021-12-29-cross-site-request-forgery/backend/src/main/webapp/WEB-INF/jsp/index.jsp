@@ -6,7 +6,6 @@
     <meta charset="UTF-8">
     <title>Vulnerable Site</title>
     <style>
-
         * {
             margin: 0;
             padding: 0;

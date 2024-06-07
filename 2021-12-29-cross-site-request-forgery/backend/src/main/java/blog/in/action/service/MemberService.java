@@ -1,5 +1,7 @@
-package blog.in.action.domain.member;
+package blog.in.action.service;
 
+import blog.in.action.domain.Member;
+import blog.in.action.repository.MemberRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

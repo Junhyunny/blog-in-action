@@ -1,7 +1,7 @@
 package blog.in.action.controller;
 
-import blog.in.action.domain.member.Member;
-import blog.in.action.domain.member.MemberService;
+import blog.in.action.domain.Member;
+import blog.in.action.service.MemberService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,7 +1,7 @@
 package blog.in.action.controller;
 
-import blog.in.action.domain.member.Member;
-import blog.in.action.domain.member.MemberService;
+import blog.in.action.domain.Member;
+import blog.in.action.service.MemberService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +26,7 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String login(HttpServletRequest servletRequest) {
+    public String loginPage(HttpServletRequest servletRequest) {
         String memberPassword = servletRequest.getParameter("password");
         HttpSession session = servletRequest.getSession(false);
         Member member = memberService.findById(servletRequest.getParameter("id"));
@@ -40,7 +40,7 @@ public class LoginController {
     }
 
     @GetMapping("/main")
-    public String main(HttpServletRequest servletRequest, Model model) {
+    public String mainPage(HttpServletRequest servletRequest, Model model) {
         HttpSession session = servletRequest.getSession(false);
         Member member = (Member) session.getAttribute("member");
         Member persistedMember = memberService.findById(member.getId());

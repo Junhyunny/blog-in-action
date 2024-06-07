@@ -1,5 +1,7 @@
-package blog.in.action.domain.member;
+package blog.in.action.service;
 
+import blog.in.action.domain.Member;
+import blog.in.action.repository.MemberRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -13,16 +15,13 @@ public class MemberService {
         this.memberRepository = memberRepository;
     }
 
-    public Member registerMember(Member member) {
-        return memberRepository.save(member);
+    public void registerMember(Member member) {
+        memberRepository.save(member);
     }
 
     public Member findById(String id) {
         Optional<Member> option = memberRepository.findById(id);
-        if (!option.isPresent()) {
-            return null;
-        }
-        return option.get();
+        return option.orElse(null);
     }
 
     public Member updateMember(Member member) {
