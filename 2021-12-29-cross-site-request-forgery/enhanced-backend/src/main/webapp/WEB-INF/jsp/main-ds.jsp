@@ -8,11 +8,21 @@
         }
     </style>
     <script>
-        function onSubmitHandler() {
-            fetch('http://localhost:8081/change?_csrf=' + document.getElementById('csrfToken').value, {
+        function uuidv4() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                let r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+
+        function doubleSubmitHandler() {
+            let uuid = uuidv4();
+            document.cookie = 'CSRF_TOKEN=' + uuid + ";path=/";
+            fetch('http://localhost:8081/change', {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded",
+                    'X-CSRF-HEADER': uuid
                 },
                 body: new URLSearchParams({
                     memberName: document.getElementById('memberName').value,
@@ -34,8 +44,7 @@
 </div>
 <div>
     <input id="memberName" type="text" id="memberName" name="memberName"/>
-    <input id="csrfToken" type="hidden" name="_csrf" value="${CSRF_TOKEN}"/>
-    <button onclick="onSubmitHandler()">Submit</button>
+    <button onclick="doubleSubmitHandler()">Double Submit Cookie</button>
 </div>
 </body>
 </html>

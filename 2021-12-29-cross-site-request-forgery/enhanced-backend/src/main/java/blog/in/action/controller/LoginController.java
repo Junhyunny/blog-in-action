@@ -46,6 +46,6 @@ public class LoginController {
         Member persistedMember = memberService.findById(member.getId());
         model.addAttribute("memberName", persistedMember.getMemberName());
         model.addAttribute("_csrf", session.getAttribute("CSRF_TOKEN"));
-        return "main";
+        return "main-ds";
     }
 }

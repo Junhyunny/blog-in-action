@@ -25,7 +25,7 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String login(HttpServletRequest servletRequest) {
+    public String loginPage(HttpServletRequest servletRequest) {
         String memberPassword = servletRequest.getParameter("password");
         HttpSession session = servletRequest.getSession(false);
         Member member = memberService.findById(servletRequest.getParameter("id"));
@@ -38,7 +38,7 @@ public class LoginController {
     }
 
     @GetMapping("/main")
-    public String main(HttpServletRequest servletRequest, Model model) {
+    public String mainPage(HttpServletRequest servletRequest, Model model) {
         HttpSession session = servletRequest.getSession(false);
         Member member = (Member) session.getAttribute("member");
         Member persistedMember = memberService.findById(member.getId());
