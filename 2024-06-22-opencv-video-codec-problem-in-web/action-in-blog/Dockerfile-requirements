@@ -1,0 +1,7 @@
+FROM python:3.12-slim AS extract_requirements
+WORKDIR /app
+RUN pip3 install fastapi opencv-python-headless
+RUN pip3 list --format=freeze > requirements.txt
+
+FROM scratch
+COPY --from=extract_requirements /app/requirements.txt .

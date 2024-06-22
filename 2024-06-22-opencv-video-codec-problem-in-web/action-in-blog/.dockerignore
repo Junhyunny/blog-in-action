@@ -1,0 +1,6 @@
+.idea/
+input/
+output/
+venv/
+Dockerfile
+Dockerfile-requirements
