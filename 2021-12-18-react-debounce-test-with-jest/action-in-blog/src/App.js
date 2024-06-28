@@ -1,45 +1,30 @@
-import {useCallback, useState} from "react";
-import axios from "axios";
+import { useCallback, useState } from 'react';
+import { getItems } from './respository/ItemRepository';
+import { debounce } from './util/debounce';
 import classes from './App.module.css';
 
 function App() {
+  const [keyword, setKeyword] = useState('');
+  const [apiCallCount, setApiCallCount] = useState(0);
 
-    const [apiCallCount, setApiCallCount] = useState(0);
-    const [keyword, setKeyword] = useState('');
+  const searchKeyword = (keyword) => {
+    setApiCallCount((prevState) => prevState + 1);
+    getItems({ keyword }).then(console.log);
+  };
 
-    const debounce = (func, timeout) => {
-        let timer;
-        return (...args) => {
-            const context = this;
-            if (timer) {
-                clearTimeout(timer);
-            }
-            timer = setTimeout(() => {
-                func.apply(context, args);
-            }, timeout);
-        };
-    };
+  const debounceSearch = useCallback(debounce(searchKeyword, 500), []);
 
-    const searchKeyword = (params) => {
-        setApiCallCount(prevState => prevState + 1);
-        axios.get('http://localhost:8080/search', {
-            params
-        });
-    };
+  const keywordChangeHandler = ({ target: { value } }) => {
+    setKeyword(value);
+    debounceSearch(value);
+  };
 
-    const deboundHandler = useCallback(debounce(searchKeyword, 500), []);
-
-    const keywordChangeHandler = ({target: {value}}) => {
-        setKeyword(value);
-        deboundHandler({keyword: value});
-    };
-
-    return (
-        <div className={classes.App}>
-            <input placeholder="검색어" value={keyword} onChange={keywordChangeHandler}/>
-            <p>현재 API 호출 횟수 = {apiCallCount}</p>
-        </div>
-    );
+  return (
+    <div className={classes.App}>
+      <input placeholder="검색어" value={keyword} onChange={keywordChangeHandler} />
+      <p>현재 API 호출 횟수 = {apiCallCount}</p>
+    </div>
+  );
 }
 
 export default App;

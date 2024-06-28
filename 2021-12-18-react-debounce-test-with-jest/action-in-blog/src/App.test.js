@@ -1,45 +1,23 @@
-import App from "./App";
-import {act, render, screen} from "@testing-library/react";
-import axios from "axios";
-import userEvent from "@testing-library/user-event";
+import { act, render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
-describe('test debounce', () => {
+import * as ItemRepository from './respository/ItemRepository';
 
-    describe('test rendering elements', () => {
+import App from './App';
 
-        it('exists input box for search and message when rendered', () => {
+test('when search keyword then request one time after 500ms', () => {
+  const spyItemRepository = jest.spyOn(ItemRepository, 'getItems').mockResolvedValue([]);
+  render(<App />);
 
-            // setup, act
-            render(<App/>);
+  jest.useFakeTimers();
+  userEvent.type(screen.getByPlaceholderText('검색어'), 'Junhyunny');
+  act(() => {
+    jest.advanceTimersByTime(501);
+  });
 
-            // assert
-            expect(screen.getByPlaceholderText('검색어')).toBeInTheDocument()
-            expect(screen.getByText('현재 API 호출 횟수 = 0')).toBeInTheDocument();
-        });
-    });
-
-    describe('test user interaction', () => {
-
-        it('call axios get method one time when typed some keyword', () => {
-
-            // setup
-            jest.useFakeTimers();
-            const spyAxios = jest.spyOn(axios, 'get').mockResolvedValue({data: {}});
-
-            // act
-            render(<App/>);
-            userEvent.type(screen.getByPlaceholderText('검색어'), 'Junhyunny');
-            act(() => {
-                jest.advanceTimersByTime(500);
-            });
-
-            // assert
-            expect(spyAxios).toHaveBeenNthCalledWith(1, 'http://localhost:8080/search', {
-                params: {
-                    keyword: 'Junhyunny'
-                }
-            });
-            expect(screen.getByText('현재 API 호출 횟수 = 1')).toBeInTheDocument();
-        });
-    });
+  expect(spyItemRepository).toHaveBeenCalledTimes(1);
+  expect(spyItemRepository).toHaveBeenNthCalledWith(1, {
+    keyword: 'Junhyunny',
+  });
+  expect(screen.getByText('현재 API 호출 횟수 = 1')).toBeInTheDocument();
 });
