@@ -1,21 +1,26 @@
-import throttle from "./throttle";
+import { throttle } from "./throttle";
 
-describe('throttle test', () => {
+test("when occur 100 times event with throttle in 500ms then invoke 5 times", () => {
+  const spy = jest.fn(); // 1
+  const sut = throttle(spy, 100);
 
-    it('call 5 times when throttle time sleep 100ms during 500ms', () => {
+  jest.useFakeTimers(); // 2
+  for (let index = 0; index < 100; index++) {
+    sut();
+    jest.advanceTimersByTime(5);
+  }
 
-        // setup
-        jest.useFakeTimers();
-        const funcSpy = jest.fn();
-        const throttledFunc = throttle(funcSpy, 100);
+  expect(spy).toHaveBeenCalledTimes(5); // 3
+});
 
-        // act
-        for (let index = 0; index < 100; index++) {
-            throttledFunc();
-            jest.advanceTimersByTime(5);
-        }
+test("when occur 100 times event with throttle in 500ms then invoke 100 times", () => {
+  const spy = jest.fn(); // 1
 
-        // assert
-        expect(funcSpy).toHaveBeenCalledTimes(5);
-    });
+  jest.useFakeTimers(); // 2
+  for (let index = 0; index < 100; index++) {
+    spy();
+    jest.advanceTimersByTime(5);
+  }
+
+  expect(spy).toHaveBeenCalledTimes(100); // 3
 });
