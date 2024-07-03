@@ -9,76 +9,55 @@
             padding: 0;
         }
 
-        #container {
+        .container {
+            margin-top: 20px;
             height: 100%;
             width: 100%;
-            font-size: 0;
+            display: flex;
+            justify-content: space-evenly;
         }
 
-        #left, #middle, #right {
-            display: inline-block;
-            *display: inline;
-            zoom: 1;
-            vertical-align: top;
-            font-size: 12px;
+        .image-wrap {
+            margin-top: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
         }
 
-        #left {
-            width: 33%;
-        }
-
-        #middle {
-            width: 33%;
-        }
-
-        #right {
-            width: 33%;
+        .image {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
         }
     </style>
 </head>
 <body>
-<div id="container">
-    <div id="left">
-        <form th:action="@{/static}" method="post">
-            <table border=1>
-                <tr>
-                    <td>기존 이미지<br>(/static/images 경로)</td>
-                </tr>
-            </table>
-            <br/>
-            <button type="submit">enter</button>
-        </form>
-    </div>
-    <div id="middle">
-        <form th:action="@{/static/barcode}" th:object="${staticBarcode}" method="post">
-            <table border=1>
-                <tr>
-                    <td>바코드 문자열<br>(/static/images 경로)</td>
-                    <td>
-                        <input type="text" th:field="*{value}" placeholder="바코드 생성 문자열">
-                    </td>
-                </tr>
-            </table>
-            <br/>
-            <button type="submit">enter</button>
-        </form>
-    </div>
-    <div id="right">
-        <form th:action="@{/extra/barcode}" th:object="${dynamicBarcode}" method="post">
-            <table border=1>
-                <tr>
-                    <td>바코드 문자열<br>(별도 images 경로)</td>
-                    <td>
-                        <input type="text" th:field="*{value}" placeholder="바코드 생성 문자열">
-                    </td>
-                </tr>
-            </table>
-            <br/>
-            <button type="submit">입력</button>
-        </form>
+<div class="container">
+    <form th:action="@{/static}" method="post"> <!-- 1 -->
+        <p>기존 이미지<br>(/static/images 경로)</p>
+        <button type="submit">enter</button>
+    </form>
+    <form th:action="@{/static/barcode}" th:object="${staticBarcode}" method="post"> <!-- 2 -->
+        <p>바코드 문자열<br>(/static/images 경로)</p>
+        <label>
+            <input type="text" th:field="*{value}" placeholder="바코드 생성 문자열"/>
+        </label>
+        <button type="submit">enter</button>
+    </form>
+    <form th:action="@{/extra/barcode}" th:object="${dynamicBarcode}" method="post"> <!-- 3 -->
+        <p>바코드 문자열<br>(별도 images 경로)</p>
+        <label>
+            <input type="text" th:field="*{value}" placeholder="바코드 생성 문자열"/>
+        </label>
+        <button type="submit">입력</button>
+    </form>
+</div>
+<div class="image-wrap">
+    <div class="image">
+        <p th:if="${imagePath != null}">바코드 이미지</p>
+        <img th:src="${imagePath}" alt="barcode-image"/> <!-- 4 -->
     </div>
 </div>
-<p th:if="${imagePath != null}">바코드 이미지</p>
-<img th:src="${imagePath}"/>
 </body>
 </html>

@@ -1,4 +1,4 @@
-package blog.in.action.dto;
+package blog.in.action.model;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,6 +8,5 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Barcode {
-
     private String value;
 }
