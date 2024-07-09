@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<header>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .container button {
+            width: fit-content;
+        }
+    </style>
+    <script>
+        window.open("", "popup", "width=300,height=300");
+    </script>
+</header>
+<body>
+<div class="container">
+    <a href="http://origin-site.com:8080">link</a>
+    <button onclick="change()">document location</button>
+    <button onclick="request()">AJAX request</button>
+    <form action="http://origin-site.com:8080" method="get">
+        <button>get submit</button>
+    </form>
+    <form action="http://origin-site.com:8080/posts" method="post">
+        <button>post submit</button>
+    </form>
+    <form action="http://origin-site.com:8080" method="get" target="innerFrame">
+        <button>iframe get submit</button>
+    </form>
+    <iframe id="innerFrame" name="innerFrame" style="display: none"></iframe>
+    <form action="http://origin-site.com:8080/posts" method="post" target="popup">
+        <button>popup post submit</button>
+    </form>
+</div>
+<script>
+    function change() {
+        document.location.href = "http://origin-site.com:8080"
+    }
+
+    function request() {
+        fetch('http://origin-site.com:8080', {
+            method: 'get',
+            credentials: 'include'
+        })
+    }
+</script>
+</body>
+</html>
