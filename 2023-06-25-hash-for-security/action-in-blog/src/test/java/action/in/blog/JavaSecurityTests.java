@@ -30,18 +30,13 @@ class JavaSecurityTests {
 
     private String getDigest(String password, String salt) throws NoSuchAlgorithmException {
         var messageDigest = MessageDigest.getInstance("SHA-256");
-        byte[] temp = null;
-        for (int i = 0; i < 5; i++) {
-            String saltedPassword = password + salt;
-            messageDigest.update(saltedPassword.getBytes(StandardCharsets.UTF_8));
-            temp = messageDigest.digest();
-        }
-        return getStringFromBytes(temp);
+        String saltedPassword = password + salt;
+        messageDigest.update(saltedPassword.getBytes(StandardCharsets.UTF_8));
+        return getStringFromBytes(messageDigest.digest());
     }
 
     @Test
     void message_digest_test() throws NoSuchAlgorithmException {
-
         var password = "Hello World";
         var salt = getSalt();
         var digest = getDigest(password, salt);

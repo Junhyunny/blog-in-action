@@ -15,7 +15,6 @@ class SpringSecurityCryptoTests {
 
     @Test
     void bcrypt_test() {
-
         var password = "Hello World";
         var salt1 = BCrypt.gensalt();
         var salt2 = BCrypt.gensalt();
@@ -36,7 +35,6 @@ class SpringSecurityCryptoTests {
 
     @Test
     void password_encoder_test() {
-
         var sut = new BCryptPasswordEncoder();
         var password = "Hello World";
         var firstDigest = sut.encode(password);
