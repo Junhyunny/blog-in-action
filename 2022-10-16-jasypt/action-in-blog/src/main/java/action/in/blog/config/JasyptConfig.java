@@ -10,8 +10,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class JasyptConfig {
 
-    @Bean("jasyptStringEncryptor")
-    public StringEncryptor stringEncryptor(@Value(value = "${jasypt.secrete-key}") String secreteKey) {
+    @Bean
+    public StringEncryptor jasyptStringEncryptor( // 1
+            @Value(value = "${jasypt.secrete-key}") String secreteKey // 2
+    ) {
         PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
         SimpleStringPBEConfig config = new SimpleStringPBEConfig();
         config.setPassword(secreteKey);
@@ -19,11 +21,5 @@ public class JasyptConfig {
         config.setPoolSize(1);
         encryptor.setConfig(config);
         return encryptor;
-    }
-
-    public static void main(String[] args) {
-        StringEncryptor encryptor = new JasyptConfig().stringEncryptor("HelloWorld");
-        System.out.println(encryptor.encrypt("root"));
-        System.out.println(encryptor.encrypt("123"));
     }
 }
