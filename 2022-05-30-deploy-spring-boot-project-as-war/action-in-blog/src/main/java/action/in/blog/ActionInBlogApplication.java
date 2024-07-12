@@ -12,7 +12,7 @@ public class ActionInBlogApplication extends SpringBootServletInitializer {
         SpringApplication.run(ActionInBlogApplication.class, args);
     }
 
-    // 배포 시 동작하지 않는 경우 해당 주석을 풀고 다시 빌드
+    // 정상적으로 배포되지 않는 경우 해당 주석을 풀어보길 바란다.
     // @Override
     // protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
     //     return builder.sources(ActionInBlogApplication.class);
