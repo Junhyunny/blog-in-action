@@ -1,8 +1,0 @@
----
-applications:
-  - name: todos-frontend
-    memory: 512M
-    instances: 1
-    path: ./dist
-    buildpacks:
-      - staticfile_buildpack

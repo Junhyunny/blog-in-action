@@ -1,6 +1,6 @@
 # 1
 cd backend-maven
-./mvnw clean compilejavsa
+./mvnw clean compile
 
 # 2
 cd ../frontend
