@@ -1,53 +1,54 @@
 package blog.in.action;
 
 import java.util.concurrent.CompletableFuture;
-import java.util.function.Consumer;
+import java.util.function.BiConsumer;
 
 public class AsyncNonBlockingTest {
 
+    public static void main(String[] args) {
+        WorkerA a = new WorkerA();
+        WorkerB b = new WorkerB();
+
+
+        CompletableFuture<Void> joinPoint = b.takeRequest(a.giveRequest()); // 1
+        a.doWork(); // 3
+        joinPoint.join();
+        System.out.println("All workers finish the works.");
+    }
+
     static class WorkerA {
 
-        Consumer<String> workForA = (message) -> {
+        BiConsumer<String, String> work = (name, message) -> {
             for (int index = 0; index < 5; index++) {
                 for (int subIndex = Integer.MIN_VALUE; subIndex < Integer.MAX_VALUE; subIndex++) {
                 }
-                System.out.println("A: doing something.");
+                System.out.printf("%s: doing something for my work.\n", name);
             }
-            System.out.println("A: " + message);
+            System.out.printf("%s: %s\n", name, message);
         };
 
-        Consumer<String> workForB = (message) -> {
-            for (int index = 0; index < 5; index++) {
-                for (int subIndex = Integer.MIN_VALUE; subIndex < Integer.MAX_VALUE; subIndex++) {
-                }
-                System.out.println("B: doing something.");
-            }
-            System.out.println("B: " + message);
-        };
-
-        void doMyWork() {
-            workForA.accept("I'm worker A. And I'm done.");
+        void doWork() {
+            work.accept("A", "I 'm worker A. And I' m done.");
         }
 
-        Consumer<String> getWorkForB() {
-            return workForB;
+        BiConsumer<String, String> giveRequest() {
+            return (name, message) -> {
+                for (int index = 0; index < 5; index++) {
+                    for (int subIndex = Integer.MIN_VALUE; subIndex < Integer.MAX_VALUE; subIndex++) {
+                    }
+                    System.out.printf("%s: doing something for request.\n", name);
+                }
+                System.out.printf("%s: %s\n", name, message);
+            };
         }
     }
 
     static class WorkerB {
 
-        CompletableFuture<Void> takeMyWorkAndDoMyWork(Consumer<String> myWork) {
-            return CompletableFuture.runAsync(() -> myWork.accept("I'm worker B. And I'm done."));
+        CompletableFuture<Void> takeRequest(BiConsumer<String, String> myWork) {
+            return CompletableFuture.runAsync( // 2
+                    () -> myWork.accept("B", "I'm worker B. And I'm done.")
+            );
         }
-    }
-
-    public static void main(String[] args) {
-        WorkerA a = new WorkerA();
-        WorkerB b = new WorkerB();
-        CompletableFuture<Void> joinPoint = b.takeMyWorkAndDoMyWork(a.getWorkForB());
-        a.doMyWork();
-        // WorkerB가 일을 마치지 않았는데 메인(main) 스레드가 종료되는 경우 어플리케이션이 종료되므로 이런 현상을 방지하는 코드 추가
-        joinPoint.join();
-        System.out.println("All workers done.");
     }
 }
