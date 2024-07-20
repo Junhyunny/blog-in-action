@@ -1,48 +1,46 @@
 package blog.in.action.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 @RestController
+@RequestMapping("/messages")
 public class DeferredResultController {
 
-    private Map<String, DeferredResult<Boolean>> secondAuthRequests = new ConcurrentHashMap<>();
+    private final Map<String, Collection<String>> messagesMap = new ConcurrentHashMap<>();
+    private final Map<String, DeferredResult<Collection<String>>> deferredResponsesMap = new ConcurrentHashMap<>();
 
-    @GetMapping("/pool-size")
-    public int getPoolSize() {
-        return secondAuthRequests.size();
-    }
-
-    @GetMapping("/authentication")
-    public DeferredResult<Boolean> requestAuthentication(@RequestParam("userName") String userName) {
-        DeferredResult<Boolean> deferredResult = new DeferredResult<>();
-        deferredResult.onTimeout(() -> {
-            secondAuthRequests.remove(userName);
-        });
-        deferredResult.onCompletion(() -> {
-            secondAuthRequests.remove(userName);
-        });
-        deferredResult.onError((throwable -> {
-            deferredResult.setErrorResult(false);
-            secondAuthRequests.remove(userName);
-        }));
-        secondAuthRequests.put(userName, deferredResult);
+    @GetMapping("/{id}")
+    public DeferredResult<Collection<String>> getMessages(
+            @PathVariable String id
+    ) {
+        DeferredResult<Collection<String>> deferredResult = new DeferredResult<>();
+        deferredResult.onTimeout(() -> deferredResponsesMap.remove(id));
+        deferredResult.onCompletion(() -> deferredResponsesMap.remove(id));
+        deferredResult.onError((throwable -> deferredResponsesMap.remove(id)));
+        deferredResponsesMap.put(id, deferredResult);
         return deferredResult;
     }
 
-    @PostMapping("/authentication")
-    public void authenticate(@RequestParam("userName") String userName) {
-        DeferredResult secondAuthRequest = secondAuthRequests.remove(userName);
-        if (secondAuthRequest == null) {
-            return;
+    @PostMapping("/{id}")
+    public void receiveMessage(
+            @PathVariable String id,
+            @RequestParam String message
+    ) {
+        Collection<String> messages = messagesMap.getOrDefault(id, new ConcurrentLinkedQueue<>());
+        synchronized (messages) {
+            messages.add(message);
         }
-        secondAuthRequest.setResult(true);
-        return;
+        messagesMap.put(id, messages);
+        if (deferredResponsesMap.containsKey(id)) {
+            deferredResponsesMap
+                    .get(id)
+                    .setResult(messages);
+        }
     }
 }
