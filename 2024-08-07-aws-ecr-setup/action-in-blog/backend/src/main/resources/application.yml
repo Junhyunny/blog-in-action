@@ -1,0 +1,27 @@
+spring:
+  profiles:
+    active: ${ACTIVE_PROFILE:default}
+  datasource:
+    url: ${DATABASE_URL:jdbc:h2:mem:test}
+    driver-class-name: ${DATABASE_DRIVER_CLASS:org.h2.Driver}
+    username: ${DATABASE_USERNAME:sa}
+    password: ${DATABASE_PASSWORD:}
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+  h2:
+    console:
+      enabled: true
+---
+spring:
+  config:
+    activate:
+      on-profile: aws
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: validate
+  h2:
+    console:
+      enabled: false
