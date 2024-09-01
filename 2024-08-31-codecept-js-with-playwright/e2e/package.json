@@ -1,0 +1,16 @@
+{
+  "scripts": {
+    "clean:all": "rm -rf ./output || true",
+    "test": "codeceptjs run --steps "
+  },
+  "dependencies": {
+    "codeceptjs": "^3.6.5",
+    "playwright": "^1.46.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.5.1",
+    "prettier": "^3.3.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
+  }
+}
