@@ -16,7 +16,7 @@ import java.util.Date;
 import java.util.Map;
 
 @Component
-public class AppleSecreteGenerator {
+public class AppleSecretGenerator {
 
     private static final int SECOND = 1000;
     private static final int MINUTE = 60 * SECOND;
@@ -28,7 +28,7 @@ public class AppleSecreteGenerator {
     private final String teamId;
     private final String clientId;
 
-    public AppleSecreteGenerator(
+    public AppleSecretGenerator(
             @Value("${apple.key-id}") String keyId,
             @Value("${apple.team-id}") String teamId,
             @Value("${spring.security.oauth2.client.registration.apple.client-id}") String clientId

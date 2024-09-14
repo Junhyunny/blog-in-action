@@ -40,7 +40,7 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
                 .inMemory()
                 // 클라이언트 어플리케이션에 미리 발급된 ID
                 .withClient(clientId)
-                // 클라이언트 어플리케이션에 미리 발급된 SECRETE, 암호화하여 추가
+                // 클라이언트 어플리케이션에 미리 발급된 SECRET, 암호화하여 추가
                 .secret(passwordEncoder.encode(clientSecret))
                 // 인증 방법은 비밀번호와 리프레시 토큰
                 .authorizedGrantTypes("password", "refresh_token")

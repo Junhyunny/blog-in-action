@@ -5,4 +5,4 @@ spring:
     username: ENC(rCnFZG4bfEfOSrYhVUh0pA==)
     password: ENC(xvEJVPJcJi8Ja1zeRhbX+w==)
 jasypt:
-  secrete-key: ${JASYPT_SECRETE_KEY}
+  secret-key: ${JASYPT_SECRET_KEY}

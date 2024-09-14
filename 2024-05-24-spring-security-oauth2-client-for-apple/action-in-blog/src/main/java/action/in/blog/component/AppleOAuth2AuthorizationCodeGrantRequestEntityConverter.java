@@ -13,12 +13,12 @@ public class AppleOAuth2AuthorizationCodeGrantRequestEntityConverter extends OAu
     private static final String APPLE_REGISTRATION_ID = "apple";
     private static final String CLIENT_SECRET_KEY = "client_secret";
 
-    private final AppleSecreteGenerator appleSecreteGenerator;
+    private final AppleSecretGenerator appleSecretGenerator;
 
     public AppleOAuth2AuthorizationCodeGrantRequestEntityConverter(
-            AppleSecreteGenerator appleSecreteGenerator
+            AppleSecretGenerator appleSecretGenerator
     ) {
-        this.appleSecreteGenerator = appleSecreteGenerator;
+        this.appleSecretGenerator = appleSecretGenerator;
     }
 
     @Override
@@ -27,7 +27,7 @@ public class AppleOAuth2AuthorizationCodeGrantRequestEntityConverter extends OAu
     ) {
         var clientRegistrationId = authorizationCodeGrantRequest.getClientRegistration().getRegistrationId();
         if (APPLE_REGISTRATION_ID.equalsIgnoreCase(clientRegistrationId)) { // 1
-            var encryptedPrivateKey = appleSecreteGenerator.createClientSecret(); // 2
+            var encryptedPrivateKey = appleSecretGenerator.createClientSecret(); // 2
             var parameter = super.createParameters(authorizationCodeGrantRequest); // 3
             parameter.put(CLIENT_SECRET_KEY, List.of(encryptedPrivateKey)); // 4
             return parameter;

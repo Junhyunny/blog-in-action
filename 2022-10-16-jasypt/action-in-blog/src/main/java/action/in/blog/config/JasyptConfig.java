@@ -12,11 +12,11 @@ public class JasyptConfig {
 
     @Bean
     public StringEncryptor jasyptStringEncryptor( // 1
-            @Value(value = "${jasypt.secrete-key}") String secreteKey // 2
+            @Value(value = "${jasypt.secret-key}") String secretKey // 2
     ) {
         PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
         SimpleStringPBEConfig config = new SimpleStringPBEConfig();
-        config.setPassword(secreteKey);
+        config.setPassword(secretKey);
         config.setAlgorithm("PBEWithMD5AndDES");
         config.setPoolSize(1);
         encryptor.setConfig(config);
