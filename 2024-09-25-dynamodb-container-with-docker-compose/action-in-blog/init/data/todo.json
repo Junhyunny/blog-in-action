@@ -1,0 +1,14 @@
+{
+  "PK": {
+    "S": "TODO#1234567-abcd-efgh-1234-abcde12345"
+  },
+  "SK": {
+    "S": "DATE#20240925"
+  },
+  "title": {
+    "S": "Hello World"
+  },
+  "content": {
+    "S": "This is dynamo db migration data"
+  }
+}

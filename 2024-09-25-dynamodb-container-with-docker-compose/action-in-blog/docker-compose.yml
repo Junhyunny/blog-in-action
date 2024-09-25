@@ -1,0 +1,29 @@
+services:
+  dynamodb-local: # DynamoDB 컨테이너
+    image: amazon/dynamodb-local # DynamoDB 이미지
+    container_name: dynamodb-local
+    ports:
+      - "8000:8000" # port mapping
+    healthcheck: # health check, 초기화 스크립트를 실행하기 전 DynamoDB 준비가 완료되었는지 확인하기 위한 ping 커맨드
+      test: [ "CMD-SHELL", '[ "$(curl -s -o /dev/null -I -w ''%{http_code}'' http://localhost:8000)" == "400" ]' ]
+      interval: 2s
+      timeout: 2s
+      retries: 10
+    command: "-jar DynamoDBLocal.jar -inMemory -sharedDb" # DynamoDB 실행 커맨드, 내부적으로 DynamoDBLocal.jar 를 실행한다.
+
+  setup-dynamo: # 데이터베이스 초기화 컨테이너
+    image: amazon/aws-cli # CLI 이미지
+    depends_on:
+      dynamodb-local:
+        condition: service_healthy # dynamodb-local 컨테이너 실행 후 실행한다. health check 를 통해 준비가 완료될 때까지 기다린다.
+    environment: # 환경 변수, CLI 실행에 필요한 환경 변수를 준비한다.
+      - AWS_ACCESS_KEY_ID=dummy
+      - AWS_SECRET_ACCESS_KEY=dummy
+      - AWS_DEFAULT_REGION=ap-northeast-1
+    entrypoint: ["/bin/sh","-c"] # sh 쉘 사용
+    volumes: # 초기화 스크립트 위치를 볼륨으로 공유한다.
+      - ./init:/aws/init
+    command: # 초기화 스크립트를 실행한다.
+      - |
+        sh ./init/create-table.sh
+        sh ./init/migration-data.sh
