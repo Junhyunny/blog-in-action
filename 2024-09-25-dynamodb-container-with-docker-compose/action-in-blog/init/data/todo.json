@@ -1,9 +1,9 @@
 {
   "PK": {
-    "S": "TODO#1234567-abcd-efgh-1234-abcde12345"
+    "S": "TODO"
   },
   "SK": {
-    "S": "DATE#20240925"
+    "S": "ID#20240925120000-1234567-abcd-efgh-1234-abcde12345"
   },
   "title": {
     "S": "Hello World"
