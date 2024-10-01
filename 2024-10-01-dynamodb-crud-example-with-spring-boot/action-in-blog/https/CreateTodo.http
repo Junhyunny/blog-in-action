@@ -1,0 +1,7 @@
+POST http://localhost:8080/api/todos
+Content-Type: application/json
+
+{
+  "title": "Hello World",
+  "content": "This is first item"
+}

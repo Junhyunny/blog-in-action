@@ -1,0 +1,6 @@
+spring:
+  profiles:
+    active: local
+amazon:
+  dynamodb:
+    table-name: ActionInBlog_20241001
