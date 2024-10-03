@@ -6,8 +6,8 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 
 data class TodoRequest(
-    val title: String,
-    val content: String,
+    val title: String?,
+    val content: String?,
 ) {
     fun toEntity(): TodoEntity {
         val uuid = UUID.randomUUID()

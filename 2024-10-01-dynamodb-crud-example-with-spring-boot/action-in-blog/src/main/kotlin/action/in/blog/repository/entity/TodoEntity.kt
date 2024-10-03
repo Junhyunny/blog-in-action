@@ -9,9 +9,9 @@ import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbSortK
 data class TodoEntity(
     @get:DynamoDbPartitionKey @get:DynamoDbAttribute(value = "PK") var pk: String,
     @get:DynamoDbSortKey @get:DynamoDbAttribute(value = "SK") var sk: String,
-    @get:DynamoDbAttribute(value = "id") var id: String,
-    @get:DynamoDbAttribute(value = "title") var title: String,
-    @get:DynamoDbAttribute(value = "content") var content: String,
+    @get:DynamoDbAttribute(value = "id") var id: String?,
+    @get:DynamoDbAttribute(value = "title") var title: String?,
+    @get:DynamoDbAttribute(value = "content") var content: String?,
 ) {
     constructor() : this("", "", "", "", "")
 }

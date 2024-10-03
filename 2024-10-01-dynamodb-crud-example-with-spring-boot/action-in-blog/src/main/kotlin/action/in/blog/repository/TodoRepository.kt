@@ -62,7 +62,7 @@ class TodoRepository(
                 .builder(TodoEntity::class.java)
                 .item(todoEntity)
                 .ignoreNullsMode(
-                    IgnoreNullsMode.DEFAULT,
+                    IgnoreNullsMode.SCALAR_ONLY,
                 ).build()
         todoEntityTable.updateItem(updateRequest)
     }
