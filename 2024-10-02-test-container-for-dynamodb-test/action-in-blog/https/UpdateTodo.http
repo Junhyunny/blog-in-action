@@ -1,0 +1,7 @@
+PUT http://localhost:8080/api/todos/20241001074634-b11be1da-7635-46f9-b51e-152fe63c1f12
+Content-Type: application/json
+
+{
+  "title": "Hello World",
+  "content": "This is changed first item"
+}

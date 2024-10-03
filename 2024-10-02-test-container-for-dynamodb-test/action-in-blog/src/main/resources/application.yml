@@ -1,0 +1,4 @@
+amazon:
+  dynamodb:
+    table-name: ActionInBlog_20241001
+    endpoint: ${AMAZON_DYNAMODB_ENDPOINT:default}
