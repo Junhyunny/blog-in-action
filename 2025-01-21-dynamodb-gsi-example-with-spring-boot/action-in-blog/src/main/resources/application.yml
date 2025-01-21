@@ -1,0 +1,4 @@
+amazon:
+  dynamodb:
+    table-name: ActorsPortfolioTable
+    endpoint: ${AMAZON_DYNAMODB_ENDPOINT:default}
