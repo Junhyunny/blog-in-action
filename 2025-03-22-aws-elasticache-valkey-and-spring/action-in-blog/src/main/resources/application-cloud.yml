@@ -1,0 +1,8 @@
+  spring:
+    data:
+      redis:
+        ssl:
+          enabled: true
+        cluster:
+          nodes: ${SESSION_HOST}
+          max-redirects: 3
