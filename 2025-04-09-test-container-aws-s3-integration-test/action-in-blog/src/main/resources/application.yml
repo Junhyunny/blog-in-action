@@ -1,0 +1,6 @@
+storage:
+  endpoint: ${STORAGE_ENDPOINT:http://localhost:9000}
+  region: ${STORAGE_REGION:ap-northeast-1}
+  access-key-id: ${STORAGE_ACCESS_KEY_ID:DUMMY_KEY_ID}
+  secret-access-key: ${STORAGE_SECRET_ACCESS_KEY:DUMMY_ACCESS_KEY}
+  bucket: ${STORAGE_BUCKET:dummy_bucket}
