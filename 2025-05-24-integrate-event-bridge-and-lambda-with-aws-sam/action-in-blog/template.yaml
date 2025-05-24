@@ -1,0 +1,102 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: A simple SAM app with Lambda
+
+Globals:
+  Function:
+    Timeout: 5
+    MemorySize: 128
+    Runtime: python3.13
+
+Resources:
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: event-bridge-bucket-name
+      NotificationConfiguration:
+        EventBridgeConfiguration:
+          EventBridgeEnabled: true
+
+  UnifiedS3EventRule:
+    Type: AWS::Events::Rule
+    Properties:
+      Name: "lambda-file-upload-event"
+      EventPattern:
+        source:
+          - aws.s3
+        detail-type:
+          - "Object Created"
+        detail:
+          bucket:
+            name:
+              - !Ref S3Bucket
+          object:
+            key:
+              - suffix: ".pdf"
+      Targets:
+        - Id: !Ref FirstTargetLambda
+          Arn: !GetAtt FirstTargetLambda.Arn
+        - Id: !Ref SecondTargetLambda
+          Arn: !GetAtt SecondTargetLambda.Arn
+
+  PermissionForEventsToInvokeLambda:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref FirstTargetLambda
+      Action: lambda:InvokeFunction
+      Principal: events.amazonaws.com
+      SourceArn: !GetAtt UnifiedS3EventRule.Arn
+
+  PermissionForSeccondEventsToInvokeLambda:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref SecondTargetLambda
+      Action: lambda:InvokeFunction
+      Principal: events.amazonaws.com
+      SourceArn: !GetAtt UnifiedS3EventRule.Arn
+
+  FirstTargetLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: target-1/
+      Handler: handler.lambda_handler
+#      Events:
+#        UploadEvent:
+#          Type: EventBridgeRule
+#          Properties:
+#            Pattern:
+#              source:
+#                - aws.s3
+#              detail-type:
+#                - "Object Created"
+#              detail:
+#                bucket:
+#                  name:
+#                    - !Ref S3Bucket
+#                object:
+#                  key:
+#                    - suffix: ".pdf"
+#          EventBusName: default
+
+  SecondTargetLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: target-2/
+      Handler: handler.lambda_handler
+#      Events:
+#        UploadEvent:
+#          Type: EventBridgeRule
+#          Properties:
+#            Pattern:
+#              source:
+#                - aws.s3
+#              detail-type:
+#                - "Object Created"
+#              detail:
+#                bucket:
+#                  name:
+#                    - !Ref S3Bucket
+#                object:
+#                  key:
+#                    - suffix: ".pdf"
+#          EventBusName: default
