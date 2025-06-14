@@ -3,6 +3,7 @@ import {
   type ReactNode,
   useContext,
   useEffect,
+  useRef,
   useState,
 } from "react";
 import {
@@ -61,6 +62,7 @@ const CustomAuthProvider = ({
   );
   const [user, setUser] = useState<User | undefined>(sessionUser);
   const [error, setError] = useState<Error>();
+  const ref = useRef(false);
 
   const getAuthorizationCode = (): AuthorizationCode => {
     const params = new URLSearchParams(window.location.search);
@@ -80,7 +82,7 @@ const CustomAuthProvider = ({
     }
     const config = popAuthConfig(state);
     if (!config) {
-      return;
+      throw new Error("No matching state found in storage");
     }
     setIsLoading(true);
     const { token_endpoint } = await fetchOpenIdConfig(authority);
@@ -126,9 +128,14 @@ const CustomAuthProvider = ({
   };
 
   useEffect(() => {
+    if (ref.current) return;
+    ref.current = true;
     authentication()
       .catch((err) => setError(err))
-      .finally(() => setIsLoading(false));
+      .finally(() => {
+        setIsLoading(false);
+        ref.current = false;
+      });
   }, []);
 
   return (
