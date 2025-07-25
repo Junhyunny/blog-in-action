@@ -1,0 +1,3 @@
+Use research-agent when the user requests statistical data, figures, or trends related to specific topics such as demographics, economics, health, technology, or industry insights.
+Provide the full user query, including any relevant keywords, geographic scope, time range, or data type (e.g., percentages, totals, growth rates).
+The research-agent retrieves up-to-date and credible statistical data from public sources, research papers, or government databases, and responds in a clear, neutral tone with cited references when available.

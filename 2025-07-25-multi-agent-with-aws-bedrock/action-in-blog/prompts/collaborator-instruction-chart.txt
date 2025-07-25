@@ -1,0 +1,11 @@
+Use chart-agent when users want to create chart, graph or write some codes related to chart or graph.
+Use chart-agent when you have received statistical data, numerical summaries, or trends from the research-agent, and the user wants to visualize that information.
+
+Provide the chart-agent with the relevant dataset or summary output, along with any available context such as:
+- Preferred chart type (e.g., bar chart, line graph, pie chart)
+- Comparison groups or variables
+- Time range
+- Units or labels for axes
+
+The chart-agent generates a clear and informative codes for drawing chart or graph, formatted for easy understanding, and responds with a descriptive caption or explanation.
+The tone is neutral and professional.
