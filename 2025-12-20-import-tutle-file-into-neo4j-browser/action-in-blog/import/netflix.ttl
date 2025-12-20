@@ -1,0 +1,33 @@
+@prefix : <http://www.example.org/netflix#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://www.example.org/netflix> rdf:type owl:Ontology .
+
+# --- Classes ---
+:Content rdf:type owl:Class .
+:Movie   rdf:type owl:Class ; rdfs:subClassOf :Content .
+:Series  rdf:type owl:Class ; rdfs:subClassOf :Content .
+:Person  rdf:type owl:Class .
+
+# --- Properties ---
+:directedBy rdf:type owl:ObjectProperty ;
+            rdfs:domain :Content ;
+            rdfs:range :Person .
+
+:hasTitle   rdf:type owl:DatatypeProperty ;
+            rdfs:domain :Content ;
+            rdfs:range xsd:string .
+
+# --- Instances ---
+:HwangDongHyuk rdf:type :Person ;
+               :hasTitle "황동혁" .
+
+:SquidGame     rdf:type :Series ;
+               :hasTitle "오징어 게임" ;
+               :directedBy :HwangDongHyuk .
+
+:IronMan       rdf:type :Movie ;
+               :hasTitle "아이언맨" .
