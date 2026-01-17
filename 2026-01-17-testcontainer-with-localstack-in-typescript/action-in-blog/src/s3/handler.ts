@@ -2,13 +2,13 @@ import type {
   APIGatewayProxyResult,
   APIGatewayProxyWithCognitoAuthorizerEvent,
 } from "aws-lambda";
-import { getObject } from "../common/s3-client";
 import {
   badRequest,
   internalServerError,
   notFound,
   ok,
 } from "../common/responses";
+import { getObject } from "../common/s3-client";
 
 export const handler = async (
   event: APIGatewayProxyWithCognitoAuthorizerEvent,
@@ -37,7 +37,7 @@ export const handler = async (
       isBase64Encoded: true,
     });
   } catch (e: unknown) {
-    if (e instanceof Error && e["name"] === "NoSuchKey") {
+    if (e instanceof Error && e.name === "NoSuchKey") {
       return notFound();
     }
     return internalServerError();
