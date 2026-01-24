@@ -1,0 +1,15 @@
+# IDE
+.idea
+
+# Dependencies
+node_modules
+
+# Playwright
+e2e/playwright-report
+e2e/test-results
+e2e/playwright/.cache
+e2e/downloads
+
+# OS
+.DS_Store
+Thumbs.db
