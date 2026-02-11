@@ -39,8 +39,9 @@ public class TransactionInEventTest {
     }
 
     @Test
-    public void test_updateDeliveryComplete_doNotRollback() {
+    public void test_updateDeliveryComplete_doNotRollback() throws InterruptedException {
         deliveryService.updateDeliveryComplete(DELIVERY_CODE);
+        Thread.sleep(1000);
         Optional<Delivery> deliveryOptional = deliveryRepository.findByDeliveryCode(DELIVERY_CODE);
         assertThat(deliveryOptional).isNotEmpty();
         assertThat(deliveryOptional.get().getDeliveryEndTp()).isEqualTo("*");
