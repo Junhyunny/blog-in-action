@@ -1,0 +1,6 @@
+{
+  "resource": "/todos",
+  "path": "/todos",
+  "httpMethod": "GET",
+  "isBase64Encoded": false
+}

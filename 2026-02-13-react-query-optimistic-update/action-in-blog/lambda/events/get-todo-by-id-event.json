@@ -1,0 +1,9 @@
+{
+  "resource": "/todos/{id}",
+  "path": "/todos/1",
+  "httpMethod": "GET",
+  "isBase64Encoded": false,
+  "pathParameters": {
+    "id": "1"
+  }
+}

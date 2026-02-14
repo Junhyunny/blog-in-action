@@ -1,0 +1,13 @@
+{
+  "body": "{\"title\": \"수정된 할 일\", \"completed\": true}",
+  "resource": "/todos/{id}",
+  "path": "/todos/1",
+  "httpMethod": "PUT",
+  "isBase64Encoded": false,
+  "pathParameters": {
+    "id": "1"
+  },
+  "headers": {
+    "Content-Type": "application/json"
+  }
+}

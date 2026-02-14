@@ -1,0 +1,10 @@
+{
+  "body": "{\"title\": \"새로운 할 일\", \"completed\": false}",
+  "resource": "/todos",
+  "path": "/todos",
+  "httpMethod": "POST",
+  "isBase64Encoded": false,
+  "headers": {
+    "Content-Type": "application/json"
+  }
+}

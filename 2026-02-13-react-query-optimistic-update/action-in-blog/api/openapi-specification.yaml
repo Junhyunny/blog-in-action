@@ -1,0 +1,103 @@
+openapi: 3.1.0
+info:
+  title: Todo API
+  description: 할 일 목록을 관리하기 위한 간단한 연습용 API입니다.
+  version: 1.0.0
+
+servers:
+  - url: https://api.example.com/v1
+    description: 메인 프로덕션 서버
+
+paths:
+  /todos:
+    get:
+      summary: 모든 할 일 목록 조회
+      responses:
+        '200':
+          description: 성공적인 조회
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Todo'
+    post:
+      summary: 새로운 할 일 추가
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TodoCreate'
+      responses:
+        '201':
+          description: 생성 성공
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todo'
+
+  /todos/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: 할 일의 고유 식별자 (ID)
+        schema:
+          type: integer
+    get:
+      summary: 특정 할 일 상세 조회
+      responses:
+        '200':
+          description: 상세 정보 반환
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todo'
+        '404':
+          description: 해당 ID를 찾을 수 없음
+    put:
+      summary: 기존 할 일 수정
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TodoCreate'
+      responses:
+        '200':
+          description: 수정 완료
+    delete:
+      summary: 할 일 삭제
+      responses:
+        '204':
+          description: 삭제 성공 (반환 데이터 없음)
+
+components:
+  schemas:
+    Todo:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: "OpenAPI 공부하기"
+        completed:
+          type: boolean
+          example: false
+        createdAt:
+          type: string
+          format: date-time
+    TodoCreate:
+      type: object
+      required:
+        - title
+      properties:
+        title:
+          type: string
+          example: "우유 사러 가기"
+        completed:
+          type: boolean
+          default: false
