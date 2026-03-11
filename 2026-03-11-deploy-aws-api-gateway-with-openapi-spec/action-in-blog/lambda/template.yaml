@@ -1,0 +1,201 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  todo-api
+  SAM Template for Todo API based on OpenAPI specification
+
+Globals:
+  Function:
+    Timeout: 10
+    Runtime: nodejs22.x
+    Architectures:
+      - x86_64
+    Environment:
+      Variables:
+        TABLE_NAME: !Ref TodosTable
+  Api:
+    Cors:
+      AllowMethods: "'GET,POST,PUT,DELETE,OPTIONS'"
+      AllowHeaders: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+      AllowOrigin: "'*'"
+
+Resources:
+  # DynamoDB Table for Todos
+  TodosTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: TodosTable
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: N
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+
+  # GET /todos - 모든 할 일 목록 조회
+  GetTodosFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./
+      Handler: main/get-todos/app.lambdaHandler
+      Description: Get all todos
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: !Ref TodosTable
+      Events:
+        GetTodos:
+          Type: Api
+          Properties:
+            Path: /todos
+            Method: get
+    Metadata:
+      BuildMethod: esbuild
+      BuildProperties:
+        Minify: true
+        Target: "es2020"
+        Sourcemap: true
+        EntryPoints:
+          - main/get-todos/app.ts
+        External:
+          - "@aws-sdk/*"
+
+  # POST /todos - 새로운 할 일 추가
+  PostTodoFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./
+      Handler: main/post-todo/app.lambdaHandler
+      Description: Create a new todo
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref TodosTable
+      Events:
+        PostTodo:
+          Type: Api
+          Properties:
+            Path: /todos
+            Method: post
+    Metadata:
+      BuildMethod: esbuild
+      BuildProperties:
+        Minify: true
+        Target: "es2020"
+        Sourcemap: true
+        EntryPoints:
+          - main/post-todo/app.ts
+        External:
+          - "@aws-sdk/*"
+
+  # GET /todos/{id} - 특정 할 일 상세 조회
+  GetTodoByIdFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./
+      Handler: main/get-todo-by-id/app.lambdaHandler
+      Description: Get a todo by ID
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: !Ref TodosTable
+      Events:
+        GetTodoById:
+          Type: Api
+          Properties:
+            Path: /todos/{id}
+            Method: get
+    Metadata:
+      BuildMethod: esbuild
+      BuildProperties:
+        Minify: true
+        Target: "es2020"
+        Sourcemap: true
+        EntryPoints:
+          - main/get-todo-by-id/app.ts
+        External:
+          - "@aws-sdk/*"
+
+  # PUT /todos/{id} - 기존 할 일 수정
+  PutTodoFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./
+      Handler: main/put-todo/app.lambdaHandler
+      Description: Update a todo
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref TodosTable
+      Events:
+        PutTodo:
+          Type: Api
+          Properties:
+            Path: /todos/{id}
+            Method: put
+    Metadata:
+      BuildMethod: esbuild
+      BuildProperties:
+        Minify: true
+        Target: "es2020"
+        Sourcemap: true
+        EntryPoints: 
+          - main/put-todo/app.ts
+        External:
+          - "@aws-sdk/*"
+
+  # DELETE /todos/{id} - 할 일 삭제
+  DeleteTodoFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./
+      Handler: main/delete-todo/app.lambdaHandler
+      Description: Delete a todo
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref TodosTable
+      Events:
+        DeleteTodo:
+          Type: Api
+          Properties:
+            Path: /todos/{id}
+            Method: delete
+    Metadata:
+      BuildMethod: esbuild
+      BuildProperties:
+        Minify: true
+        Target: "es2020"
+        Sourcemap: true
+        EntryPoints:
+          - main/delete-todo/app.ts
+        External:
+          - "@aws-sdk/*"
+
+Outputs:
+  # API Gateway endpoint URL
+  TodoApiUrl:
+    Description: "API Gateway endpoint URL for Prod stage for Todo API"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.${AWS::URLSuffix}/Prod/"
+
+  # DynamoDB Table
+  TodosTableName:
+    Description: "DynamoDB table name for todos"
+    Value: !Ref TodosTable
+
+  # Lambda Functions
+  GetTodosFunction:
+    Description: "Get Todos Lambda Function ARN"
+    Value: !GetAtt GetTodosFunction.Arn
+
+  PostTodoFunction:
+    Description: "Post Todo Lambda Function ARN"
+    Value: !GetAtt PostTodoFunction.Arn
+
+  GetTodoByIdFunction:
+    Description: "Get Todo By ID Lambda Function ARN"
+    Value: !GetAtt GetTodoByIdFunction.Arn
+
+  PutTodoFunction:
+    Description: "Put Todo Lambda Function ARN"
+    Value: !GetAtt PutTodoFunction.Arn
+
+  DeleteTodoFunction:
+    Description: "Delete Todo Lambda Function ARN"
+    Value: !GetAtt DeleteTodoFunction.Arn
