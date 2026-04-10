@@ -13,7 +13,7 @@ beforeEach(() => {
       return mockImage;
     }),
   );
-  vi.stubGlobal("fetch", vi.fn());
+  vi.stubGlobal("fetch", vi.fn().mockResolvedValue(undefined));
 });
 
 afterEach(() => {
@@ -22,7 +22,7 @@ afterEach(() => {
 
 describe("loadImageWithRetry", () => {
   beforeEach(() => {
-    vi.useFakeTimers();
+    vi.useFakeTimers({ shouldAdvanceTime: true });
   });
 
   afterEach(() => {
@@ -38,12 +38,12 @@ describe("loadImageWithRetry", () => {
     expect(result.src).toEqual("https://example.com/temp.png");
   });
 
-  test("fetch is called with no-cache on error", async () => {
+  test("fetch is called with reload on error", async () => {
     const url = "https://example.com/temp.png";
     const resultPromise = loadImageWithRety(url, 100, 1);
 
-    mockImage?.onerror?.(new Event("error"));
-    expect(fetch).toHaveBeenCalledWith(url, { cache: "no-cache" });
+    await mockImage?.onerror?.(new Event("error"));
+    expect(fetch).toHaveBeenCalledWith(url, { cache: "reload" });
 
     vi.advanceTimersByTime(100);
     mockImage?.onload?.(new Event("load"));
@@ -55,31 +55,31 @@ describe("loadImageWithRetry", () => {
     const url = "https://example.com/temp.png";
     const resultPromise = loadImageWithRety(url, 100, 2);
 
-    mockImage?.onerror?.(new Event("error"));
+    await mockImage?.onerror?.(new Event("error"));
     vi.advanceTimersByTime(100);
-    mockImage?.onerror?.(new Event("error"));
+    await mockImage?.onerror?.(new Event("error"));
     vi.advanceTimersByTime(100);
     mockImage?.onload?.(new Event("load"));
 
     const result = await resultPromise;
     expect(result.src).toEqual(url);
     expect(fetch).toHaveBeenCalledTimes(2);
-    expect(fetch).toHaveBeenCalledWith(url, { cache: "no-cache" });
+    expect(fetch).toHaveBeenCalledWith(url, { cache: "reload" });
   });
 
   test("over max retries then rejects", async () => {
     const url = "https://example.com/temp.png";
     const resultPromise = loadImageWithRety(url, 100, 2);
 
-    mockImage?.onerror?.(new Event("error"));
+    await mockImage?.onerror?.(new Event("error"));
     vi.advanceTimersByTime(100);
-    mockImage?.onerror?.(new Event("error"));
+    await mockImage?.onerror?.(new Event("error"));
     vi.advanceTimersByTime(100);
-    mockImage?.onerror?.(new Event("error"));
+    await mockImage?.onerror?.(new Event("error"));
     vi.advanceTimersByTime(100);
 
     await expect(resultPromise).rejects.toThrow("over maximum retry");
     expect(fetch).toHaveBeenCalledTimes(3);
-    expect(fetch).toHaveBeenCalledWith(url, { cache: "no-cache" });
+    expect(fetch).toHaveBeenCalledWith(url, { cache: "reload" });
   });
 });

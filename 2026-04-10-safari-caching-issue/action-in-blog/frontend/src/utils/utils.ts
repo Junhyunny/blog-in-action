@@ -8,9 +8,9 @@ export const loadImageWithRety = async (
     image.onload = () => {
       resolve(image);
     };
-    image.onerror = () => {
+    image.onerror = async () => {
       // 이미지 로딩 실패 시 강제 재조회
-      fetch(url, { cache: "no-cache" });
+      await fetch(url, { cache: "reload" });
       setTimeout(() => {
         if (retry > 0) {
           loadImageWithRety(url, timeout, retry - 1)
