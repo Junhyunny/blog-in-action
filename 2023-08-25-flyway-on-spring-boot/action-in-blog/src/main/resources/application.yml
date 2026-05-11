@@ -6,6 +6,6 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/junhyunny-db?allowPublicKeyRetrieval=true&useSSL=false
     username: root
-    password: password!1234
+    password: ${DB_PASSWORD:password}
   flyway:
     locations: classpath:db/migration,classpath:db/seed

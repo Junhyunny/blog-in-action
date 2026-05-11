@@ -57,3 +57,14 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+### Security - never commit private keys or credentials ###
+*.key
+*.pem
+*.p12
+*.jks
+*.keystore
+*.pfx
+ssl/
+localstack-data/
+.env

@@ -1,0 +1,4 @@
+# LocalStack generated data and private keys
+localstack-data/
+*.key
+*.pem
