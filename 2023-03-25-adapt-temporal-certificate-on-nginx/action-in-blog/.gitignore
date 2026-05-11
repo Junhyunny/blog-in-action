@@ -21,3 +21,11 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# SSL certificates and private keys
+ssl/
+*.key
+*.pem
+*.crt
+*.p12
+*.jks
