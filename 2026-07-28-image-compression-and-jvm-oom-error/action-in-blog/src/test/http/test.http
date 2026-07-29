@@ -1,0 +1,8 @@
+### 1
+GET http://localhost:8080/thumbnails?filename=oom_test_8000x8000.png
+
+### 2
+GET http://localhost:8080/thumbnails?filename=oom_test_12000x12000.png
+
+### 3
+GET http://localhost:8080/thumbnails?filename=oom_test_16000x16000.png
