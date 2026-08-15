@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: action-in-blog
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/todo}
+    username: ${DB_USERNAME:todo}
+    password: ${DB_PASSWORD:todo_password}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
