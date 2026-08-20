@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/todo_db}
+    username: ${DB_USERNAME:todo_user}
+    password: ${DB_PASSWORD:todo_password}
+  jpa:
+    hibernate: ddl-auto=validate
+    open-in-view: false
