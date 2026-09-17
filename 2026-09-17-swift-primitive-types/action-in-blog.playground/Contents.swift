@@ -116,13 +116,13 @@ print(original)  // HEADER:AAAAAAAAHEADER:AAAAA:TAIL
 
 // ---
 
-let originalString = "HEADER:Junhyunny, Develeoper!:FOOTER"
-let start = originalString.index(original.startIndex, offsetBy: 7)
-let end = originalString.index(start, offsetBy: 22)
+let originalString = "HEADER:Junhyunny, Developer!:FOOTER"
+let start = originalString.index(originalString.startIndex, offsetBy: 7)
+let end = originalString.index(start, offsetBy: 21)
 let substring = originalString[start..<end]
 
-print(substring)  // Substring "Junhyunny, Develeoper!"
+print(substring)  // Substring "Junhyunny, Developer!"
 print(substring.startIndex)  // 7[utf8]
 print(substring.startIndex == start)  // true
 print(substring.endIndex == end)  // true
-print(originalString[slice.startIndex])  // "J"
+print(originalString[substring.startIndex])  // "J"
