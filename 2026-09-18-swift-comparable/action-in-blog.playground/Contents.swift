@@ -104,7 +104,7 @@ let scores = [30, 10, 20]
 
 print(scores.sorted())  // [10, 20, 30]
 print(scores.min())  // Optional(10)
-print(scores.max())  // Optional(10)
+print(scores.max())  // Optional(30)
 
 // ---
 
