@@ -3,7 +3,7 @@ import SwiftUI
 struct AppConfig {
     var url: String = "https://pokeapi.co"
 
-    static func fromLaunchEnvironment() -> AppConfig {
+    static func loadEnvironment() -> AppConfig {
         var appConfig = AppConfig()
         #if DEBUG
             let environment = ProcessInfo.processInfo.environment
@@ -30,7 +30,7 @@ extension EnvironmentValues {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environment(\.appConfig, .fromLaunchEnvironment())
+                .environment(\.appConfig, .loadEnvironment())
         }
     }
 }
