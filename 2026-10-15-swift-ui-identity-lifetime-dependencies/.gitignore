@@ -1,0 +1,20 @@
+# Xcode user settings and local workspace state
+xcuserdata/
+*.xcuserstate
+*.xcscmblueprint
+*.xccheckout
+
+# Build output and generated files
+DerivedData/
+build/
+.build/
+*.xcarchive/
+*.dSYM/
+*.dSYM.zip
+*.ipa
+
+# Swift Package Manager local state
+.swiftpm/
+
+# macOS metadata
+.DS_Store
